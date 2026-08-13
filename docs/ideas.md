@@ -24,6 +24,13 @@ further preserved layer 2 at 50% intermediate width (`S1=0.6103`), while the
 same width reduction on layers 2+3 fell to `S1=0.5625`; the hardware mechanism
 therefore needs a jointly validated schedule table.
 
+The first acceptance-calibrated scheduler frontier retains layer 2 at 50%
+width and uniform execution at a `1.4` mean-prefix threshold. The calibrated
+MLP-only latency proxy drops from 5,182 to 4,671 microseconds (9.9%); using
+the measured 38% MLP stage fraction gives only an approximately 3.7% draft-
+stage bound before overhead. This is a bound and controller result, not an
+end-to-end speedup claim.
+
 State-conditioned scheduling remains an optional extension, not the primary
 claim: its current evidence is descriptive and confounded by prompt and decode
 phase. Chiplets likewise remain an optional physical realization; the current

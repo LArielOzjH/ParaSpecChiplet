@@ -1,0 +1,35 @@
+{
+  "kind": "official_fidelity_frontier",
+  "warning": "acceptance traces plus single-layer MLP latency calibration; not end-to-end speedup",
+  "min_accepted_prefix": 1.4,
+  "mlp_latency_by_width_ms": {
+    "1.0": 1036.4381917317708,
+    "0.5": 525.4352823893229
+  },
+  "frontier": [
+    {
+      "name": "layer2_half",
+      "mean_accepted_prefix": 1.4412371134020618,
+      "width_by_layer": [
+        1.0,
+        1.0,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "total_latency": 4671.188049316405
+    },
+    {
+      "name": "uniform",
+      "mean_accepted_prefix": 1.4524793388429753,
+      "width_by_layer": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "total_latency": 5182.190958658854
+    }
+  ]
+}

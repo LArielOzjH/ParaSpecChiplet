@@ -25,6 +25,12 @@ Applying the same width to layers 2+3 lowers `S1` to `0.5625`, confirming that
 the hardware scheduler must choose jointly validated schedules rather than
 compose independent block scores.
 
+An acceptance-calibrated schedule selector now retains layer 2 at 50% width
+and uniform execution at a mean-prefix threshold of `1.4`. The single-layer
+MLP calibration estimates a 9.9% MLP-work reduction, or roughly a 3.7%
+draft-stage bound using the measured 38% MLP fraction. These numbers are
+analytical bounds, not end-to-end speedups.
+
 ## One-sentence thesis
 
 DFlash treats every draft Transformer block as if it had the same execution
