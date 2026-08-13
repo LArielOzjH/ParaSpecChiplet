@@ -2,10 +2,13 @@
 
 ## Status
 
-This is a research hypothesis under validation, not an established result. The
+This is a motivation result, not a validated static specialization rule. The
 working interpretation of “block” is a Transformer block/layer inside the
 DFlash draft model. Grammar-aware decoding and sparse-head execution are out
-of scope.
+of scope. A held-out 50%-MLP-scale sweep found that reducing block 2, block 3,
+or both is worse than uniform; the current evidence therefore supports
+block-aware joint scheduling, not a fixed block ranking. See
+[`docs/heldout_block_scale_results.md`](heldout_block_scale_results.md).
 
 ## Hypothesis
 
@@ -67,8 +70,9 @@ This gives the strongest architecture story, but only if a traffic-aware,
 equal-resource comparison shows a real utilization advantage. Chiplets are a
 physical realization, not the motivation by themselves.
 
-Recommended order: validate static block importance, then test state
-conditioning, and only then make the chiplet fabric part of the headline.
+Recommended order: use static block ablations only to populate a jointly
+validated schedule table, then test state conditioning, and only then make the
+chiplet fabric part of the headline.
 
 ## Decisive experiment matrix
 
