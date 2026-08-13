@@ -20,6 +20,33 @@ def validate_layer_indices(
     return indices
 
 
+def parse_layer_groups(
+    specification: str, *, draft_layers: int
+) -> tuple[tuple[str, tuple[int, ...]], ...]:
+    """Parse semicolon-separated layer groups for ablation sweeps."""
+
+    if not specification.strip():
+        raise ValueError("layer group specification must not be empty")
+    groups: list[tuple[str, tuple[int, ...]]] = []
+    seen: set[tuple[int, ...]] = set()
+    for raw_group in specification.split(";"):
+        if not raw_group.strip():
+            raise ValueError("layer group specification contains an empty group")
+        indices = validate_layer_indices(
+            [int(value.strip()) for value in raw_group.split(",") if value.strip()],
+            draft_layers=draft_layers,
+        )
+        if not indices:
+            raise ValueError("layer group must not be empty")
+        if indices in seen:
+            continue
+        seen.add(indices)
+        suffix = "_".join(str(index) for index in indices)
+        name = f"bypass_layer_{suffix}" if len(indices) == 1 else f"bypass_layers_{suffix}"
+        groups.append((name, indices))
+    return tuple(groups)
+
+
 def bypass_layer_output(layer_input: torch.Tensor, layer_output: object) -> object:
     """Replace a layer's transformed hidden state with its input.
 

@@ -21,6 +21,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from paraspec.block_ablation import (
     install_layer_bypasses,
     install_mlp_bypasses,
+    parse_layer_groups,
     validate_layer_indices,
 )
 from paraspec.official_trace import stats_to_verification_events
@@ -42,6 +43,11 @@ def main() -> None:
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--max-new-tokens", type=int, default=96)
     parser.add_argument("--layers", default=None, help="comma-separated zero-based layers; default: all")
+    parser.add_argument(
+        "--groups",
+        default=None,
+        help="semicolon-separated layer groups, e.g. 2,3;2,4;3,4",
+    )
     parser.add_argument(
         "--mode",
         choices=("layer", "mlp"),
@@ -68,17 +74,24 @@ def main() -> None:
     tokenizer = AutoTokenizer.from_pretrained(str(args.target_model))
     prompts = load_prompts(args.prompts)
     draft_layers = len(draft.layers)
-    if args.layers is None:
-        layer_indices = tuple(range(draft_layers))
+    if args.groups is not None and args.layers is not None:
+        raise ValueError("use only one of --layers and --groups")
+    if args.groups is not None:
+        groups = parse_layer_groups(args.groups, draft_layers=draft_layers)
+    elif args.layers is None:
+        groups = tuple(
+            (f"bypass_layer_{index}", (index,)) for index in range(draft_layers)
+        )
     else:
         layer_indices = validate_layer_indices(
             [int(value) for value in args.layers.split(",") if value.strip()],
             draft_layers=draft_layers,
         )
+        groups = tuple(
+            (f"bypass_layer_{index}", (index,)) for index in layer_indices
+        )
 
-    experiments: tuple[tuple[str, tuple[int, ...]], ...] = (("uniform", ()),) + tuple(
-        (f"bypass_layer_{index}", (index,)) for index in layer_indices
-    )
+    experiments: tuple[tuple[str, tuple[int, ...]], ...] = (("uniform", ()),) + groups
     stop_token_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
     records: list[dict] = []
 

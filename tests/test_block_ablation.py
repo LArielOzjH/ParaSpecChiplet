@@ -5,6 +5,7 @@ from paraspec.block_ablation import (
     bypass_layer_output,
     install_mlp_bypasses,
     install_layer_bypasses,
+    parse_layer_groups,
     validate_layer_indices,
 )
 
@@ -82,3 +83,15 @@ def test_install_mlp_bypasses_zeros_selected_mlp_update_and_restores():
     finally:
         restore()
     assert torch.equal(layers[1].mlp(values), torch.tensor([[12.0]]))
+
+
+def test_parse_layer_groups_canonicalizes_named_group_spec():
+    assert parse_layer_groups("2,3;4;3,2", draft_layers=5) == (
+        ("bypass_layers_2_3", (2, 3)),
+        ("bypass_layer_4", (4,)),
+    )
+
+
+def test_parse_layer_groups_rejects_empty_group():
+    with pytest.raises(ValueError, match="empty"):
+        parse_layer_groups("2;;3", draft_layers=5)
