@@ -343,3 +343,11 @@ stronger queueing requirement: the scheduler must coalesce requests with
 similar depth vectors, or the heterogeneous execution opportunity is diluted
 by mixture overhead. A chiplet design must therefore model schedule queues,
 not just aggregate MAC reduction.
+
+The same state-to-schedule stress analysis is reproducible with
+`scripts/analyze_trace_queue.py`; its illustrative output is preserved in
+`data/official_trace_queue_sensitivity.json`. With the explicitly normalized
+cost parameters in that file, coalescing reduces the mean number of schedule
+groups from about 1.8 to 1.0, but creates one extra partially filled batch.
+This is a queueing sensitivity result, not evidence that the proposed schedule
+causes the observed acceptance distribution.
