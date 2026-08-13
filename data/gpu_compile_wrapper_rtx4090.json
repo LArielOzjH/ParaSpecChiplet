@@ -1,0 +1,10 @@
+{
+  "draft_model": "Qwen3-4B-DFlash-b16",
+  "device": "NVIDIA GeForce RTX 4090",
+  "batch_size": 64,
+  "active_per_request": 9,
+  "warning": "torch.compile wrapper probe; not a persistent custom kernel",
+  "dense_ms": 1061.3760,
+  "eager_grouped_ms": 822.9205,
+  "compiled_mlp_plus_eager_scatter_ms": 1130.2570
+}

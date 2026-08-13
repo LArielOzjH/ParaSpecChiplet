@@ -355,6 +355,15 @@ count alone is insufficient; the controller must also observe effective batch
 size. The calibrated policy API accepts `batch_size` and conservatively rejects
 missing batch-specific measurements.
 
+As a software-fusion sanity check, a fixed-shape `torch.compile` MLP wrapper
+was tested at batch 64 and 9/16 active rows. It measured 1.130 ms with the
+compiled MLP plus eager scatter, versus 0.823 ms for eager grouped execution
+and 1.061 ms for dense. The result is preserved in
+`data/gpu_compile_wrapper_rtx4090.json`. Generic compilation did not remove
+the movement overhead; a positive low-batch result therefore requires a
+purpose-built persistent/ fused lane implementation, not merely a compiler
+flag.
+
 Applying that policy to the four candidate schedules gives no realizable row
 saving at batch 1 or 8; at batch 64, protected8 staircase retains 22.5% and
 protected8 conservative 13.75%. The complete per-batch table is preserved in
