@@ -2,10 +2,11 @@
 
 ## Current evidence-based decision
 
-The strongest current paper hypothesis is **block-importance-aware DFlash
-execution**: keep bidirectional attention dense, assign heterogeneous MLP
-fidelity to draft Transformer blocks according to their marginal contribution
-to prefix acceptance, and use grouped execution with dense fallback. Official
+The strongest current paper hypothesis is **reconfigurable block-fidelity
+DFlash execution**: keep bidirectional attention dense, expose heterogeneous
+MLP fidelity modes for draft Transformer blocks, select among jointly
+validated schedules using workload/state evidence, and use grouped execution
+with dense fallback. Official
 Qwen3-4B ablations show strong non-uniformity: bypassing block 0's MLP reduces
 `S1` from `0.6095` to `0.3592`, while bypassing block 2's MLP preserves `S1`
 (`0.6096`) and nearly preserves `S2` (`0.3307` versus `0.3368`).
@@ -31,14 +32,15 @@ the measured 38% MLP stage fraction gives only an approximately 3.7% draft-
 stage bound before overhead. This is a bound and controller result, not an
 end-to-end speedup claim.
 
-State-conditioned scheduling remains an optional extension, not the primary
-claim: its current evidence is descriptive and confounded by prompt and decode
-phase. Chiplets likewise remain an optional physical realization; the current
-equal-resource and small-batch evidence does not justify leading with them.
+State-conditioned scheduling is now a required gate for claiming practical
+selection, but not the hardware novelty: its current evidence is descriptive
+and confounded by prompt and decode phase. Chiplets likewise remain an
+optional physical realization; the current equal-resource and small-batch
+evidence does not justify leading with them.
 
 These are research candidates, not claims. Each idea has a measurable kill condition.
 
-## A. Draft-block importance-aware DFlash (primary candidate)
+## A. Reconfigurable draft-block fidelity DFlash (primary candidate)
 
 **Motivation.** DFlash injects target hidden features through a stack of draft
 Transformer blocks, but the official ablation shows that those blocks do not
@@ -48,12 +50,13 @@ protect early acceptance.
 
 **Challenge.** Full-block skipping is unsafe: bypassing any layer lowers
 acceptance, and bypassing the first layer is catastrophic. The architecture
-must preserve dense cross-position attention, selectively reduce only safe
-updates, and account for activation movement and queueing overhead.
+must preserve dense cross-position attention, select a workload/state-
+compatible fidelity mode, and account for activation movement, occupancy, and
+queueing overhead.
 
-**Mechanism.** Keep attention dense in every block, classify block MLP updates
-by measured marginal prefix value, and route high-value blocks to full-fidelity
-lanes while low-value blocks use reduced precision or a fused skipped MLP
+**Mechanism.** Keep attention dense in every block, use a finite schedule
+descriptor selected from measured marginal prefix value, and route high-value
+blocks to full-fidelity lanes while low-value blocks use reduced precision or a fused skipped MLP
 update. Group requests with compatible block schedules and fall back to dense
 monolithic execution when the group is too small. A chiplet fabric is an
 optional physical realization for shared and specialized MLP lanes.

@@ -25,21 +25,22 @@ calibrated batch-64 MLP proxy is 9.9% lower for the single-layer schedule,
 before dense attention and service overhead.
 
 **Architecture.** Dense attention lanes, full/half-width MLP lanes, schedule
-table, cross-request coalescing, and dense fallback. The minimum paper claim
-does not require chiplets or an adaptive policy.
+table, cross-request coalescing, occupancy gate, and dense fallback. Adaptive
+selection is an experimental gate, not the novelty anchor; the hardware must
+also be evaluated with an offline oracle and static-uniform baseline. The
+minimum paper claim does not require chiplets.
 
 **Kill condition.** No state/workload-conditioned schedule survives the
 acceptance threshold, or a correctness-tested grouped implementation loses to
 dense fallback/monolithic execution after all overheads. A static layer
 ranking is already considered insufficient.
 
-## Conservative fallback: dense-attention fidelity table
+## Conservative baseline/fallback: dense-attention fidelity table
 
-Use a static finite table of safe width vectors, selected offline from held-out
-official traces. This is the fallback if state conditioning is unstable or
-the controller is not worth its overhead. It still has a hardware/dataflow
-story because it requires regular reduced-width MLP lanes and schedule-aware
-batching.
+Use a static finite table of candidate width vectors, selected offline from
+held-out official traces. This is a fallback only if it remains acceptance-safe;
+the current held-out width screen does not establish that. It is also a required
+baseline for separating selector value from hardware/dataflow value.
 
 ## Optional extension: elastic heterogeneous fabric
 
@@ -51,10 +52,11 @@ claim today.
 
 ## Optional extension: verifier-feedback scheduling
 
-Use recent accepted-prefix history to choose among prevalidated schedules. It
-is not the novelty anchor: current state-conditioned evidence is descriptive,
-and existing work already studies dynamic speculation budgets. Include only if
-held-out phase adaptation beats the static table after controller cost.
+Use recent accepted-prefix history or an observable entering-state feature to
+choose among prevalidated schedules. It is not the novelty anchor: current
+state-conditioned evidence is descriptive, and existing work already studies
+dynamic speculation budgets. Include only if held-out adaptation beats static
+uniform plus dense fallback after controller cost.
 
 ## Explicitly rejected directions
 

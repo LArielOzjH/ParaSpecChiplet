@@ -20,7 +20,9 @@ attention. The proposed execution substrate is:
 2. dense attention for every block position;
 3. jointly validated per-block MLP fidelity levels;
 4. cross-request grouping of equal fidelity schedules;
-5. a batch-aware dense fallback when compaction is not profitable.
+5. an occupancy-gated dense fallback when compaction is not profitable;
+6. a finite schedule table that can be driven by a static baseline, an
+   offline oracle, or a state/workload-conditioned selector.
 
 The primary baseline is an equal-resource monolithic accelerator. A chiplet
 fabric is evaluated only as an optional way to realize the shared backbone and
@@ -67,6 +69,11 @@ token pruning. It must expose three decisions to hardware:
 - whether the active-row group is large enough for compaction;
 - whether requests should wait briefly for schedule coalescing or use dense
   execution immediately.
+
+The occupancy gate is a first-class architectural decision. The current
+normalized sweep crosses from grouped loss to grouped benefit near 40--50%
+heterogeneous-schedule occupancy; the controller must be able to select dense
+execution below that crossover.
 
 Attention remains dense because tail hidden states can provide context to
 protected prefix positions. Only the position-wise residual MLP update is

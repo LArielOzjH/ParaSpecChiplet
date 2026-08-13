@@ -53,15 +53,18 @@ rather than only MAC count.
 
 **Claim if the gate passes.** An acceptance-calibrated heterogeneous dataflow
 improves committed-token cost in a throughput-serving regime against an
-equal-resource monolithic dense baseline.
+equal-resource monolithic dense baseline. The selector must be evaluated in
+three forms: static uniform, offline oracle, and state/workload-conditioned
+runtime selection.
 
 **Kill condition.** No joint schedule survives held-out acceptance calibration,
 or grouped execution cannot beat dense fallback after measured overheads.
 
-### 2. Conservative fallback: static fidelity schedule table
+### 2. Conservative baseline/fallback: static fidelity schedule table
 
 **Motivation.** State-conditioned policies may add little predictive value and
-are close to existing dynamic-budget methods.
+are close to existing dynamic-budget methods. A static table is therefore the
+required conservative baseline, not an assumed success case.
 
 **Mechanism.** Offline-select a small table of joint width vectors from held-out
 official traces. Hardware only performs table lookup, grouping, and fallback.
@@ -69,8 +72,9 @@ official traces. Hardware only performs table lookup, grouping, and fallback.
 **Challenge.** The schedule must transfer across prompt families and avoid
 overfitting the 12-prompt calibration trace.
 
-**Claim.** The contribution is a regular, oracle-schedulable multi-fidelity
-MLP datapath, even if runtime adaptation is removed.
+**Claim if it survives held-out calibration.** The contribution is a regular,
+oracle-schedulable multi-fidelity MLP datapath, even if runtime adaptation is
+removed.
 
 **Kill condition.** The Pareto frontier collapses to uniform execution on
 held-out workloads.
@@ -103,9 +107,10 @@ position in dense attention and changes the internal MLP fidelity of a joint
 block schedule. A token-pruning baseline must be measured, but it does not
 capture bidirectional-context preservation.
 
-**“Is this just dynamic speculation length?”** No. The schedule can be static
-and oracle-selected; the contribution is the physical execution substrate.
-Runtime adaptation is an optional ablation, not the novelty anchor.
+**“Is this just dynamic speculation length?”** No. The schedule can be supplied
+by an offline oracle for the architecture experiment; the contribution is the
+physical execution substrate. Runtime adaptation is a gate for practical
+selection, not the novelty anchor.
 
 **“Why does block importance matter if one layer is safe?”** Because the
 interaction is non-additive. The observed `{2,3}` schedule loses early-prefix

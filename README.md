@@ -26,6 +26,8 @@ The related-work boundary and the primary/fallback idea hierarchy are recorded
 in [`docs/dac27_novelty_audit.md`](docs/dac27_novelty_audit.md) and
 [`docs/dac27_idea_catalog.md`](docs/dac27_idea_catalog.md). The paper's novelty
 anchor is the physical schedule/dataflow, not dynamic budget selection alone.
+The current submission-level recommendation is summarized in
+[`docs/dac27_recommendation.md`](docs/dac27_recommendation.md).
 
 The repository currently contains official Qwen3-4B DFlash acceptance traces,
 block/MLP/width ablation probes, joint schedule frontiers, RTX 4090 width

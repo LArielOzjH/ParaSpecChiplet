@@ -279,8 +279,8 @@ events are in `data/official_qwen3_4b_mlp_gating.jsonl`; the implementation is
 
 This is the first official serving-loop evidence that a heterogeneous
 upper-layer MLP schedule can preserve prefix acceptance while leaving the
-bidirectional attention context intact. The protected8 staircase is the
-current primary candidate: it removes 25% of nominal MLP rows with no material
+bidirectional attention context intact. The protected8 staircase is a
+calibration candidate: it removes 25% of nominal MLP rows with no material
 change in the measured acceptance summary. The protected4 schedule is an
 aggressive stress point with an approximately 3.1% mean-prefix reduction.
 
