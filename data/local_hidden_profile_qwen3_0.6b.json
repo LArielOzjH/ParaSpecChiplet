@@ -1,0 +1,28 @@
+{
+  "model": "Qwen3-0.6B-DFlash-shift-b8",
+  "target": "Qwen/Qwen3-0.6B",
+  "seq_len": 126,
+  "anchors": [37, 104, 103, 69, 11, 93, 61, 78],
+  "block_size": 8,
+  "mapping_warning": "draft token IDs not compared; checkpoint lacks t2d/d2t",
+  "layers": [
+    {
+      "layer": 1,
+      "mean_offdiag_cosine": 0.8138543367385864,
+      "mean_adjacent_cosine": 0.9138583540916443,
+      "position_mean_norm": [140.09167, 126.39525, 120.90432, 115.82997, 110.14147, 107.20335, 105.23698, 102.67533]
+    },
+    {
+      "layer": 2,
+      "mean_offdiag_cosine": 0.8138594031333923,
+      "mean_adjacent_cosine": 0.9165881872177124,
+      "position_mean_norm": [238.25842, 219.98433, 209.17661, 203.66623, 199.62061, 196.61726, 192.3528, 187.59288]
+    },
+    {
+      "layer": 3,
+      "mean_offdiag_cosine": 0.8986486792564392,
+      "mean_adjacent_cosine": 0.9537143707275391,
+      "position_mean_norm": [333.87164, 349.16757, 338.46259, 332.62347, 328.81262, 326.56076, 323.23685, 318.84448]
+    }
+  ]
+}
