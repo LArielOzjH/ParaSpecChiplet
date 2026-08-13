@@ -41,3 +41,15 @@ serving loop and measure `S1/S2/S4`. Until that acceptance gate passes, these
 numbers are only a compute-side result.
 
 Raw measurements: `data/gpu_mlp_width_rows_rtx4090.json`.
+
+## Compiler check
+
+As a control, fixed-shape reduced-width functions were wrapped with generic
+`torch.compile` on the same RTX 4090. The result was substantially slower than
+the eager reduced-width path: for 50% width, compiled latency was 2.38 ms at
+1024 active rows versus 0.54 ms eager; at 256 active rows it was 8.92 ms
+versus 0.18 ms eager. This is a negative result for relying on a generic
+compiler path and motivates a shape-specialized fused/persistent MLP kernel.
+
+The compiler measurements are also microbenchmarks only and include no
+acceptance behavior. Raw data: `data/gpu_mlp_width_rows_compiled_rtx4090.json`.

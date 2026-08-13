@@ -1,0 +1,65 @@
+{
+  "draft_model": "/root/autodl-tmp/model/Qwen3-4B-DFlash-b16",
+  "batch_size": 64,
+  "block_size": 16,
+  "hidden_size": 2560,
+  "intermediate_size": 9728,
+  "warning": "reduced-width CUDA microbenchmark; not acceptance or end-to-end serving speedup",
+  "compiled": true,
+  "records": [
+    {
+      "active_per_request": 16,
+      "active_rows": 1024,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 1067.2468821207683,
+      "reduced_ms": 539.0677134195963,
+      "compiled_reduced_ms": 2378.7755330403647
+    },
+    {
+      "active_per_request": 16,
+      "active_rows": 1024,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 1063.7311935424805,
+      "reduced_ms": 284.5984141031901,
+      "compiled_reduced_ms": 1525.1445770263672
+    },
+    {
+      "active_per_request": 9,
+      "active_rows": 576,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 665.723737080892,
+      "reduced_ms": 331.70773188273114,
+      "compiled_reduced_ms": 1961.5807851155598
+    },
+    {
+      "active_per_request": 9,
+      "active_rows": 576,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 686.8991851806641,
+      "reduced_ms": 180.94080289204916,
+      "compiled_reduced_ms": 1677.4368286132812
+    },
+    {
+      "active_per_request": 4,
+      "active_rows": 256,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 316.9621467590332,
+      "reduced_ms": 175.3770669301351,
+      "compiled_reduced_ms": 8920.099894205729
+    },
+    {
+      "active_per_request": 4,
+      "active_rows": 256,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 318.8053448994954,
+      "reduced_ms": 100.42026837666829,
+      "compiled_reduced_ms": 1384.0042114257812
+    }
+  ]
+}

@@ -42,6 +42,11 @@ def main() -> None:
     parser.add_argument("--fractions", type=float, nargs="+", default=(1.0, 0.75, 0.5, 0.25))
     parser.add_argument("--warmup", type=int, default=25)
     parser.add_argument("--iterations", type=int, default=75)
+    parser.add_argument(
+        "--compiled",
+        action="store_true",
+        help="also benchmark a torch.compile reduced-width path",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if not torch.cuda.is_available():
@@ -81,8 +86,11 @@ def main() -> None:
             def reduced():
                 return reduced_gated_mlp(active, mlp, width)
 
-            records.append(
-                {
+            compiled_reduced = None
+            if args.compiled:
+                compiled_reduced = torch.compile(reduced, mode="reduce-overhead")
+
+            record = {
                     "active_per_request": active_per_request,
                     "active_rows": int(active.shape[0]),
                     "width_fraction": fraction,
@@ -90,7 +98,11 @@ def main() -> None:
                     "dense_ms": benchmark(dense, warmup=args.warmup, iterations=args.iterations),
                     "reduced_ms": benchmark(reduced, warmup=args.warmup, iterations=args.iterations),
                 }
-            )
+            if compiled_reduced is not None:
+                record["compiled_reduced_ms"] = benchmark(
+                    compiled_reduced, warmup=args.warmup, iterations=args.iterations
+                )
+            records.append(record)
 
     payload = {
         "draft_model": str(args.draft_model),
@@ -99,6 +111,7 @@ def main() -> None:
         "hidden_size": hidden_size,
         "intermediate_size": intermediate_size,
         "warning": "reduced-width CUDA microbenchmark; not acceptance or end-to-end serving speedup",
+        "compiled": args.compiled,
         "records": records,
     }
     args.output.write_text(json.dumps(payload, indent=2) + "\n")
