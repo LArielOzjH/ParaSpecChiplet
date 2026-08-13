@@ -22,6 +22,11 @@ hypothesis is SAGE-DFlash: jointly validated block-fidelity scheduling on a
 grouped monolithic engine. Position gating is a fallback; chiplets are an
 implementation option subject to a traffic-aware kill gate.
 
+The related-work boundary and the primary/fallback idea hierarchy are recorded
+in [`docs/dac27_novelty_audit.md`](docs/dac27_novelty_audit.md) and
+[`docs/dac27_idea_catalog.md`](docs/dac27_idea_catalog.md). The paper's novelty
+anchor is the physical schedule/dataflow, not dynamic budget selection alone.
+
 The repository currently contains official Qwen3-4B DFlash acceptance traces,
 block/MLP/width ablation probes, joint schedule frontiers, RTX 4090 width
 microbenchmarks, calibrated serving/cost models, and explicit chiplet
