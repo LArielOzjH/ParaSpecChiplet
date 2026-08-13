@@ -16,7 +16,10 @@ block-heterogeneous MLP implementation and an equal-resource monolithic
 baseline. A composition stress test further shows that single-block scores do
 not compose independently: bypassing MLP blocks `{2,3,4}` lowers mean accepted
 prefix to `0.7692`. The scheduler therefore needs joint-schedule awareness,
-not only a per-block ranking.
+not only a per-block ranking. Partial MLP fidelity is a more promising
+primitive: scaling layers 2+3 to `alpha=0.5` preserved the measured early
+prefix better than zeroing them, although this remains an acceptance-only
+probe because the MLP is still executed.
 
 State-conditioned scheduling remains an optional extension, not the primary
 claim: its current evidence is descriptive and confounded by prompt and decode

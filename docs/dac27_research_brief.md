@@ -1,4 +1,4 @@
-# DAC'27 Research Brief: Survival-Aware Grouped DFlash Execution
+# DAC'27 Research Brief: Block-Fidelity-Aware DFlash Execution
 
 ## Current pivot: draft-block importance
 
@@ -11,6 +11,13 @@ bypass is too destructive, so the candidate architecture keeps attention dense
 and applies heterogeneous MLP fidelity by draft block. The existing
 protected-prefix position-gating design remains the fallback if block-level
 fidelity does not produce fused hardware benefit.
+
+The latest official probe favors partial MLP fidelity over all-or-nothing
+bypass: scaling blocks 2+3 to `alpha=0.5` gives `S1=0.6335` and mean accepted
+prefix `1.5127` on the current workload, while scaling both to `0.25` gives
+`S1=0.6028`. These are acceptance-only results because the Python hook still
+executes the full MLP. They motivate a finite joint fidelity schedule table,
+not a claim of speedup.
 
 ## One-sentence thesis
 
