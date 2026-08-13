@@ -156,3 +156,24 @@ acceptance or speedup result: skipped layers are still physically executed in
 the probe, and the blocks are masked training-style anchors rather than an
 autoregressive decode loop. The candidate must be re-evaluated with official
 verification and a real selective-depth implementation.
+
+## Selective-depth design-space sweep
+
+The same four prompts and fixed anchors were used to sweep five schedules. Raw
+records are in `data/local_selective_depth_sweep_orestis.json`; `layer-work sum`
+is the sum of per-position executed draft layers.
+
+| Schedule | Depth vector | Layer-work sum | Mean accepted prefix | Change vs uniform |
+|---|---|---:|---:|---:|
+| uniform | `(3,3,3,3,3,3,3,3)` | 24 | 1.156 | — |
+| protected4 conservative | `(3,3,3,3,3,2,2,1)` | 20 | 1.156 | 0.0% |
+| protected4 staircase | `(3,3,3,3,2,2,1,1)` | 18 | 1.094 | -5.4% |
+| protected2 staircase | `(3,3,3,2,2,2,1,1)` | 17 | 1.031 | -10.8% |
+| aggressive tail | `(3,3,2,1,1,1,1,1)` | 13 | 0.625 | -45.9% |
+
+This small sweep reveals a useful screening Pareto region: protecting the first
+four positions permits a conservative 16.7% nominal work reduction with no
+observed proxy loss, while more aggressive schedules degrade sharply. It is
+not evidence of real speedup or serving acceptance; all skipped layers are
+still executed in the proxy. The result motivates testing protected-prefix
+boundaries 4 and 6 first on a GPU selective-depth implementation.

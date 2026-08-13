@@ -52,7 +52,9 @@ def load_prompts(path: Path | None) -> tuple[str, ...]:
     return prompts
 
 
-def load_schedules(path: Path | None, block_size: int, draft_layers: int) -> dict[str, tuple[int, ...]]:
+def load_schedules(
+    path: Path | None, block_size: int, draft_layers: int, protected_prefix: int
+) -> dict[str, tuple[int, ...]]:
     if path is None:
         schedules = {
             "uniform": (draft_layers,) * block_size,
@@ -63,7 +65,9 @@ def load_schedules(path: Path | None, block_size: int, draft_layers: int) -> dic
         payload = json.loads(path.read_text())
         schedules = {str(name): tuple(int(value) for value in values) for name, values in payload.items()}
     return {
-        name: validate_depth_schedule(values, draft_layers=draft_layers, protected_prefix=2)
+        name: validate_depth_schedule(
+            values, draft_layers=draft_layers, protected_prefix=protected_prefix
+        )
         for name, values in schedules.items()
     }
 
@@ -77,6 +81,7 @@ def main() -> None:
     parser.add_argument("--schedules", type=Path)
     parser.add_argument("--anchors", type=int, default=8)
     parser.add_argument("--seed", type=int, default=7)
+    parser.add_argument("--protected-prefix", type=int, default=2)
     args = parser.parse_args()
 
     target = AutoModelForCausalLM.from_pretrained(
@@ -89,7 +94,9 @@ def main() -> None:
         str(args.draft_dir), config=config, local_files_only=True, dtype=torch.float32
     ).eval()
     draft.config.max_anchors = args.anchors
-    schedules = load_schedules(args.schedules, draft.block_size, len(draft.layers))
+    schedules = load_schedules(
+        args.schedules, draft.block_size, len(draft.layers), args.protected_prefix
+    )
     tokenizer = AutoTokenizer.from_pretrained(str(args.target_dir), local_files_only=True)
     prompts = load_prompts(args.prompt_file)
     records: list[dict] = []
