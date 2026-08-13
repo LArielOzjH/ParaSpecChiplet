@@ -26,6 +26,7 @@ from paraspec.block_ablation import (
     parse_layer_scales,
     validate_layer_indices,
 )
+from paraspec.partial_mlp import install_mlp_widths
 from paraspec.official_trace import stats_to_verification_events
 
 
@@ -52,7 +53,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--mode",
-        choices=("layer", "mlp", "scale"),
+        choices=("layer", "mlp", "scale", "width"),
         default="layer",
         help="bypass a whole draft block, bypass its MLP, or scale its MLP",
     )
@@ -67,6 +68,11 @@ def main() -> None:
         "--scale-spec",
         default=None,
         help="comma-separated layer=scale pairs, e.g. 2=0.5,3=0.5",
+    )
+    parser.add_argument(
+        "--width-spec",
+        default=None,
+        help="comma-separated layer=fraction pairs, e.g. 2=0.5,3=0.5",
     )
     args = parser.parse_args()
 
@@ -102,6 +108,10 @@ def main() -> None:
             if not 0.0 <= args.scale <= 1.0:
                 raise ValueError("--scale must be within [0, 1]")
             scale_map = {args.scale_layer: args.scale}
+    if args.mode == "width":
+        if args.width_spec is None:
+            raise ValueError("--width-spec is required when --mode width is used")
+        width_map = parse_layer_scales(args.width_spec, draft_layers=draft_layers)
     if args.groups is not None:
         groups = parse_layer_groups(args.groups, draft_layers=draft_layers)
     elif args.layers is None:
@@ -124,6 +134,9 @@ def main() -> None:
             ("uniform", ()),
             (f"scale_{scale_label}", tuple(sorted(scale_map))),
         )
+    if args.mode == "width":
+        width_label = "_".join(f"{layer}_{value:g}" for layer, value in sorted(width_map.items()))
+        experiments = (("uniform", ()), (f"width_{width_label}", tuple(sorted(width_map))))
     stop_token_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
     records: list[dict] = []
 
@@ -139,6 +152,10 @@ def main() -> None:
                 elif args.mode == "mlp":
                     restore = install_mlp_bypasses(
                         draft.layers, ablated_layers, draft_layers=draft_layers
+                    )
+                elif args.mode == "width":
+                    restore = install_mlp_widths(
+                        draft.layers, width_map, draft_layers=draft_layers
                     )
                 else:
                     restore = install_mlp_scales(

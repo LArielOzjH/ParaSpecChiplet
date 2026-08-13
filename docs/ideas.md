@@ -19,7 +19,10 @@ prefix to `0.7692`. The scheduler therefore needs joint-schedule awareness,
 not only a per-block ranking. Partial MLP fidelity is a more promising
 primitive: scaling layers 2+3 to `alpha=0.5` preserved the measured early
 prefix better than zeroing them, although this remains an acceptance-only
-probe because the MLP is still executed.
+probe because the MLP is still executed. A reduced-width acceptance probe
+further preserved layer 2 at 50% intermediate width (`S1=0.6103`), while the
+same width reduction on layers 2+3 fell to `S1=0.5625`; the hardware mechanism
+therefore needs a jointly validated schedule table.
 
 State-conditioned scheduling remains an optional extension, not the primary
 claim: its current evidence is descriptive and confounded by prompt and decode

@@ -12,7 +12,11 @@ import json
 from pathlib import Path
 
 import torch
-import torch.nn.functional as F
+
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from paraspec.partial_mlp import reduced_gated_mlp
 
 
 def benchmark(fn, *, warmup: int, iterations: int) -> float:
@@ -27,22 +31,6 @@ def benchmark(fn, *, warmup: int, iterations: int) -> float:
     end.record()
     torch.cuda.synchronize()
     return float(start.elapsed_time(end) * 1000 / iterations)
-
-
-def reduced_gated_mlp(hidden_states, mlp, intermediate_width: int):
-    available_width = int(mlp.gate_proj.weight.shape[0])
-    if not 1 <= intermediate_width <= available_width:
-        raise ValueError("intermediate_width must be within the gate projection width")
-    if int(mlp.up_proj.weight.shape[0]) != available_width:
-        raise ValueError("gate and up projections must have the same width")
-    if int(mlp.down_proj.weight.shape[1]) != available_width:
-        raise ValueError("down projection width must match gate projection width")
-    gate = F.linear(hidden_states, mlp.gate_proj.weight[:intermediate_width])
-    up = F.linear(hidden_states, mlp.up_proj.weight[:intermediate_width])
-    return F.linear(
-        F.silu(gate) * up,
-        mlp.down_proj.weight[:, :intermediate_width],
-    )
 
 
 def main() -> None:

@@ -19,6 +19,12 @@ prefix `1.5127` on the current workload, while scaling both to `0.25` gives
 executes the full MLP. They motivate a finite joint fidelity schedule table,
 not a claim of speedup.
 
+The first reduced-width acceptance gate also passed for one block: layer 2 at
+50% intermediate width gives `S1=0.6103` versus `0.6095` for uniform execution.
+Applying the same width to layers 2+3 lowers `S1` to `0.5625`, confirming that
+the hardware scheduler must choose jointly validated schedules rather than
+compose independent block scores.
+
 ## One-sentence thesis
 
 DFlash treats every draft Transformer block as if it had the same execution
