@@ -1,5 +1,9 @@
 # DAC'27 Research Brief: Block-Fidelity-Aware DFlash Execution
 
+> Current source of truth: this brief supersedes earlier protected-prefix and
+> chiplet-first drafts. Position gating and chiplets are fallback/extension
+> mechanisms unless later gates provide stronger evidence.
+
 ## Current pivot: draft-block importance
 
 The current primary hypothesis is that DFlash draft Transformer blocks have
@@ -46,38 +50,40 @@ already explores dynamic speculative length, memory-aware draft selection, and
 uncertainty repair. The architectural contribution must survive even with an
 oracle schedule selector.
 
-## Primary proposal: SAGE-DFlash (static grouped core; adaptive extension)
+## Primary proposal: SAGE-DFlash (joint fidelity core; adaptive extension)
 
-Working name: **State-Aware Grouped Execution (SAGE-DFlash)**.
+Working name: **Schedule-Aware Grouped Execution (SAGE-DFlash)**.
 
 For a block with accepted-prefix random variable `A`, define position value as
-`S_i = P(A >= i)`. For a block entering state `q`, use `S_i(q)` and expected
-committed value `E[A | q]`. The scheduler chooses a candidate depth vector
-`d(q) = (d_1, ..., d_B)` and fidelity class subject to:
+`S_i = P(A >= i)`. The scheduler evaluates a jointly measured block-fidelity
+vector `w = (w_1, ..., w_L)` and chooses a schedule subject to:
 
-1. the first `K` positions remain protected at full fidelity;
-2. tail positions may receive fewer upper draft layers or reduced precision;
-3. shared lower layers are evaluated once before position-specific routing;
+1. measured mean prefix survival remains above the registered threshold;
+2. attention remains dense, preserving bidirectional block context;
+3. selected MLP widths/fidelity levels are drawn from a finite schedule table;
 4. target verification remains authoritative and therefore preserves the
    speculative-decoding correctness contract;
 5. all choices include activation movement, router, synchronization, and queue
    costs.
 
-The hardware organization is:
+The preferred hardware organization is:
 
 ```text
 target hidden features
           |
-   shared backbone chiplet  -- multicast --  prefix/full-fidelity chiplet
-          |                                  \
-          +-------------------------------> tail/cheap chiplet
+   shared DFlash backbone / dense attention
+          |
+   schedule-aware grouped MLP fabric
+       /                         \
+ full-width lanes          reduced-width lanes
                                              |
                                   scheduler + router + verifier interface
 ```
 
-The router is not a generic network-on-chip addition: it carries the
-layer-position survival map and state-selected schedule. A monolithic
-accelerator with equal total resources is the required baseline.
+The scheduler carries the joint block-fidelity schedule and queues compatible
+requests. A monolithic accelerator with equal total resources is the required
+baseline. Chiplet links are an optional physical implementation and must beat
+this baseline after traffic and synchronization costs.
 
 The current GPU evidence refines the preferred implementation: the first
 target should be a monolithic grouped-dataflow engine with persistent MLP
@@ -168,9 +174,9 @@ These are open gates, not implied results.
 
 | Variant | Core mechanism | Best case | Kill condition | Role |
 |---|---|---|---|---|
-| SAGE-DFlash | protected-prefix heterogeneous upper layers + physical shared/multicast dataflow; state conditioning is an input | schedule saves real draft work while preserving early acceptance | no layer-position asymmetry or no hardware benefit over monolithic design | primary |
-| Protected-prefix DFlash | static shared-lower-layer plus safe prefix/tail boundary | interference is stable but state variation is weak | no stable boundary across prompts/models | fallback |
-| Elastic DFlash fabric | chiplet/monolithic fabric with multicast and mixed-depth queues | heterogeneous requests cause substantial utilization loss on monolithic hardware | links, sync, or queueing erase compute savings | hardware extension |
+| SAGE-DFlash | jointly validated block-fidelity schedules + grouped monolithic MLP dataflow | safe reduced-width schedule saves calibrated draft work | no schedule survives acceptance gate or no hardware benefit | primary |
+| Dense-attention fidelity DFlash | static finite width table with dense fallback | ranking/state variation is weak but one safe schedule is stable | no stable schedule across prompts/models | fallback |
+| Elastic DFlash fabric | chiplet/monolithic fabric with multicast and mixed-fidelity queues | heterogeneous requests cause substantial utilization loss on monolithic hardware | links, sync, or queueing erase compute savings | hardware extension |
 
 The project should not present all three as equal contributions. Use the first
 variant if the state-conditioned acceptance gate passes; use the second if
@@ -246,10 +252,11 @@ and equal-resource baselines all support it.
 
 ## Current recommendation
 
-Continue with SAGE-DFlash as the primary research hypothesis, but define its
-static grouped execution core as the paper's minimum contribution. Do not yet
-commit the paper to chiplets or adaptive scheduling. The next decisive artifact
-is a fused/persistent grouped-lane implementation evaluated under batch-aware
-service conditions. Until that exists, the strongest defensible statement is
-that official acceptance evidence supports the protected-prefix MLP dataflow,
-while hardware benefit is established only for the measured throughput regime.
+Continue with SAGE-DFlash as the primary research hypothesis, but define the
+joint fidelity scheduler and grouped monolithic dataflow as the minimum
+contribution. Do not commit the paper to chiplets or adaptive scheduling. The
+next decisive artifact is a correctness-tested tensor-core-aware reduced-width
+implementation evaluated under batch-aware service conditions. Until that
+exists, the strongest defensible statement is that official acceptance
+evidence supports selected block-fidelity schedules, while hardware benefit is
+bounded only by calibrated microbenchmarks.

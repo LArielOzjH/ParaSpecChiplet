@@ -1,5 +1,11 @@
 # Survival-Aware Heterogeneous DFlash
 
+> Historical design note. The current primary direction is the
+> block-fidelity-aware grouped monolithic engine documented in
+> `docs/dac27_final_direction.md`; chiplet and protected-prefix mechanisms
+> below are optional extensions or prior candidates unless supported by newer
+> evidence.
+
 ## Problem
 
 In block-parallel speculative decoding, a draft block of `B` positions is computed in one forward pass and verified as a contiguous prefix. If position `i` is wrong, positions after `i` cannot be committed in that cycle. This creates a value asymmetry that is distinct from raw token accuracy: the relevant quantity is prefix survival, not independent per-position correctness.
