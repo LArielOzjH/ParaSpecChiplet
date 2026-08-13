@@ -32,6 +32,30 @@ The chiplet substrate is a means to make this heterogeneity physically efficient
 
 The design must be compared against a monolithic accelerator with the same total compute and memory budget. Chiplets are not a contribution by themselves.
 
+## Runtime controller boundary
+
+The controller is intentionally a replay oracle, not an unverified learned
+policy. Each candidate schedule supplies held-out prefix-survival estimates and
+a traffic-aware cost. Recent acceptance history provides the protected-prefix
+constraint; candidates that drop the protected prefix beyond the configured
+tolerance are rejected, and the remaining candidates are ranked by predicted
+committed value per cost. This separates the architecture question (how to
+route and execute a selected schedule) from the prediction question (whether
+survival can be estimated cheaply enough online).
+
+The replay entry point is:
+
+```bash
+python scripts/replay_schedule_controller.py \
+  --trace data/official_qwen3_4b_dflash_trace.jsonl \
+  --options options.json --protected-prefix 4 --max-prefix-drop 0.02
+```
+
+The controller must be compared against a static schedule and an oracle with
+zero controller overhead. If its selected schedule does not beat static
+staircase execution after router and synchronization cost, the adaptive
+controller is not a paper contribution.
+
 ## Cost-model boundary
 
 The chiplet oracle models four terms separately: draft compute, activation-link
