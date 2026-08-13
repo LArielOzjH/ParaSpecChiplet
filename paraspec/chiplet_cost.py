@@ -13,6 +13,41 @@ class ChipletCost:
     router_cycles: float = 0.0
 
 
+def estimate_monolithic_cost(
+    depth_by_position: Sequence[int],
+    macs_per_layer: int,
+    compute_macs_per_cycle: int,
+    synchronization_cycles: int = 0,
+) -> ChipletCost:
+    """Estimate equal-resource dense execution with idle lanes at max depth.
+
+    This is a conservative monolithic baseline: the accelerator has one lane
+    per block position and runs every lane through the deepest selected draft
+    depth. Positions that need fewer layers are idle during those upper-layer
+    cycles. It intentionally excludes chiplet link/router terms.
+    """
+
+    if not depth_by_position or any(depth <= 0 for depth in depth_by_position):
+        raise ValueError("depth_by_position must contain positive depths")
+    if macs_per_layer <= 0 or compute_macs_per_cycle <= 0:
+        raise ValueError("compute parameters must be positive")
+    if synchronization_cycles < 0:
+        raise ValueError("synchronization_cycles must be non-negative")
+    compute_cycles = (
+        max(depth_by_position)
+        * len(depth_by_position)
+        * macs_per_layer
+        / compute_macs_per_cycle
+    )
+    total_cycles = compute_cycles + synchronization_cycles
+    return ChipletCost(
+        compute_cycles=float(compute_cycles),
+        link_cycles=0.0,
+        synchronization_cycles=float(synchronization_cycles),
+        total_cycles=float(total_cycles),
+    )
+
+
 def estimate_chiplet_cost(
     depth_by_position: Sequence[int],
     macs_per_layer: int,

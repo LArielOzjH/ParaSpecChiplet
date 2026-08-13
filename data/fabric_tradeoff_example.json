@@ -1,0 +1,78 @@
+{
+  "depth_by_position": [
+    3,
+    3,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1
+  ],
+  "warning": "transparent analytical model; not measured hardware speedup",
+  "points": [
+    {
+      "link_bytes_per_cycle": 32.0,
+      "multicast_reuse": 1.0,
+      "chiplet_total_cycles": 1054.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.04174573055028463
+    },
+    {
+      "link_bytes_per_cycle": 32.0,
+      "multicast_reuse": 2.0,
+      "chiplet_total_cycles": 542.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.08118081180811808
+    },
+    {
+      "link_bytes_per_cycle": 32.0,
+      "multicast_reuse": 4.0,
+      "chiplet_total_cycles": 286.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.15384615384615385
+    },
+    {
+      "link_bytes_per_cycle": 128.0,
+      "multicast_reuse": 1.0,
+      "chiplet_total_cycles": 286.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.15384615384615385
+    },
+    {
+      "link_bytes_per_cycle": 128.0,
+      "multicast_reuse": 2.0,
+      "chiplet_total_cycles": 158.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.27848101265822783
+    },
+    {
+      "link_bytes_per_cycle": 128.0,
+      "multicast_reuse": 4.0,
+      "chiplet_total_cycles": 94.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.46808510638297873
+    },
+    {
+      "link_bytes_per_cycle": 512.0,
+      "multicast_reuse": 1.0,
+      "chiplet_total_cycles": 94.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.46808510638297873
+    },
+    {
+      "link_bytes_per_cycle": 512.0,
+      "multicast_reuse": 2.0,
+      "chiplet_total_cycles": 62.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.7096774193548387
+    },
+    {
+      "link_bytes_per_cycle": 512.0,
+      "multicast_reuse": 4.0,
+      "chiplet_total_cycles": 46.0,
+      "monolithic_total_cycles": 44.0,
+      "chiplet_speedup_over_monolithic": 0.9565217391304348
+    }
+  ]
+}

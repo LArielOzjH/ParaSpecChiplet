@@ -1,4 +1,4 @@
-from paraspec.chiplet_cost import estimate_chiplet_cost
+from paraspec.chiplet_cost import estimate_chiplet_cost, estimate_monolithic_cost
 
 
 def test_chiplet_cost_exposes_compute_link_and_sync_components():
@@ -34,3 +34,15 @@ def test_chiplet_cost_models_shared_lower_layers_multicast_and_router_overhead()
     assert result.link_cycles == 0.5
     assert result.router_cycles == 2.0
     assert result.total_cycles == 8.5
+
+
+def test_monolithic_cost_accounts_for_idle_lanes_at_max_depth():
+    result = estimate_monolithic_cost(
+        depth_by_position=(3, 3, 2, 1),
+        macs_per_layer=100,
+        compute_macs_per_cycle=100,
+        synchronization_cycles=2,
+    )
+
+    assert result.compute_cycles == 12.0
+    assert result.total_cycles == 14.0

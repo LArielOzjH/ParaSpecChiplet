@@ -112,6 +112,35 @@ The options for each state must contain separately measured survival estimates;
 reusing one global estimate would erase the very block-state effect being
 tested.
 
+## Monolithic baseline and chiplet crossover
+
+The repository now includes an equal-resource monolithic baseline that models
+idle lanes when positions use different depths. Sweep link bandwidth,
+activation multicast reuse, and router overhead before making any chiplet
+claim:
+
+```bash
+python scripts/sweep_fabric_tradeoff.py \
+  --depths 3 3 2 2 2 1 1 1 --output data/fabric_tradeoff.json \
+  --link-bandwidths 32 128 512 --reuse 1 2 4 \
+  --macs-per-layer 100 --compute-macs-per-cycle 100 \
+  --activation-bytes-per-position 4096 --synchronization-cycles 20 \
+  --shared-lower-depth 1 --router-cycles-per-position 0.25
+```
+
+This analytical crossover is a screening tool. A chiplet contribution requires
+calibration with measured activation bytes, actual synchronization points, and
+an equal-resource monolithic implementation or simulator.
+
+The checked-in illustrative sweep (`data/fabric_tradeoff_example.json`) is
+intentionally not favorable to chiplets: with 4096 bytes per position,
+20 synchronization cycles, and router cost 0.25 cycles/position, the
+equal-resource monolithic baseline is 44 cycles. The best tested chiplet point
+(512 B/cycle link, reuse 4) is 46 cycles; lower bandwidth or reuse is much
+worse. This is an early kill signal for a naive split fabric and motivates
+activation multicast/reuse as a necessary mechanism rather than a cosmetic
+feature.
+
 ## Cost-model boundary
 
 The chiplet oracle models four terms separately: draft compute, activation-link
