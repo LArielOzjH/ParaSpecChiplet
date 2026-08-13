@@ -77,6 +77,27 @@ survival prediction is useful for narrowing the 5-by-16 official DFlash design
 space; each frontier point must later be remeasured with actual selective-depth
 execution and target verification.
 
+## Block-state conditioning
+
+Block importance is not assumed to be a function of block index. The entering
+state of a block is observable from the previous verification cycle, so traces
+can be partitioned by previous accepted-prefix length (and later by confidence
+or context buckets):
+
+```bash
+python scripts/analyze_state_conditioned_trace.py \
+  --trace data/official_qwen3_4b_dflash_trace.jsonl \
+  --output data/state_conditioned_survival.json \
+  --bucket-size 2
+```
+
+This reports `P(A >= i | entering-state)`, expected committed-prefix value, and
+state-to-outcome counts. The result is descriptive rather than causal: a
+state-conditioned difference justifies an adaptive scheduling experiment, but
+does not prove that changing the schedule causes the difference. The adaptive
+controller should use held-out state-conditioned traces and report phase
+recovery, calibration error, and controller overhead.
+
 ## Cost-model boundary
 
 The chiplet oracle models four terms separately: draft compute, activation-link
