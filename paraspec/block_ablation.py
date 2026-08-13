@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 
 import torch
 
@@ -121,6 +121,20 @@ def _zero_module_output(module_output: object) -> object:
     raise TypeError("module output must be a tensor, tuple, or list")
 
 
+def _scale_module_output(module_output: object, scale: float) -> object:
+    if isinstance(module_output, torch.Tensor):
+        return module_output * scale
+    if isinstance(module_output, tuple):
+        if not module_output or not isinstance(module_output[0], torch.Tensor):
+            raise TypeError("module output tuple must start with a tensor")
+        return (module_output[0] * scale, *module_output[1:])
+    if isinstance(module_output, list):
+        if not module_output or not isinstance(module_output[0], torch.Tensor):
+            raise TypeError("module output list must start with a tensor")
+        return [module_output[0] * scale, *module_output[1:]]
+    raise TypeError("module output must be a tensor, tuple, or list")
+
+
 def install_mlp_bypasses(
     layers: Sequence[object],
     layer_indices: Sequence[int],
@@ -148,6 +162,48 @@ def install_mlp_bypasses(
             return _zero_module_output(output)
 
         handles.append(register(bypass_hook, with_kwargs=True))
+
+    def restore() -> None:
+        for handle in handles:
+            handle.remove()
+
+    return restore
+
+
+def install_mlp_scales(
+    layers: Sequence[object],
+    layer_scales: Mapping[int, float],
+    *,
+    draft_layers: int,
+) -> callable:
+    """Install hooks that scale selected MLP updates by a fidelity factor."""
+
+    if not layer_scales:
+        raise ValueError("layer_scales must not be empty")
+    validated = validate_layer_indices(layer_scales.keys(), draft_layers=draft_layers)
+    if len(layers) != draft_layers:
+        raise ValueError("layers length must match draft_layers")
+    scales = {index: float(layer_scales[index]) for index in validated}
+    if any(scale < 0.0 or scale > 1.0 for scale in scales.values()):
+        raise ValueError("MLP scales must be within [0, 1]")
+    handles = []
+    for index in validated:
+        mlp = getattr(layers[index], "mlp", None)
+        register = getattr(mlp, "register_forward_hook", None)
+        if not callable(register):
+            raise TypeError("draft layers must expose an MLP with forward hooks")
+        scale = scales[index]
+
+        def scale_hook(
+            _module: object,
+            _inputs: tuple[object, ...],
+            _kwargs: dict[str, object],
+            output: object,
+            _scale: float = scale,
+        ) -> object:
+            return _scale_module_output(output, _scale)
+
+        handles.append(register(scale_hook, with_kwargs=True))
 
     def restore() -> None:
         for handle in handles:

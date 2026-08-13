@@ -4,6 +4,7 @@ import torch
 from paraspec.block_ablation import (
     bypass_layer_output,
     install_mlp_bypasses,
+    install_mlp_scales,
     install_layer_bypasses,
     parse_layer_groups,
     validate_layer_indices,
@@ -95,3 +96,23 @@ def test_parse_layer_groups_canonicalizes_named_group_spec():
 def test_parse_layer_groups_rejects_empty_group():
     with pytest.raises(ValueError, match="empty"):
         parse_layer_groups("2;;3", draft_layers=5)
+
+
+def test_install_mlp_scales_scales_selected_update_and_restores():
+    class MLP(torch.nn.Module):
+        def forward(self, hidden_states):
+            return hidden_states + 10
+
+    class Layer(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.mlp = MLP()
+
+    layers = torch.nn.ModuleList([Layer()])
+    values = torch.tensor([[2.0]])
+    restore = install_mlp_scales(layers, {0: 0.25}, draft_layers=1)
+    try:
+        assert torch.equal(layers[0].mlp(values), torch.tensor([[3.0]]))
+    finally:
+        restore()
+    assert torch.equal(layers[0].mlp(values), torch.tensor([[12.0]]))

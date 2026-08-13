@@ -21,6 +21,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from paraspec.block_ablation import (
     install_layer_bypasses,
     install_mlp_bypasses,
+    install_mlp_scales,
     parse_layer_groups,
     validate_layer_indices,
 )
@@ -50,10 +51,17 @@ def main() -> None:
     )
     parser.add_argument(
         "--mode",
-        choices=("layer", "mlp"),
+        choices=("layer", "mlp", "scale"),
         default="layer",
-        help="bypass a whole draft block or only its MLP update",
+        help="bypass a whole draft block, bypass its MLP, or scale its MLP",
     )
+    parser.add_argument(
+        "--scale-layer",
+        type=int,
+        default=None,
+        help="zero-based layer to scale when --mode scale is used",
+    )
+    parser.add_argument("--scale", type=float, default=0.5)
     args = parser.parse_args()
 
     if not torch.cuda.is_available():
@@ -76,6 +84,12 @@ def main() -> None:
     draft_layers = len(draft.layers)
     if args.groups is not None and args.layers is not None:
         raise ValueError("use only one of --layers and --groups")
+    if args.mode == "scale":
+        if args.scale_layer is None:
+            raise ValueError("--scale-layer is required when --mode scale is used")
+        validate_layer_indices((args.scale_layer,), draft_layers=draft_layers)
+        if not 0.0 <= args.scale <= 1.0:
+            raise ValueError("--scale must be within [0, 1]")
     if args.groups is not None:
         groups = parse_layer_groups(args.groups, draft_layers=draft_layers)
     elif args.layers is None:
@@ -92,6 +106,11 @@ def main() -> None:
         )
 
     experiments: tuple[tuple[str, tuple[int, ...]], ...] = (("uniform", ()),) + groups
+    if args.mode == "scale":
+        experiments = (
+            ("uniform", ()),
+            (f"scale_layer_{args.scale_layer}_{args.scale:g}", (args.scale_layer,)),
+        )
     stop_token_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
     records: list[dict] = []
 
@@ -100,8 +119,20 @@ def main() -> None:
         for experiment_name, ablated_layers in experiments:
             restore = None
             if ablated_layers:
-                installer = install_layer_bypasses if args.mode == "layer" else install_mlp_bypasses
-                restore = installer(draft.layers, ablated_layers, draft_layers=draft_layers)
+                if args.mode == "layer":
+                    restore = install_layer_bypasses(
+                        draft.layers, ablated_layers, draft_layers=draft_layers
+                    )
+                elif args.mode == "mlp":
+                    restore = install_mlp_bypasses(
+                        draft.layers, ablated_layers, draft_layers=draft_layers
+                    )
+                else:
+                    restore = install_mlp_scales(
+                        draft.layers,
+                        {args.scale_layer: args.scale},
+                        draft_layers=draft_layers,
+                    )
             try:
                 stats = dflash_generate(
                     draft,
