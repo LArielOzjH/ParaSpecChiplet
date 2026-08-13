@@ -1,4 +1,4 @@
-# DAC'27 Research Brief: Survival-Aware DFlash Execution
+# DAC'27 Research Brief: Survival-Aware Grouped DFlash Execution
 
 ## One-sentence thesis
 
@@ -15,7 +15,7 @@ already explores dynamic speculative length, memory-aware draft selection, and
 uncertainty repair. The architectural contribution must survive even with an
 oracle schedule selector.
 
-## Primary proposal: SAGE-DFlash
+## Primary proposal: SAGE-DFlash (static grouped core; adaptive extension)
 
 Working name: **State-Aware Grouped Execution (SAGE-DFlash)**.
 
@@ -215,9 +215,10 @@ and equal-resource baselines all support it.
 
 ## Current recommendation
 
-Continue with SAGE-DFlash as the primary research hypothesis, but do not yet
+Continue with SAGE-DFlash as the primary research hypothesis, but define its
+static grouped execution core as the paper's minimum contribution. Do not yet
 commit the paper to chiplets or adaptive scheduling. The next decisive artifact
-is an official multi-request acceptance trace. Until that exists, the strongest
-defensible statement is that the activation evidence motivates a protected
-prefix and that the repository has a falsifiable path to test whether it becomes
-a real architecture opportunity.
+is a fused/persistent grouped-lane implementation evaluated under batch-aware
+service conditions. Until that exists, the strongest defensible statement is
+that official acceptance evidence supports the protected-prefix MLP dataflow,
+while hardware benefit is established only for the measured throughput regime.
