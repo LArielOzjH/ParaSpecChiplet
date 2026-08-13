@@ -1,0 +1,18 @@
+{
+  "calibration": "gpu_mlp_row_sweep_batch_sizes_rtx4090.json",
+  "warning": "batch-1/8/64 policy transfer from single-layer microbenchmark; not end-to-end latency evidence",
+  "results": [
+    {"batch_size": 1, "schedule": "uniform", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 1, "schedule": "protected8_conservative", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 1, "schedule": "protected8_staircase", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 1, "schedule": "protected4_moderate", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 8, "schedule": "uniform", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 8, "schedule": "protected8_conservative", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 8, "schedule": "protected8_staircase", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 8, "schedule": "protected4_moderate", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 64, "schedule": "uniform", "effective_rows": [16, 16, 16, 16, 16], "saved_fraction": 0.0},
+    {"batch_size": 64, "schedule": "protected8_conservative", "effective_rows": [16, 16, 16, 12, 9], "saved_fraction": 0.1375},
+    {"batch_size": 64, "schedule": "protected8_staircase", "effective_rows": [16, 16, 12, 10, 8], "saved_fraction": 0.225},
+    {"batch_size": 64, "schedule": "protected4_moderate", "effective_rows": [16, 12, 10, 8, 16], "saved_fraction": 0.225}
+  ]
+}

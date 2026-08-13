@@ -123,6 +123,14 @@ was slower than dense, while 12/16 and below began to pay back compaction. This
 threshold is hardware-calibrated rather than a new decoding policy, and it
 should be exposed as part of the execution controller's cost gate.
 
+The current applicability regime is therefore throughput-oriented serving:
+the batch-aware policy yields no measured MLP-row saving at batch 1 or 8, but
+does yield realizable saving at batch 64. The detailed policy table is in
+`data/calibrated_schedule_batch_policy.json`. A low-latency single-request
+claim requires a different implementation—persistent dedicated lanes or a
+fused kernel that removes compaction overhead—and is not supported by the
+current evidence.
+
 These are open gates, not implied results.
 
 ## Three paperable variants and decision rule

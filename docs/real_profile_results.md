@@ -355,6 +355,12 @@ count alone is insufficient; the controller must also observe effective batch
 size. The calibrated policy API accepts `batch_size` and conservatively rejects
 missing batch-specific measurements.
 
+Applying that policy to the four candidate schedules gives no realizable row
+saving at batch 1 or 8; at batch 64, protected8 staircase retains 22.5% and
+protected8 conservative 13.75%. The complete per-batch table is preserved in
+`data/calibrated_schedule_batch_policy.json`. This makes the current claim
+explicitly a throughput-serving claim, not a single-request latency claim.
+
 ## Mixed-schedule grouped execution
 
 The grouping question was tested with a deliberately mixed batch: half of the
