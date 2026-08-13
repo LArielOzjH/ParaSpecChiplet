@@ -1,0 +1,16 @@
+{
+  "source": "https://huggingface.co/Eros483/Qwen3-0.6B-DFlash-shift-b8/blob/main/val_metrics.json",
+  "model": "Qwen3-0.6B-DFlash-shift-b8",
+  "target": "Qwen/Qwen3-0.6B",
+  "block_size": 8,
+  "draft_layers": 3,
+  "loss_epoch": 2.727556818181818,
+  "full_acc_epoch": 0.11843471394894763,
+  "position_1_acc_epoch": 0.2146363893933553,
+  "position_2_acc_epoch": 0.15108329410887464,
+  "position_3_acc_epoch": 0.11627613360579464,
+  "position_4_acc_epoch": 0.09875656906906907,
+  "position_5_acc_epoch": 0.08845132493361207,
+  "position_6_acc_epoch": 0.08155041689302502,
+  "position_7_acc_epoch": 0.07631862064389541
+}

@@ -1,0 +1,13 @@
+[project]
+name = "paraspecchiplet"
+version = "0.1.0"
+description = "Trace and cost-model exploration for heterogeneous block-parallel speculative decoding"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
