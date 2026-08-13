@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Sequence
 
+import torch
+
 
 def validate_depth_schedule(
     depth_by_position: Sequence[int], *, draft_layers: int, protected_prefix: int
@@ -30,3 +32,14 @@ def skipped_positions(depth_by_position: Sequence[int], *, layer_index: int) -> 
     if layer_index < 0:
         raise ValueError("layer_index must be non-negative")
     return tuple(depth <= layer_index for depth in depth_by_position)
+
+
+def zero_skipped_updates(output: torch.Tensor, *, skipped: Sequence[bool]) -> torch.Tensor:
+    """Zero an MLP update for skipped positions while retaining active updates."""
+
+    if output.ndim != 3 or len(skipped) != output.shape[1]:
+        raise ValueError("output must be [batch, positions, hidden] and match skipped mask")
+    result = output.clone()
+    mask = torch.tensor(tuple(skipped), dtype=torch.bool, device=output.device)
+    result[:, mask] = 0
+    return result

@@ -48,6 +48,38 @@ def estimate_monolithic_cost(
     )
 
 
+def estimate_mlp_gated_cost(
+    depth_by_position: Sequence[int],
+    attention_macs_per_layer: int,
+    mlp_macs_per_layer: int,
+    compute_macs_per_cycle: int,
+    synchronization_cycles: int = 0,
+) -> ChipletCost:
+    """Estimate dense attention plus position-gated upper-layer MLP work.
+
+    Attention runs for every position at every layer up to the maximum depth,
+    preserving bidirectional block context. MLP work is paid only for the
+    position/layer pairs present in ``depth_by_position``.
+    """
+
+    if not depth_by_position or any(depth <= 0 for depth in depth_by_position):
+        raise ValueError("depth_by_position must contain positive depths")
+    if min(attention_macs_per_layer, mlp_macs_per_layer, compute_macs_per_cycle) <= 0:
+        raise ValueError("compute parameters must be positive")
+    if synchronization_cycles < 0:
+        raise ValueError("synchronization_cycles must be non-negative")
+    attention_work = max(depth_by_position) * len(depth_by_position) * attention_macs_per_layer
+    mlp_work = sum(depth_by_position) * mlp_macs_per_layer
+    compute_cycles = (attention_work + mlp_work) / compute_macs_per_cycle
+    total_cycles = compute_cycles + synchronization_cycles
+    return ChipletCost(
+        compute_cycles=float(compute_cycles),
+        link_cycles=0.0,
+        synchronization_cycles=float(synchronization_cycles),
+        total_cycles=float(total_cycles),
+    )
+
+
 def estimate_chiplet_cost(
     depth_by_position: Sequence[int],
     macs_per_layer: int,

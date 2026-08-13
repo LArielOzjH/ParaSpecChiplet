@@ -24,7 +24,11 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
 from paraspec.offline_acceptance import accepted_prefix_length
-from paraspec.selective_proxy import skipped_positions, validate_depth_schedule
+from paraspec.selective_proxy import (
+    skipped_positions,
+    validate_depth_schedule,
+    zero_skipped_updates,
+)
 
 
 DEFAULT_PROMPTS = (
@@ -82,6 +86,12 @@ def main() -> None:
     parser.add_argument("--anchors", type=int, default=8)
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--protected-prefix", type=int, default=2)
+    parser.add_argument(
+        "--mode",
+        choices=("layer", "mlp"),
+        default="layer",
+        help="layer replaces the whole tail layer; mlp keeps bidirectional attention and skips only MLP updates",
+    )
     args = parser.parse_args()
 
     target = AutoModelForCausalLM.from_pretrained(
@@ -122,7 +132,7 @@ def main() -> None:
                 for layer_index, layer in enumerate(draft.layers):
                     skipped = skipped_positions(schedule, layer_index=layer_index)
 
-                    def hook(module, layer_inputs, layer_kwargs, output, skipped=skipped):
+                    def layer_hook(module, layer_inputs, layer_kwargs, output, skipped=skipped):
                         layer_input = layer_kwargs.get("hidden_states")
                         if layer_input is None:
                             if not layer_inputs:
@@ -134,8 +144,14 @@ def main() -> None:
                         output_block[:, mask] = input_block[:, mask]
                         return output_block.view_as(output)
 
+                    def mlp_hook(module, layer_inputs, layer_kwargs, output, skipped=skipped):
+                        output_block = output.view(args.anchors, draft.block_size, -1)
+                        return zero_skipped_updates(output_block, skipped=skipped).view_as(output)
+
                     if any(skipped):
-                        handles.append(layer.register_forward_hook(hook, with_kwargs=True))
+                        target_module = layer if args.mode == "layer" else layer.mlp
+                        target_hook = layer_hook if args.mode == "layer" else mlp_hook
+                        handles.append(target_module.register_forward_hook(target_hook, with_kwargs=True))
                 torch.manual_seed(seed)
                 draft_tokens, _, _ = DFlashDraftModel.forward.__wrapped__(
                     draft,
@@ -162,6 +178,7 @@ def main() -> None:
                             "kind": "dflash_selective_depth_offline_proxy",
                             "prompt_index": prompt_index,
                             "schedule": schedule_name,
+                            "mode": args.mode,
                             "depth_by_position": schedule,
                             "anchor_position": int(anchor),
                             "accepted_prefix": accepted_prefix_length(draft_block, target_block),

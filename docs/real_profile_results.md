@@ -177,3 +177,31 @@ observed proxy loss, while more aggressive schedules degrade sharply. It is
 not evidence of real speedup or serving acceptance; all skipped layers are
 still executed in the proxy. The result motivates testing protected-prefix
 boundaries 4 and 6 first on a GPU selective-depth implementation.
+
+## Attention-preserving MLP-only proxy
+
+The full-layer proxy above is conservative for context but overstates the
+amount of work that a hardware design can save. A more targeted mechanism keeps
+bidirectional attention for every block position, but zeros the residual MLP
+update for tail positions after their scheduled depth. This preserves the
+attention context path while removing the position-specific upper-layer MLP
+work—the first microarchitecture candidate that can plausibly be implemented
+without breaking block context.
+
+The same four prompts and schedules were run with `--mode mlp`; raw records are
+in `data/local_selective_mlp_proxy_orestis.json`.
+
+| Schedule | MLP-work sum | Mean accepted prefix | Change vs uniform |
+|---|---:|---:|---:|
+| uniform | 24 | 1.156 | — |
+| protected4 conservative | 20 | 1.156 | 0.0% |
+| protected4 staircase | 18 | 1.125 | -2.7% |
+| protected2 staircase | 17 | 1.063 | -8.1% |
+| aggressive tail | 13 | 0.750 | -35.1% |
+
+The proxy suggests a stronger operating point than whole-layer skipping:
+protected4 conservative saves 16.7% of MLP work with no observed agreement
+loss, and protected4 staircase saves 25% with only a 2.7% loss. This is still
+not measured speedup or serving acceptance; attention is still fully executed,
+and the MLP output is masked after computation. The next hardware model should
+separate dense attention cost from selectively gated MLP cost.

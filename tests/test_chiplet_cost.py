@@ -1,4 +1,8 @@
-from paraspec.chiplet_cost import estimate_chiplet_cost, estimate_monolithic_cost
+from paraspec.chiplet_cost import (
+    estimate_chiplet_cost,
+    estimate_mlp_gated_cost,
+    estimate_monolithic_cost,
+)
 
 
 def test_chiplet_cost_exposes_compute_link_and_sync_components():
@@ -46,3 +50,16 @@ def test_monolithic_cost_accounts_for_idle_lanes_at_max_depth():
 
     assert result.compute_cycles == 12.0
     assert result.total_cycles == 14.0
+
+
+def test_mlp_gated_cost_keeps_attention_dense_but_scales_mlp_by_schedule():
+    result = estimate_mlp_gated_cost(
+        depth_by_position=(3, 3, 3, 2),
+        attention_macs_per_layer=40,
+        mlp_macs_per_layer=60,
+        compute_macs_per_cycle=100,
+        synchronization_cycles=2,
+    )
+
+    assert result.compute_cycles == 11.4
+    assert result.total_cycles == 13.4

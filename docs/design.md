@@ -132,6 +132,17 @@ This analytical crossover is a screening tool. A chiplet contribution requires
 calibration with measured activation bytes, actual synchronization points, and
 an equal-resource monolithic implementation or simulator.
 
+## Preferred microarchitecture: dense attention, gated MLP
+
+The activation probe suggests a safer hardware primitive than skipping an
+entire DFlash layer. Keep the block-wide bidirectional attention dense so tail
+positions continue to provide context, but gate the residual MLP update by the
+survival schedule. The cost oracle `estimate_mlp_gated_cost` models this as
+dense attention at the maximum depth plus MLP work only for executed
+position/layer pairs. This is the primary implementation candidate for the
+next GPU/kernel study; whole-layer skipping remains a more aggressive
+ablation, not the default architecture.
+
 The checked-in illustrative sweep (`data/fabric_tradeoff_example.json`) is
 intentionally not favorable to chiplets: with 4096 bytes per position,
 20 synchronization cycles, and router cost 0.25 cycles/position, the
