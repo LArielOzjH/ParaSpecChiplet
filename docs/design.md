@@ -161,6 +161,15 @@ reuse. The default parameters preserve the conservative independent-position
 model, so any claimed benefit must show sensitivity to reuse and controller
 overhead rather than relying on free data movement.
 
+The official GPU evidence adds a batching constraint to this design. For a
+single request, an active-row MLP with explicit gather/scatter is no faster
+than dense execution at block size 16. At batch 64, the same 16-to-9 row
+reduction becomes useful. Consequently, the physical design should expose a
+cross-request position-grouping buffer or persistent lane compactor; a
+per-request sparse call is not an adequate implementation. This requirement
+is DFlash-specific because block positions share a verification-prefix value
+while requests can be grouped by their selected depth schedule.
+
 For example, with an illustrative block of eight positions and depths
 `(3,3,3,3,3,3,3,3)`, the model reports 22 cycles under one set of explicit
 parameters. A staircase `(3,3,2,2,2,1,1,1)` reports 13 cycles under the same
