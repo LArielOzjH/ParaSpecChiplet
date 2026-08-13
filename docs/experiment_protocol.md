@@ -82,3 +82,10 @@ It records timing metadata but does not fabricate token IDs, confidence, or
 layer checkpoints that the upstream stats do not expose. The trace can be
 loaded by `paraspec.trace_io.load_acceptance_trace` and used for survival
 curves and schedule comparison.
+
+The official `z-lab/Qwen3-4B-DFlash-b16` configuration is also useful for
+architecture sizing: block size 16, five draft layers, and target hidden
+features from target layers `[1, 9, 17, 25, 33]`. These parameters make the
+layer-by-position schedule a concrete 5-by-16 design space rather than an
+abstract proxy. See the upstream model card and
+[`config.json`](https://huggingface.co/z-lab/Qwen3-4B-DFlash-b16/blob/main/config.json).
