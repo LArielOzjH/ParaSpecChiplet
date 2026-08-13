@@ -51,3 +51,40 @@ Use a checkpoint with valid vocabulary mappings or run the official serving path
 4. sweep the protected prefix boundary.
 
 The primary idea survives only if a non-trivial tail saving exists while prefix acceptance remains stable.
+
+## Multi-condition tail perturbation sweep
+
+Date: 2026-08-14
+
+The follow-up sweep used the same target/draft pair and four prompts. It varied
+the protected prefix (`1, 2, 4, 6`), replaced the remaining tail with its mean,
+copied the preceding position, or zeroed it, and applied the perturbation after
+draft layer 1 or 2. The raw output is
+`data/local_tail_perturbation_sweep_v2.json`.
+
+The aggregate prefix-state results were:
+
+| After layer | Mode | Protected prefix | Mean cosine | Mean relative L2 |
+|---:|---|---:|---:|---:|
+| 1 | copy previous | 1 | 0.995830 | 5.49% |
+| 1 | copy previous | 2 | 0.999243 | 1.82% |
+| 1 | copy previous | 4 | 0.999985 | 0.24% |
+| 1 | mean | 1 | 0.999886 | 0.77% |
+| 1 | mean | 2 | 0.999987 | 0.25% |
+| 1 | mean | 4 | 0.999999 | 0.04% |
+| 1 | zero | 1 | 0.998424 | 3.95% |
+| 1 | zero | 2 | 0.999132 | 2.75% |
+| 1 | zero | 4 | 0.999642 | 1.70% |
+| 2 | zero | 4 | 0.999974 | 0.35% |
+
+The omitted layer-2 mean and copy-previous cases are even closer to the
+baseline; the complete table is in the JSON artifact. The pattern is stable
+in direction across the four prompts: early perturbation and a short protected
+prefix are the risky cases, while perturbation after layer 2 or protection of
+the first four positions is much safer.
+
+This supports a protected-prefix boundary rather than unconditional tail
+skipping. It still does not establish token acceptance or end-to-end speedup:
+the checkpoint has invalid vocabulary mappings, and the experiment perturbs
+activation states rather than implementing a reduced-depth kernel. The next
+gate is a valid acceptance trace plus a cost model for the safe boundary.

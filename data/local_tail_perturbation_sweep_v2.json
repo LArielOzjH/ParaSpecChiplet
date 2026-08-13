@@ -1,0 +1,3790 @@
+{
+  "model": {
+    "target": "/Users/hanzhuojun/.cache/huggingface/hub/models--Qwen--Qwen3-0.6B/snapshots/c1899de289a04d12100db370d81485cdf75e47ca",
+    "draft": "/Users/hanzhuojun/.cache/huggingface/hub/models--Eros483--Qwen3-0.6B-DFlash-shift-b8/snapshots/0c7703af79ef8d3df205e9bb8e84879ae8083ace"
+  },
+  "block_size": 8,
+  "anchors": 8,
+  "prompts": [
+    "Explain why memory bandwidth matters for neural network inference.",
+    "Compare a monolithic accelerator with a chiplet-based accelerator.",
+    "Give a concise definition of speculative decoding.",
+    "Why can parallel token prediction be difficult to verify efficiently?"
+  ],
+  "results": [
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9998613595962524,
+      "relative_l2": 0.007220169063657522,
+      "cosine_by_position": [
+        0.9998613595962524
+      ],
+      "relative_l2_by_position": [
+        0.007220169063657522
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9964608550071716,
+      "relative_l2": 0.04371808469295502,
+      "cosine_by_position": [
+        0.9964608550071716
+      ],
+      "relative_l2_by_position": [
+        0.04371808469295502
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9985656142234802,
+      "relative_l2": 0.03223644942045212,
+      "cosine_by_position": [
+        0.9985656142234802
+      ],
+      "relative_l2_by_position": [
+        0.03223644942045212
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 0.9999899864196777,
+      "relative_l2": 0.002011810662224889,
+      "cosine_by_position": [
+        0.9999828338623047,
+        0.9999971985816956
+      ],
+      "relative_l2_by_position": [
+        0.0026815214660018682,
+        0.001342099392786622
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.9989916086196899,
+      "relative_l2": 0.0177143607288599,
+      "cosine_by_position": [
+        0.9980996251106262,
+        0.9998836517333984
+      ],
+      "relative_l2_by_position": [
+        0.026812870055437088,
+        0.008615853264927864
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9991755485534668,
+      "relative_l2": 0.02392738312482834,
+      "cosine_by_position": [
+        0.9985232353210449,
+        0.9998278617858887
+      ],
+      "relative_l2_by_position": [
+        0.03161191567778587,
+        0.016242848709225655
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 0.9999983906745911,
+      "relative_l2": 0.00047235513920895755,
+      "cosine_by_position": [
+        0.9999936819076538,
+        0.9999999403953552,
+        0.9999999403953552,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.0014411660376936197,
+        0.00013595513883046806,
+        0.00012848572805523872,
+        0.00018381357949692756
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 0.9999880194664001,
+      "relative_l2": 0.002222242532297969,
+      "cosine_by_position": [
+        0.9999570250511169,
+        0.9999983906745911,
+        0.9999980926513672,
+        0.9999985694885254
+      ],
+      "relative_l2_by_position": [
+        0.0048750294372439384,
+        0.001415999373421073,
+        0.0013469196856021881,
+        0.0012510217493399978
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.9996894598007202,
+      "relative_l2": 0.014756163582205772,
+      "cosine_by_position": [
+        0.9989393949508667,
+        0.9999425411224365,
+        0.999943733215332,
+        0.9999322295188904
+      ],
+      "relative_l2_by_position": [
+        0.02603387087583542,
+        0.010451721027493477,
+        0.010704847984015942,
+        0.011834217235445976
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 2.4955197659437545e-05,
+      "cosine_by_position": [
+        0.9999999403953552,
+        0.9999999403953552,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        7.307119813049212e-05,
+        9.31609611143358e-06,
+        7.798020305926912e-06,
+        7.626900696777739e-06,
+        1.3518186278815847e-05,
+        3.8400787161663175e-05
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 0.9999992847442627,
+      "relative_l2": 0.0004919112543575466,
+      "cosine_by_position": [
+        0.9999960064888,
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "relative_l2_by_position": [
+        0.0014336655149236321,
+        0.00036498825647868216,
+        0.000310463277855888,
+        0.00025771764921955764,
+        0.00026335398433730006,
+        0.0003212789597455412
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.9999564290046692,
+      "relative_l2": 0.008003045804798603,
+      "cosine_by_position": [
+        0.9998801946640015,
+        0.9999785423278809,
+        0.9999781847000122,
+        0.9999707937240601,
+        0.9999666213989258,
+        0.9999637603759766
+      ],
+      "relative_l2_by_position": [
+        0.010766828432679176,
+        0.006290428340435028,
+        0.006555786356329918,
+        0.007609780877828598,
+        0.008220387622714043,
+        0.00857506226748228
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9999979734420776,
+      "relative_l2": 0.0013803653419017792,
+      "cosine_by_position": [
+        0.9999979734420776
+      ],
+      "relative_l2_by_position": [
+        0.0013803653419017792
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9998687505722046,
+      "relative_l2": 0.01069395150989294,
+      "cosine_by_position": [
+        0.9998687505722046
+      ],
+      "relative_l2_by_position": [
+        0.01069395150989294
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9998748302459717,
+      "relative_l2": 0.013773013837635517,
+      "cosine_by_position": [
+        0.9998748302459717
+      ],
+      "relative_l2_by_position": [
+        0.013773013837635517
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 0.9999998807907104,
+      "relative_l2": 0.00028542999643832445,
+      "cosine_by_position": [
+        0.9999998211860657,
+        0.9999999403953552
+      ],
+      "relative_l2_by_position": [
+        0.00035865185782313347,
+        0.00021220810594968498
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.9999876022338867,
+      "relative_l2": 0.003090796060860157,
+      "cosine_by_position": [
+        0.9999767541885376,
+        0.9999984502792358
+      ],
+      "relative_l2_by_position": [
+        0.0045962887816131115,
+        0.0015853035729378462
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9999459981918335,
+      "relative_l2": 0.008046481758356094,
+      "cosine_by_position": [
+        0.9999017715454102,
+        0.9999902248382568
+      ],
+      "relative_l2_by_position": [
+        0.011785036884248257,
+        0.004307928029447794
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 0.00014022266259416938,
+      "cosine_by_position": [
+        1.0,
+        0.9999999403953552,
+        1.0,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        0.00012013783270958811,
+        3.047471727768425e-05,
+        6.626999675063416e-05,
+        0.0003440081200096756
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 0.9999994039535522,
+      "relative_l2": 0.0007367271464318037,
+      "cosine_by_position": [
+        0.9999983906745911,
+        0.9999998211860657,
+        0.9999998807907104,
+        0.999999463558197
+      ],
+      "relative_l2_by_position": [
+        0.0013045438099652529,
+        0.0005100995767861605,
+        0.00040522791096009314,
+        0.000727037142496556
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.9999885559082031,
+      "relative_l2": 0.00337577098980546,
+      "cosine_by_position": [
+        0.9999621510505676,
+        0.9999958276748657,
+        0.9999988675117493,
+        0.9999973177909851
+      ],
+      "relative_l2_by_position": [
+        0.007182143162935972,
+        0.002723762998357415,
+        0.001463665277697146,
+        0.0021335117053240538
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 1.4433426258619875e-05,
+      "cosine_by_position": [
+        1.0,
+        0.9999999403953552,
+        0.9999999403953552,
+        1.0,
+        1.0,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        2.185524681408424e-05,
+        2.849171323759947e-06,
+        2.6559646357782185e-06,
+        4.9530144679010846e-06,
+        1.4448045476456173e-05,
+        3.983911665272899e-05
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 1.0,
+      "relative_l2": 0.00022554532915819436,
+      "cosine_by_position": [
+        0.9999997615814209,
+        1.0,
+        1.0,
+        0.9999998807907104,
+        1.0,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        0.0004289910430088639,
+        0.00015462793817277998,
+        0.0001264467282453552,
+        0.00015734326734673232,
+        0.00018449898925609887,
+        0.0003013640525750816
+      ]
+    },
+    {
+      "prompt_index": 0,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.9999982714653015,
+      "relative_l2": 0.0013061115751042962,
+      "cosine_by_position": [
+        0.999992847442627,
+        0.9999991655349731,
+        0.9999996423721313,
+        0.9999995231628418,
+        0.9999995231628418,
+        0.9999992251396179
+      ],
+      "relative_l2_by_position": [
+        0.003042637836188078,
+        0.0012750469613820314,
+        0.0007028705440461636,
+        0.000701155629940331,
+        0.0007740861619822681,
+        0.0013408740051090717
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9999768137931824,
+      "relative_l2": 0.006412644404917955,
+      "cosine_by_position": [
+        0.9999768137931824
+      ],
+      "relative_l2_by_position": [
+        0.006412644404917955
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9981597065925598,
+      "relative_l2": 0.04756379500031471,
+      "cosine_by_position": [
+        0.9981597065925598
+      ],
+      "relative_l2_by_position": [
+        0.04756379500031471
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9988899230957031,
+      "relative_l2": 0.043112918734550476,
+      "cosine_by_position": [
+        0.9988899230957031
+      ],
+      "relative_l2_by_position": [
+        0.043112918734550476
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 0.999994158744812,
+      "relative_l2": 0.002781930845230818,
+      "cosine_by_position": [
+        0.999995768070221,
+        0.9999924898147583
+      ],
+      "relative_l2_by_position": [
+        0.002687382511794567,
+        0.0028764791786670685
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.9998424053192139,
+      "relative_l2": 0.016001375392079353,
+      "cosine_by_position": [
+        0.9997884035110474,
+        0.9998964071273804
+      ],
+      "relative_l2_by_position": [
+        0.019009200856089592,
+        0.012993549928069115
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9992013573646545,
+      "relative_l2": 0.03234897926449776,
+      "cosine_by_position": [
+        0.9990131855010986,
+        0.9993895888328552
+      ],
+      "relative_l2_by_position": [
+        0.040887054055929184,
+        0.023810898885130882
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 0.9999998807907104,
+      "relative_l2": 0.00033383004483766854,
+      "cosine_by_position": [
+        0.9999995231628418,
+        0.9999998807907104,
+        1.0,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.0008189816726371646,
+        0.00023104653519112617,
+        0.0001671395293669775,
+        0.00011815234029199928
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 0.9999917149543762,
+      "relative_l2": 0.0027701593935489655,
+      "cosine_by_position": [
+        0.9999856948852539,
+        0.9999925494194031,
+        0.9999931454658508,
+        0.9999954700469971
+      ],
+      "relative_l2_by_position": [
+        0.004614846780896187,
+        0.0027391572948545218,
+        0.0021524608600884676,
+        0.001574172405526042
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.9995744824409485,
+      "relative_l2": 0.02037770487368107,
+      "cosine_by_position": [
+        0.9993122816085815,
+        0.9995672702789307,
+        0.9996911883354187,
+        0.9997272491455078
+      ],
+      "relative_l2_by_position": [
+        0.033375658094882965,
+        0.017386630177497864,
+        0.015003998763859272,
+        0.015744531527161598
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 2.4076411136775278e-05,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9999999403953552,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        7.003335485933349e-05,
+        2.9153612558729947e-05,
+        1.386399981129216e-05,
+        1.4303296666184906e-05,
+        7.2244429247803055e-06,
+        9.87975363386795e-06
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 0.9999998211860657,
+      "relative_l2": 0.0004350653325673193,
+      "cosine_by_position": [
+        0.9999992847442627,
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999998807907104,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.000942810089327395,
+        0.00046746284351684153,
+        0.000386300147511065,
+        0.0002826050913427025,
+        0.00026492931647226214,
+        0.0002662847109604627
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.999777615070343,
+      "relative_l2": 0.013522095046937466,
+      "cosine_by_position": [
+        0.9996638298034668,
+        0.999739944934845,
+        0.9998019337654114,
+        0.999819278717041,
+        0.9998234510421753,
+        0.9998177289962769
+      ],
+      "relative_l2_by_position": [
+        0.021789707243442535,
+        0.012298490852117538,
+        0.01112029142677784,
+        0.011693372391164303,
+        0.011969855055212975,
+        0.012260854244232178
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9999982118606567,
+      "relative_l2": 0.0014775808667764068,
+      "cosine_by_position": [
+        0.9999982118606567
+      ],
+      "relative_l2_by_position": [
+        0.0014775808667764068
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9997782707214355,
+      "relative_l2": 0.015617994591593742,
+      "cosine_by_position": [
+        0.9997782707214355
+      ],
+      "relative_l2_by_position": [
+        0.015617994591593742
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9998854398727417,
+      "relative_l2": 0.013229268603026867,
+      "cosine_by_position": [
+        0.9998854398727417
+      ],
+      "relative_l2_by_position": [
+        0.013229268603026867
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 0.9999998807907104,
+      "relative_l2": 0.0002591057273093611,
+      "cosine_by_position": [
+        0.9999998807907104,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.0003062865580432117,
+        0.00021192491112742573
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.99996018409729,
+      "relative_l2": 0.005241898819804192,
+      "cosine_by_position": [
+        0.9999374151229858,
+        0.9999829530715942
+      ],
+      "relative_l2_by_position": [
+        0.007841414771974087,
+        0.0026423835661262274
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9999172687530518,
+      "relative_l2": 0.008443906903266907,
+      "cosine_by_position": [
+        0.9999004602432251,
+        0.9999340772628784
+      ],
+      "relative_l2_by_position": [
+        0.012259948067367077,
+        0.004627863876521587
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 5.442934707389213e-05,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        4.9704740376910195e-05,
+        2.613529795780778e-05,
+        4.4597261876333505e-05,
+        9.728008444653824e-05
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 0.9999977350234985,
+      "relative_l2": 0.0008344293455593288,
+      "cosine_by_position": [
+        0.9999969005584717,
+        0.999996542930603,
+        0.9999973773956299,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        0.001190273673273623,
+        0.000992306973785162,
+        0.0009146186639554799,
+        0.00024051818763837218
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.9999372363090515,
+      "relative_l2": 0.005688260309398174,
+      "cosine_by_position": [
+        0.9999405145645142,
+        0.9999530911445618,
+        0.9999288320541382,
+        0.9999262690544128
+      ],
+      "relative_l2_by_position": [
+        0.009105052798986435,
+        0.003833820577710867,
+        0.004677617456763983,
+        0.005136549472808838
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 8.751762834435795e-06,
+      "cosine_by_position": [
+        1.0,
+        1.0000001192092896,
+        1.0,
+        1.0,
+        0.9999999403953552,
+        1.000000238418579
+      ],
+      "relative_l2_by_position": [
+        7.804463166394271e-06,
+        5.222133495408343e-06,
+        3.645876404334558e-06,
+        3.0950245673011523e-06,
+        8.460815479338635e-06,
+        2.428226980555337e-05
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 1.0,
+      "relative_l2": 0.0001463310472900048,
+      "cosine_by_position": [
+        0.9999998807907104,
+        0.9999999403953552,
+        0.9999999403953552,
+        1.0,
+        0.9999998807907104,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.00025098433252424,
+        0.0001763617037795484,
+        0.00016746207256801426,
+        5.209925438975915e-05,
+        7.098691276041791e-05,
+        0.0001600919058546424
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.9999595284461975,
+      "relative_l2": 0.004028643947094679,
+      "cosine_by_position": [
+        0.9999772310256958,
+        0.9999761581420898,
+        0.9999550580978394,
+        0.9999474287033081,
+        0.9999477863311768,
+        0.9999532699584961
+      ],
+      "relative_l2_by_position": [
+        0.005297355819493532,
+        0.0027044517919421196,
+        0.003700889414176345,
+        0.004193382803350687,
+        0.004247140605002642,
+        0.004028642550110817
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9997066855430603,
+      "relative_l2": 0.01633083075284958,
+      "cosine_by_position": [
+        0.9997066855430603
+      ],
+      "relative_l2_by_position": [
+        0.01633083075284958
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9929646849632263,
+      "relative_l2": 0.07968944311141968,
+      "cosine_by_position": [
+        0.9929646849632263
+      ],
+      "relative_l2_by_position": [
+        0.07968944311141968
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9964953064918518,
+      "relative_l2": 0.060578085482120514,
+      "cosine_by_position": [
+        0.9964953064918518
+      ],
+      "relative_l2_by_position": [
+        0.060578085482120514
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 0.9999657869338989,
+      "relative_l2": 0.004780732560902834,
+      "cosine_by_position": [
+        0.9999391436576843,
+        0.9999922513961792
+      ],
+      "relative_l2_by_position": [
+        0.0070896996185183525,
+        0.002471765736117959
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.9981614947319031,
+      "relative_l2": 0.034005306661129,
+      "cosine_by_position": [
+        0.9964276552200317,
+        0.999895453453064
+      ],
+      "relative_l2_by_position": [
+        0.05716926231980324,
+        0.010841351002454758
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9983198642730713,
+      "relative_l2": 0.035625215619802475,
+      "cosine_by_position": [
+        0.9967465400695801,
+        0.9998931884765625
+      ],
+      "relative_l2_by_position": [
+        0.058637529611587524,
+        0.012612897902727127
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 0.999997079372406,
+      "relative_l2": 0.0006962756742723286,
+      "cosine_by_position": [
+        0.9999883770942688,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.002425375860184431,
+        0.00014252495020627975,
+        0.00011429688311181962,
+        0.00010290503996657208
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 0.9999611377716064,
+      "relative_l2": 0.0035874550230801105,
+      "cosine_by_position": [
+        0.9998469352722168,
+        0.9999988079071045,
+        0.9999992847442627,
+        0.9999994039535522
+      ],
+      "relative_l2_by_position": [
+        0.010959519073367119,
+        0.0013679822441190481,
+        0.0010571605525910854,
+        0.0009651577565819025
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.999413251876831,
+      "relative_l2": 0.01794762723147869,
+      "cosine_by_position": [
+        0.997759997844696,
+        0.9999642372131348,
+        0.9999675750732422,
+        0.9999611377716064
+      ],
+      "relative_l2_by_position": [
+        0.048730287700891495,
+        0.007699067238718271,
+        0.007203153800219297,
+        0.008157995529472828
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 3.804462539847009e-05,
+      "cosine_by_position": [
+        0.9999998807907104,
+        0.9999999403953552,
+        1.0,
+        1.0,
+        1.0000001192092896,
+        0.9999999403953552
+      ],
+      "relative_l2_by_position": [
+        0.00018057506531476974,
+        1.3251106793177314e-05,
+        1.0796647984534502e-05,
+        9.5421291916864e-06,
+        5.9597236941044684e-06,
+        8.143086233758368e-06
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 0.9999991059303284,
+      "relative_l2": 0.0005360482027754188,
+      "cosine_by_position": [
+        0.9999948143959045,
+        0.9999998807907104,
+        1.0,
+        1.0,
+        1.0,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        0.002169771119952202,
+        0.000281335785984993,
+        0.0002233145060017705,
+        0.00018630517297424376,
+        0.00017925325664691627,
+        0.00017630925867706537
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.9999237060546875,
+      "relative_l2": 0.007603058125823736,
+      "cosine_by_position": [
+        0.9996153712272644,
+        0.9999866485595703,
+        0.999987006187439,
+        0.9999850988388062,
+        0.9999852180480957,
+        0.9999831914901733
+      ],
+      "relative_l2_by_position": [
+        0.021713541820645332,
+        0.004535888321697712,
+        0.0043777283281087875,
+        0.004848347045481205,
+        0.004984228406101465,
+        0.005158616229891777
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9999967813491821,
+      "relative_l2": 0.0022265459410846233,
+      "cosine_by_position": [
+        0.9999967813491821
+      ],
+      "relative_l2_by_position": [
+        0.0022265459410846233
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9995980262756348,
+      "relative_l2": 0.01964469626545906,
+      "cosine_by_position": [
+        0.9995980262756348
+      ],
+      "relative_l2_by_position": [
+        0.01964469626545906
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9996669292449951,
+      "relative_l2": 0.021426666527986526,
+      "cosine_by_position": [
+        0.9996669292449951
+      ],
+      "relative_l2_by_position": [
+        0.021426666527986526
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 0.9999996423721313,
+      "relative_l2": 0.0006102629704400897,
+      "cosine_by_position": [
+        0.9999996423721313,
+        0.9999996423721313
+      ],
+      "relative_l2_by_position": [
+        0.0006914461264386773,
+        0.0005290798144415021
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.9999650716781616,
+      "relative_l2": 0.006069729570299387,
+      "cosine_by_position": [
+        0.9999376535415649,
+        0.9999925494194031
+      ],
+      "relative_l2_by_position": [
+        0.009148601442575455,
+        0.0029908576980233192
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9998879432678223,
+      "relative_l2": 0.00960027240216732,
+      "cosine_by_position": [
+        0.9997779130935669,
+        0.9999979734420776
+      ],
+      "relative_l2_by_position": [
+        0.017334232106804848,
+        0.0018663133960217237
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 7.170805474743247e-05,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0000001192092896
+      ],
+      "relative_l2_by_position": [
+        0.00022472465934697539,
+        8.228394108300563e-06,
+        9.465700713917613e-06,
+        4.4413456635084e-05
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 0.999998927116394,
+      "relative_l2": 0.0008087850292213261,
+      "cosine_by_position": [
+        0.9999958276748657,
+        0.9999998807907104,
+        1.0,
+        0.9999999403953552
+      ],
+      "relative_l2_by_position": [
+        0.0023876987397670746,
+        0.0003069972153753042,
+        0.0002331082650925964,
+        0.0003073359257541597
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.9999706149101257,
+      "relative_l2": 0.0039450121112167835,
+      "cosine_by_position": [
+        0.9998845458030701,
+        0.9999991655349731,
+        0.9999995231628418,
+        0.9999992847442627
+      ],
+      "relative_l2_by_position": [
+        0.012535180896520615,
+        0.001215048716403544,
+        0.0009665262186899781,
+        0.0010632926132529974
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 7.451113106071716e-06,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        3.0264298402471468e-05,
+        1.546805833640974e-06,
+        2.2076708319218596e-06,
+        1.9722015167644713e-06,
+        2.6224274733976927e-06,
+        6.093273441365454e-06
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 1.0,
+      "relative_l2": 0.0001472378644393757,
+      "cosine_by_position": [
+        0.9999995231628418,
+        1.0,
+        1.0,
+        0.9999999403953552,
+        1.0,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        0.0006749883177690208,
+        3.496852150419727e-05,
+        3.6450001061894e-05,
+        3.829765773843974e-05,
+        4.141205863561481e-05,
+        5.731067722081207e-05
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.9999939799308777,
+      "relative_l2": 0.0016358810244128108,
+      "cosine_by_position": [
+        0.9999646544456482,
+        0.9999997615814209,
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999998807907104
+      ],
+      "relative_l2_by_position": [
+        0.006961672566831112,
+        0.0006220635259523988,
+        0.0005009057349525392,
+        0.0005657633882947266,
+        0.0005928160389885306,
+        0.0005720639019273221
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9999992251396179,
+      "relative_l2": 0.0008723556529730558,
+      "cosine_by_position": [
+        0.9999992251396179
+      ],
+      "relative_l2_by_position": [
+        0.0008723556529730558
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9957360625267029,
+      "relative_l2": 0.04881482943892479,
+      "cosine_by_position": [
+        0.9957360625267029
+      ],
+      "relative_l2_by_position": [
+        0.04881482943892479
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9997464418411255,
+      "relative_l2": 0.02198229543864727,
+      "cosine_by_position": [
+        0.9997464418411255
+      ],
+      "relative_l2_by_position": [
+        0.02198229543864727
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 0.9999998211860657,
+      "relative_l2": 0.00046028889482840896,
+      "cosine_by_position": [
+        0.9999998807907104,
+        0.9999997615814209
+      ],
+      "relative_l2_by_position": [
+        0.00036116846604272723,
+        0.0005594093236140907
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.9999762177467346,
+      "relative_l2": 0.005089445039629936,
+      "cosine_by_position": [
+        0.9999634027481079,
+        0.9999889135360718
+      ],
+      "relative_l2_by_position": [
+        0.006178257055580616,
+        0.0040006330236792564
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9998327493667603,
+      "relative_l2": 0.01816580630838871,
+      "cosine_by_position": [
+        0.9997867345809937,
+        0.9998787641525269
+      ],
+      "relative_l2_by_position": [
+        0.020331453531980515,
+        0.016000159084796906
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 5.353916640160605e-05,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        9.692415915196761e-05,
+        4.445477679837495e-05,
+        3.224077954655513e-05,
+        4.053694647154771e-05
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 0.9999991655349731,
+      "relative_l2": 0.0011342744110152125,
+      "cosine_by_position": [
+        0.9999984502792358,
+        0.9999991655349731,
+        0.9999994039535522,
+        0.999999463558197
+      ],
+      "relative_l2_by_position": [
+        0.0015150300459936261,
+        0.0011431846069172025,
+        0.0009826994501054287,
+        0.000896183424629271
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.9998890161514282,
+      "relative_l2": 0.015096744522452354,
+      "cosine_by_position": [
+        0.9998524785041809,
+        0.9999146461486816,
+        0.9999009370803833,
+        0.9998880624771118
+      ],
+      "relative_l2_by_position": [
+        0.01694842427968979,
+        0.013148532249033451,
+        0.014558297581970692,
+        0.015731727704405785
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 6.5550702856853604e-06,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9999998807907104,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        1.454775429010624e-05,
+        8.552031431463547e-06,
+        6.413773007807322e-06,
+        2.8746749194397125e-06,
+        1.911825393108302e-06,
+        5.03036062582396e-06
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 1.0,
+      "relative_l2": 0.00022647545847576112,
+      "cosine_by_position": [
+        0.9999998211860657,
+        1.0,
+        1.0,
+        1.0,
+        0.9999999403953552,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.00043202919187024236,
+        0.0002421325189061463,
+        0.0001929675054270774,
+        0.00016554701142013073,
+        0.00016300876450259238,
+        0.00016316781693603843
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 1,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.9999303221702576,
+      "relative_l2": 0.01191072165966034,
+      "cosine_by_position": [
+        0.9999269843101501,
+        0.9999455809593201,
+        0.9999363422393799,
+        0.9999270439147949,
+        0.9999237656593323,
+        0.999921977519989
+      ],
+      "relative_l2_by_position": [
+        0.011971203610301018,
+        0.010030032135546207,
+        0.011311816982924938,
+        0.012370208278298378,
+        0.012768002226948738,
+        0.013013072311878204
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "mean",
+      "cosine": 0.9999994039535522,
+      "relative_l2": 0.0008880846435204148,
+      "cosine_by_position": [
+        0.9999994039535522
+      ],
+      "relative_l2_by_position": [
+        0.0008880846435204148
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "copy_previous",
+      "cosine": 0.9999973773956299,
+      "relative_l2": 0.0018616423476487398,
+      "cosine_by_position": [
+        0.9999973773956299
+      ],
+      "relative_l2_by_position": [
+        0.0018616423476487398
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 1,
+      "mode": "zero",
+      "cosine": 0.9999958276748657,
+      "relative_l2": 0.0024839467369019985,
+      "cosine_by_position": [
+        0.9999958276748657
+      ],
+      "relative_l2_by_position": [
+        0.0024839467369019985
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 0.00010618517990224063,
+      "cosine_by_position": [
+        1.0,
+        0.9999999403953552
+      ],
+      "relative_l2_by_position": [
+        4.520406946539879e-05,
+        0.00016716629033908248
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "copy_previous",
+      "cosine": 0.9999978542327881,
+      "relative_l2": 0.0013879176694899797,
+      "cosine_by_position": [
+        0.9999991655349731,
+        0.9999966025352478
+      ],
+      "relative_l2_by_position": [
+        0.0009108529193326831,
+        0.0018649825360625982
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 2,
+      "mode": "zero",
+      "cosine": 0.9999916553497314,
+      "relative_l2": 0.002531039994210005,
+      "cosine_by_position": [
+        0.9999974370002747,
+        0.9999858140945435
+      ],
+      "relative_l2_by_position": [
+        0.0018365400610491633,
+        0.0032255402766168118
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 1.5828487448743545e-05,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        8.234539564000443e-06,
+        2.5197812647093087e-05,
+        9.794055586098693e-06,
+        2.0087545635760762e-05
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "copy_previous",
+      "cosine": 1.0,
+      "relative_l2": 0.0001440695341443643,
+      "cosine_by_position": [
+        1.0,
+        0.9999999403953552,
+        0.9999999403953552,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.00012100658204872161,
+        0.0002584978938102722,
+        0.00013050327834207565,
+        6.627043330809101e-05
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 4,
+      "mode": "zero",
+      "cosine": 0.999998152256012,
+      "relative_l2": 0.0011254216078668833,
+      "cosine_by_position": [
+        0.9999987483024597,
+        0.9999951720237732,
+        0.9999986886978149,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        0.0012694589095190167,
+        0.002017162973061204,
+        0.0009227567352354527,
+        0.00029230775544419885
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "mean",
+      "cosine": 1.0,
+      "relative_l2": 1.5408198805744178e-06,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        0.9999998807907104,
+        1.0,
+        0.9999999403953552,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        1.010391997624538e-06,
+        2.604161181807285e-06,
+        1.043985434989736e-06,
+        4.4052211478629033e-07,
+        1.1062054454669124e-06,
+        3.039652256120462e-06
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "copy_previous",
+      "cosine": 1.0,
+      "relative_l2": 2.984878847200889e-05,
+      "cosine_by_position": [
+        1.0,
+        1.0,
+        0.9999999403953552,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "relative_l2_by_position": [
+        4.267577241989784e-05,
+        6.869350181659684e-05,
+        3.340977127663791e-05,
+        8.13702899904456e-06,
+        9.295236850448418e-06,
+        1.688142219791189e-05
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "after_layer": 2,
+      "protected_prefix": 6,
+      "mode": "zero",
+      "cosine": 0.9999997615814209,
+      "relative_l2": 0.00039673838182352483,
+      "cosine_by_position": [
+        0.9999997615814209,
+        0.9999992847442627,
+        0.9999995231628418,
+        1.0,
+        1.0,
+        0.9999999403953552
+      ],
+      "relative_l2_by_position": [
+        0.000597260775975883,
+        0.0008536827517673373,
+        0.0004907016409561038,
+        0.0001479699567425996,
+        0.00014466687571257353,
+        0.00014614814426749945
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9958303272724152,
+      "mean_relative_l2": 0.05494653806090355,
+      "mode": "copy_previous",
+      "protected_prefix": 1,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9992429316043854,
+      "mean_relative_l2": 0.018202621955424547,
+      "mode": "copy_previous",
+      "protected_prefix": 2,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.999985009431839,
+      "mean_relative_l2": 0.0024285328399855644,
+      "mode": "copy_previous",
+      "protected_prefix": 4,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9999995529651642,
+      "mean_relative_l2": 0.00042237506204401143,
+      "mode": "copy_previous",
+      "protected_prefix": 6,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9998860210180283,
+      "mean_relative_l2": 0.007708999968599528,
+      "mode": "mean",
+      "protected_prefix": 1,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9999874383211136,
+      "mean_relative_l2": 0.0025086907407967374,
+      "mode": "mean",
+      "protected_prefix": 2,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9999988377094269,
+      "mean_relative_l2": 0.0003890000061801402,
+      "mode": "mean",
+      "protected_prefix": 4,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 1.0,
+      "mean_relative_l2": 2.3407826120092068e-05,
+      "mode": "mean",
+      "protected_prefix": 6,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9984243214130402,
+      "mean_relative_l2": 0.039477437268942595,
+      "mode": "zero",
+      "protected_prefix": 1,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9991323798894882,
+      "mean_relative_l2": 0.02751684607937932,
+      "mode": "zero",
+      "protected_prefix": 2,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.999641552567482,
+      "mean_relative_l2": 0.01704456005245447,
+      "mode": "zero",
+      "protected_prefix": 4,
+      "samples": 4
+    },
+    {
+      "after_layer": 1,
+      "mean_cosine": 0.9998970180749893,
+      "mean_relative_l2": 0.010259730159305036,
+      "mode": "zero",
+      "protected_prefix": 6,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9998106062412262,
+      "mean_relative_l2": 0.01195457117864862,
+      "mode": "copy_previous",
+      "protected_prefix": 1,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9999776780605316,
+      "mean_relative_l2": 0.003947585530113429,
+      "mode": "copy_previous",
+      "protected_prefix": 2,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9999990165233612,
+      "mean_relative_l2": 0.0006310027638392057,
+      "mode": "copy_previous",
+      "protected_prefix": 4,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 1.0,
+      "mean_relative_l2": 0.00013724075733989594,
+      "mode": "copy_previous",
+      "protected_prefix": 6,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9999980926513672,
+      "mean_relative_l2": 0.001493144198320806,
+      "mode": "mean",
+      "protected_prefix": 1,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9999998509883881,
+      "mean_relative_l2": 0.00031524596852250397,
+      "mode": "mean",
+      "protected_prefix": 2,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 1.0,
+      "mean_relative_l2": 7.054713796605938e-05,
+      "mode": "mean",
+      "protected_prefix": 4,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 1.0,
+      "mean_relative_l2": 8.04428051992545e-06,
+      "mode": "mean",
+      "protected_prefix": 6,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9998557567596436,
+      "mean_relative_l2": 0.012728223926387727,
+      "mode": "zero",
+      "protected_prefix": 1,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9999357163906097,
+      "mean_relative_l2": 0.0071554252645000815,
+      "mode": "zero",
+      "protected_prefix": 2,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9999736398458481,
+      "mean_relative_l2": 0.0035336162545718253,
+      "mode": "zero",
+      "protected_prefix": 4,
+      "samples": 4
+    },
+    {
+      "after_layer": 2,
+      "mean_cosine": 0.9999878853559494,
+      "mean_relative_l2": 0.0018418437321088277,
+      "mode": "zero",
+      "protected_prefix": 6,
+      "samples": 4
+    }
+  ],
+  "mapping_warning": "no token acceptance is inferred; this is activation geometry only",
+  "tail_definition": "positions after protected_prefix are perturbed after the selected draft layer",
+  "per_prompt": [
+    {
+      "prompt_index": 0,
+      "prompt": "Explain why memory bandwidth matters for neural network inference.",
+      "records": [
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9998613595962524,
+          "relative_l2": 0.007220169063657522,
+          "cosine_by_position": [
+            0.9998613595962524
+          ],
+          "relative_l2_by_position": [
+            0.007220169063657522
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9964608550071716,
+          "relative_l2": 0.04371808469295502,
+          "cosine_by_position": [
+            0.9964608550071716
+          ],
+          "relative_l2_by_position": [
+            0.04371808469295502
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9985656142234802,
+          "relative_l2": 0.03223644942045212,
+          "cosine_by_position": [
+            0.9985656142234802
+          ],
+          "relative_l2_by_position": [
+            0.03223644942045212
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 0.9999899864196777,
+          "relative_l2": 0.002011810662224889,
+          "cosine_by_position": [
+            0.9999828338623047,
+            0.9999971985816956
+          ],
+          "relative_l2_by_position": [
+            0.0026815214660018682,
+            0.001342099392786622
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.9989916086196899,
+          "relative_l2": 0.0177143607288599,
+          "cosine_by_position": [
+            0.9980996251106262,
+            0.9998836517333984
+          ],
+          "relative_l2_by_position": [
+            0.026812870055437088,
+            0.008615853264927864
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9991755485534668,
+          "relative_l2": 0.02392738312482834,
+          "cosine_by_position": [
+            0.9985232353210449,
+            0.9998278617858887
+          ],
+          "relative_l2_by_position": [
+            0.03161191567778587,
+            0.016242848709225655
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 0.9999983906745911,
+          "relative_l2": 0.00047235513920895755,
+          "cosine_by_position": [
+            0.9999936819076538,
+            0.9999999403953552,
+            0.9999999403953552,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.0014411660376936197,
+            0.00013595513883046806,
+            0.00012848572805523872,
+            0.00018381357949692756
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 0.9999880194664001,
+          "relative_l2": 0.002222242532297969,
+          "cosine_by_position": [
+            0.9999570250511169,
+            0.9999983906745911,
+            0.9999980926513672,
+            0.9999985694885254
+          ],
+          "relative_l2_by_position": [
+            0.0048750294372439384,
+            0.001415999373421073,
+            0.0013469196856021881,
+            0.0012510217493399978
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.9996894598007202,
+          "relative_l2": 0.014756163582205772,
+          "cosine_by_position": [
+            0.9989393949508667,
+            0.9999425411224365,
+            0.999943733215332,
+            0.9999322295188904
+          ],
+          "relative_l2_by_position": [
+            0.02603387087583542,
+            0.010451721027493477,
+            0.010704847984015942,
+            0.011834217235445976
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 2.4955197659437545e-05,
+          "cosine_by_position": [
+            0.9999999403953552,
+            0.9999999403953552,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            7.307119813049212e-05,
+            9.31609611143358e-06,
+            7.798020305926912e-06,
+            7.626900696777739e-06,
+            1.3518186278815847e-05,
+            3.8400787161663175e-05
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 0.9999992847442627,
+          "relative_l2": 0.0004919112543575466,
+          "cosine_by_position": [
+            0.9999960064888,
+            0.9999998807907104,
+            0.9999998807907104,
+            0.9999998807907104,
+            0.9999999403953552,
+            0.9999999403953552
+          ],
+          "relative_l2_by_position": [
+            0.0014336655149236321,
+            0.00036498825647868216,
+            0.000310463277855888,
+            0.00025771764921955764,
+            0.00026335398433730006,
+            0.0003212789597455412
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.9999564290046692,
+          "relative_l2": 0.008003045804798603,
+          "cosine_by_position": [
+            0.9998801946640015,
+            0.9999785423278809,
+            0.9999781847000122,
+            0.9999707937240601,
+            0.9999666213989258,
+            0.9999637603759766
+          ],
+          "relative_l2_by_position": [
+            0.010766828432679176,
+            0.006290428340435028,
+            0.006555786356329918,
+            0.007609780877828598,
+            0.008220387622714043,
+            0.00857506226748228
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9999979734420776,
+          "relative_l2": 0.0013803653419017792,
+          "cosine_by_position": [
+            0.9999979734420776
+          ],
+          "relative_l2_by_position": [
+            0.0013803653419017792
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9998687505722046,
+          "relative_l2": 0.01069395150989294,
+          "cosine_by_position": [
+            0.9998687505722046
+          ],
+          "relative_l2_by_position": [
+            0.01069395150989294
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9998748302459717,
+          "relative_l2": 0.013773013837635517,
+          "cosine_by_position": [
+            0.9998748302459717
+          ],
+          "relative_l2_by_position": [
+            0.013773013837635517
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 0.9999998807907104,
+          "relative_l2": 0.00028542999643832445,
+          "cosine_by_position": [
+            0.9999998211860657,
+            0.9999999403953552
+          ],
+          "relative_l2_by_position": [
+            0.00035865185782313347,
+            0.00021220810594968498
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.9999876022338867,
+          "relative_l2": 0.003090796060860157,
+          "cosine_by_position": [
+            0.9999767541885376,
+            0.9999984502792358
+          ],
+          "relative_l2_by_position": [
+            0.0045962887816131115,
+            0.0015853035729378462
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9999459981918335,
+          "relative_l2": 0.008046481758356094,
+          "cosine_by_position": [
+            0.9999017715454102,
+            0.9999902248382568
+          ],
+          "relative_l2_by_position": [
+            0.011785036884248257,
+            0.004307928029447794
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 0.00014022266259416938,
+          "cosine_by_position": [
+            1.0,
+            0.9999999403953552,
+            1.0,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            0.00012013783270958811,
+            3.047471727768425e-05,
+            6.626999675063416e-05,
+            0.0003440081200096756
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 0.9999994039535522,
+          "relative_l2": 0.0007367271464318037,
+          "cosine_by_position": [
+            0.9999983906745911,
+            0.9999998211860657,
+            0.9999998807907104,
+            0.999999463558197
+          ],
+          "relative_l2_by_position": [
+            0.0013045438099652529,
+            0.0005100995767861605,
+            0.00040522791096009314,
+            0.000727037142496556
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.9999885559082031,
+          "relative_l2": 0.00337577098980546,
+          "cosine_by_position": [
+            0.9999621510505676,
+            0.9999958276748657,
+            0.9999988675117493,
+            0.9999973177909851
+          ],
+          "relative_l2_by_position": [
+            0.007182143162935972,
+            0.002723762998357415,
+            0.001463665277697146,
+            0.0021335117053240538
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 1.4433426258619875e-05,
+          "cosine_by_position": [
+            1.0,
+            0.9999999403953552,
+            0.9999999403953552,
+            1.0,
+            1.0,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            2.185524681408424e-05,
+            2.849171323759947e-06,
+            2.6559646357782185e-06,
+            4.9530144679010846e-06,
+            1.4448045476456173e-05,
+            3.983911665272899e-05
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 1.0,
+          "relative_l2": 0.00022554532915819436,
+          "cosine_by_position": [
+            0.9999997615814209,
+            1.0,
+            1.0,
+            0.9999998807907104,
+            1.0,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            0.0004289910430088639,
+            0.00015462793817277998,
+            0.0001264467282453552,
+            0.00015734326734673232,
+            0.00018449898925609887,
+            0.0003013640525750816
+          ]
+        },
+        {
+          "prompt_index": 0,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.9999982714653015,
+          "relative_l2": 0.0013061115751042962,
+          "cosine_by_position": [
+            0.999992847442627,
+            0.9999991655349731,
+            0.9999996423721313,
+            0.9999995231628418,
+            0.9999995231628418,
+            0.9999992251396179
+          ],
+          "relative_l2_by_position": [
+            0.003042637836188078,
+            0.0012750469613820314,
+            0.0007028705440461636,
+            0.000701155629940331,
+            0.0007740861619822681,
+            0.0013408740051090717
+          ]
+        }
+      ]
+    },
+    {
+      "prompt_index": 1,
+      "prompt": "Compare a monolithic accelerator with a chiplet-based accelerator.",
+      "records": [
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9999768137931824,
+          "relative_l2": 0.006412644404917955,
+          "cosine_by_position": [
+            0.9999768137931824
+          ],
+          "relative_l2_by_position": [
+            0.006412644404917955
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9981597065925598,
+          "relative_l2": 0.04756379500031471,
+          "cosine_by_position": [
+            0.9981597065925598
+          ],
+          "relative_l2_by_position": [
+            0.04756379500031471
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9988899230957031,
+          "relative_l2": 0.043112918734550476,
+          "cosine_by_position": [
+            0.9988899230957031
+          ],
+          "relative_l2_by_position": [
+            0.043112918734550476
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 0.999994158744812,
+          "relative_l2": 0.002781930845230818,
+          "cosine_by_position": [
+            0.999995768070221,
+            0.9999924898147583
+          ],
+          "relative_l2_by_position": [
+            0.002687382511794567,
+            0.0028764791786670685
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.9998424053192139,
+          "relative_l2": 0.016001375392079353,
+          "cosine_by_position": [
+            0.9997884035110474,
+            0.9998964071273804
+          ],
+          "relative_l2_by_position": [
+            0.019009200856089592,
+            0.012993549928069115
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9992013573646545,
+          "relative_l2": 0.03234897926449776,
+          "cosine_by_position": [
+            0.9990131855010986,
+            0.9993895888328552
+          ],
+          "relative_l2_by_position": [
+            0.040887054055929184,
+            0.023810898885130882
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 0.9999998807907104,
+          "relative_l2": 0.00033383004483766854,
+          "cosine_by_position": [
+            0.9999995231628418,
+            0.9999998807907104,
+            1.0,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.0008189816726371646,
+            0.00023104653519112617,
+            0.0001671395293669775,
+            0.00011815234029199928
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 0.9999917149543762,
+          "relative_l2": 0.0027701593935489655,
+          "cosine_by_position": [
+            0.9999856948852539,
+            0.9999925494194031,
+            0.9999931454658508,
+            0.9999954700469971
+          ],
+          "relative_l2_by_position": [
+            0.004614846780896187,
+            0.0027391572948545218,
+            0.0021524608600884676,
+            0.001574172405526042
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.9995744824409485,
+          "relative_l2": 0.02037770487368107,
+          "cosine_by_position": [
+            0.9993122816085815,
+            0.9995672702789307,
+            0.9996911883354187,
+            0.9997272491455078
+          ],
+          "relative_l2_by_position": [
+            0.033375658094882965,
+            0.017386630177497864,
+            0.015003998763859272,
+            0.015744531527161598
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 2.4076411136775278e-05,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.9999999403953552,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            7.003335485933349e-05,
+            2.9153612558729947e-05,
+            1.386399981129216e-05,
+            1.4303296666184906e-05,
+            7.2244429247803055e-06,
+            9.87975363386795e-06
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 0.9999998211860657,
+          "relative_l2": 0.0004350653325673193,
+          "cosine_by_position": [
+            0.9999992847442627,
+            0.9999998807907104,
+            0.9999998807907104,
+            0.9999998807907104,
+            0.9999998807907104,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.000942810089327395,
+            0.00046746284351684153,
+            0.000386300147511065,
+            0.0002826050913427025,
+            0.00026492931647226214,
+            0.0002662847109604627
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.999777615070343,
+          "relative_l2": 0.013522095046937466,
+          "cosine_by_position": [
+            0.9996638298034668,
+            0.999739944934845,
+            0.9998019337654114,
+            0.999819278717041,
+            0.9998234510421753,
+            0.9998177289962769
+          ],
+          "relative_l2_by_position": [
+            0.021789707243442535,
+            0.012298490852117538,
+            0.01112029142677784,
+            0.011693372391164303,
+            0.011969855055212975,
+            0.012260854244232178
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9999982118606567,
+          "relative_l2": 0.0014775808667764068,
+          "cosine_by_position": [
+            0.9999982118606567
+          ],
+          "relative_l2_by_position": [
+            0.0014775808667764068
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9997782707214355,
+          "relative_l2": 0.015617994591593742,
+          "cosine_by_position": [
+            0.9997782707214355
+          ],
+          "relative_l2_by_position": [
+            0.015617994591593742
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9998854398727417,
+          "relative_l2": 0.013229268603026867,
+          "cosine_by_position": [
+            0.9998854398727417
+          ],
+          "relative_l2_by_position": [
+            0.013229268603026867
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 0.9999998807907104,
+          "relative_l2": 0.0002591057273093611,
+          "cosine_by_position": [
+            0.9999998807907104,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.0003062865580432117,
+            0.00021192491112742573
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.99996018409729,
+          "relative_l2": 0.005241898819804192,
+          "cosine_by_position": [
+            0.9999374151229858,
+            0.9999829530715942
+          ],
+          "relative_l2_by_position": [
+            0.007841414771974087,
+            0.0026423835661262274
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9999172687530518,
+          "relative_l2": 0.008443906903266907,
+          "cosine_by_position": [
+            0.9999004602432251,
+            0.9999340772628784
+          ],
+          "relative_l2_by_position": [
+            0.012259948067367077,
+            0.004627863876521587
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 5.442934707389213e-05,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            4.9704740376910195e-05,
+            2.613529795780778e-05,
+            4.4597261876333505e-05,
+            9.728008444653824e-05
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 0.9999977350234985,
+          "relative_l2": 0.0008344293455593288,
+          "cosine_by_position": [
+            0.9999969005584717,
+            0.999996542930603,
+            0.9999973773956299,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            0.001190273673273623,
+            0.000992306973785162,
+            0.0009146186639554799,
+            0.00024051818763837218
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.9999372363090515,
+          "relative_l2": 0.005688260309398174,
+          "cosine_by_position": [
+            0.9999405145645142,
+            0.9999530911445618,
+            0.9999288320541382,
+            0.9999262690544128
+          ],
+          "relative_l2_by_position": [
+            0.009105052798986435,
+            0.003833820577710867,
+            0.004677617456763983,
+            0.005136549472808838
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 8.751762834435795e-06,
+          "cosine_by_position": [
+            1.0,
+            1.0000001192092896,
+            1.0,
+            1.0,
+            0.9999999403953552,
+            1.000000238418579
+          ],
+          "relative_l2_by_position": [
+            7.804463166394271e-06,
+            5.222133495408343e-06,
+            3.645876404334558e-06,
+            3.0950245673011523e-06,
+            8.460815479338635e-06,
+            2.428226980555337e-05
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 1.0,
+          "relative_l2": 0.0001463310472900048,
+          "cosine_by_position": [
+            0.9999998807907104,
+            0.9999999403953552,
+            0.9999999403953552,
+            1.0,
+            0.9999998807907104,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.00025098433252424,
+            0.0001763617037795484,
+            0.00016746207256801426,
+            5.209925438975915e-05,
+            7.098691276041791e-05,
+            0.0001600919058546424
+          ]
+        },
+        {
+          "prompt_index": 1,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.9999595284461975,
+          "relative_l2": 0.004028643947094679,
+          "cosine_by_position": [
+            0.9999772310256958,
+            0.9999761581420898,
+            0.9999550580978394,
+            0.9999474287033081,
+            0.9999477863311768,
+            0.9999532699584961
+          ],
+          "relative_l2_by_position": [
+            0.005297355819493532,
+            0.0027044517919421196,
+            0.003700889414176345,
+            0.004193382803350687,
+            0.004247140605002642,
+            0.004028642550110817
+          ]
+        }
+      ]
+    },
+    {
+      "prompt_index": 2,
+      "prompt": "Give a concise definition of speculative decoding.",
+      "records": [
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9997066855430603,
+          "relative_l2": 0.01633083075284958,
+          "cosine_by_position": [
+            0.9997066855430603
+          ],
+          "relative_l2_by_position": [
+            0.01633083075284958
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9929646849632263,
+          "relative_l2": 0.07968944311141968,
+          "cosine_by_position": [
+            0.9929646849632263
+          ],
+          "relative_l2_by_position": [
+            0.07968944311141968
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9964953064918518,
+          "relative_l2": 0.060578085482120514,
+          "cosine_by_position": [
+            0.9964953064918518
+          ],
+          "relative_l2_by_position": [
+            0.060578085482120514
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 0.9999657869338989,
+          "relative_l2": 0.004780732560902834,
+          "cosine_by_position": [
+            0.9999391436576843,
+            0.9999922513961792
+          ],
+          "relative_l2_by_position": [
+            0.0070896996185183525,
+            0.002471765736117959
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.9981614947319031,
+          "relative_l2": 0.034005306661129,
+          "cosine_by_position": [
+            0.9964276552200317,
+            0.999895453453064
+          ],
+          "relative_l2_by_position": [
+            0.05716926231980324,
+            0.010841351002454758
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9983198642730713,
+          "relative_l2": 0.035625215619802475,
+          "cosine_by_position": [
+            0.9967465400695801,
+            0.9998931884765625
+          ],
+          "relative_l2_by_position": [
+            0.058637529611587524,
+            0.012612897902727127
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 0.999997079372406,
+          "relative_l2": 0.0006962756742723286,
+          "cosine_by_position": [
+            0.9999883770942688,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.002425375860184431,
+            0.00014252495020627975,
+            0.00011429688311181962,
+            0.00010290503996657208
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 0.9999611377716064,
+          "relative_l2": 0.0035874550230801105,
+          "cosine_by_position": [
+            0.9998469352722168,
+            0.9999988079071045,
+            0.9999992847442627,
+            0.9999994039535522
+          ],
+          "relative_l2_by_position": [
+            0.010959519073367119,
+            0.0013679822441190481,
+            0.0010571605525910854,
+            0.0009651577565819025
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.999413251876831,
+          "relative_l2": 0.01794762723147869,
+          "cosine_by_position": [
+            0.997759997844696,
+            0.9999642372131348,
+            0.9999675750732422,
+            0.9999611377716064
+          ],
+          "relative_l2_by_position": [
+            0.048730287700891495,
+            0.007699067238718271,
+            0.007203153800219297,
+            0.008157995529472828
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 3.804462539847009e-05,
+          "cosine_by_position": [
+            0.9999998807907104,
+            0.9999999403953552,
+            1.0,
+            1.0,
+            1.0000001192092896,
+            0.9999999403953552
+          ],
+          "relative_l2_by_position": [
+            0.00018057506531476974,
+            1.3251106793177314e-05,
+            1.0796647984534502e-05,
+            9.5421291916864e-06,
+            5.9597236941044684e-06,
+            8.143086233758368e-06
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 0.9999991059303284,
+          "relative_l2": 0.0005360482027754188,
+          "cosine_by_position": [
+            0.9999948143959045,
+            0.9999998807907104,
+            1.0,
+            1.0,
+            1.0,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            0.002169771119952202,
+            0.000281335785984993,
+            0.0002233145060017705,
+            0.00018630517297424376,
+            0.00017925325664691627,
+            0.00017630925867706537
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.9999237060546875,
+          "relative_l2": 0.007603058125823736,
+          "cosine_by_position": [
+            0.9996153712272644,
+            0.9999866485595703,
+            0.999987006187439,
+            0.9999850988388062,
+            0.9999852180480957,
+            0.9999831914901733
+          ],
+          "relative_l2_by_position": [
+            0.021713541820645332,
+            0.004535888321697712,
+            0.0043777283281087875,
+            0.004848347045481205,
+            0.004984228406101465,
+            0.005158616229891777
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9999967813491821,
+          "relative_l2": 0.0022265459410846233,
+          "cosine_by_position": [
+            0.9999967813491821
+          ],
+          "relative_l2_by_position": [
+            0.0022265459410846233
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9995980262756348,
+          "relative_l2": 0.01964469626545906,
+          "cosine_by_position": [
+            0.9995980262756348
+          ],
+          "relative_l2_by_position": [
+            0.01964469626545906
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9996669292449951,
+          "relative_l2": 0.021426666527986526,
+          "cosine_by_position": [
+            0.9996669292449951
+          ],
+          "relative_l2_by_position": [
+            0.021426666527986526
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 0.9999996423721313,
+          "relative_l2": 0.0006102629704400897,
+          "cosine_by_position": [
+            0.9999996423721313,
+            0.9999996423721313
+          ],
+          "relative_l2_by_position": [
+            0.0006914461264386773,
+            0.0005290798144415021
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.9999650716781616,
+          "relative_l2": 0.006069729570299387,
+          "cosine_by_position": [
+            0.9999376535415649,
+            0.9999925494194031
+          ],
+          "relative_l2_by_position": [
+            0.009148601442575455,
+            0.0029908576980233192
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9998879432678223,
+          "relative_l2": 0.00960027240216732,
+          "cosine_by_position": [
+            0.9997779130935669,
+            0.9999979734420776
+          ],
+          "relative_l2_by_position": [
+            0.017334232106804848,
+            0.0018663133960217237
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 7.170805474743247e-05,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            1.0,
+            1.0000001192092896
+          ],
+          "relative_l2_by_position": [
+            0.00022472465934697539,
+            8.228394108300563e-06,
+            9.465700713917613e-06,
+            4.4413456635084e-05
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 0.999998927116394,
+          "relative_l2": 0.0008087850292213261,
+          "cosine_by_position": [
+            0.9999958276748657,
+            0.9999998807907104,
+            1.0,
+            0.9999999403953552
+          ],
+          "relative_l2_by_position": [
+            0.0023876987397670746,
+            0.0003069972153753042,
+            0.0002331082650925964,
+            0.0003073359257541597
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.9999706149101257,
+          "relative_l2": 0.0039450121112167835,
+          "cosine_by_position": [
+            0.9998845458030701,
+            0.9999991655349731,
+            0.9999995231628418,
+            0.9999992847442627
+          ],
+          "relative_l2_by_position": [
+            0.012535180896520615,
+            0.001215048716403544,
+            0.0009665262186899781,
+            0.0010632926132529974
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 7.451113106071716e-06,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            3.0264298402471468e-05,
+            1.546805833640974e-06,
+            2.2076708319218596e-06,
+            1.9722015167644713e-06,
+            2.6224274733976927e-06,
+            6.093273441365454e-06
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 1.0,
+          "relative_l2": 0.0001472378644393757,
+          "cosine_by_position": [
+            0.9999995231628418,
+            1.0,
+            1.0,
+            0.9999999403953552,
+            1.0,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            0.0006749883177690208,
+            3.496852150419727e-05,
+            3.6450001061894e-05,
+            3.829765773843974e-05,
+            4.141205863561481e-05,
+            5.731067722081207e-05
+          ]
+        },
+        {
+          "prompt_index": 2,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.9999939799308777,
+          "relative_l2": 0.0016358810244128108,
+          "cosine_by_position": [
+            0.9999646544456482,
+            0.9999997615814209,
+            0.9999998807907104,
+            0.9999998807907104,
+            0.9999998807907104,
+            0.9999998807907104
+          ],
+          "relative_l2_by_position": [
+            0.006961672566831112,
+            0.0006220635259523988,
+            0.0005009057349525392,
+            0.0005657633882947266,
+            0.0005928160389885306,
+            0.0005720639019273221
+          ]
+        }
+      ]
+    },
+    {
+      "prompt_index": 3,
+      "prompt": "Why can parallel token prediction be difficult to verify efficiently?",
+      "records": [
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9999992251396179,
+          "relative_l2": 0.0008723556529730558,
+          "cosine_by_position": [
+            0.9999992251396179
+          ],
+          "relative_l2_by_position": [
+            0.0008723556529730558
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9957360625267029,
+          "relative_l2": 0.04881482943892479,
+          "cosine_by_position": [
+            0.9957360625267029
+          ],
+          "relative_l2_by_position": [
+            0.04881482943892479
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9997464418411255,
+          "relative_l2": 0.02198229543864727,
+          "cosine_by_position": [
+            0.9997464418411255
+          ],
+          "relative_l2_by_position": [
+            0.02198229543864727
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 0.9999998211860657,
+          "relative_l2": 0.00046028889482840896,
+          "cosine_by_position": [
+            0.9999998807907104,
+            0.9999997615814209
+          ],
+          "relative_l2_by_position": [
+            0.00036116846604272723,
+            0.0005594093236140907
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.9999762177467346,
+          "relative_l2": 0.005089445039629936,
+          "cosine_by_position": [
+            0.9999634027481079,
+            0.9999889135360718
+          ],
+          "relative_l2_by_position": [
+            0.006178257055580616,
+            0.0040006330236792564
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9998327493667603,
+          "relative_l2": 0.01816580630838871,
+          "cosine_by_position": [
+            0.9997867345809937,
+            0.9998787641525269
+          ],
+          "relative_l2_by_position": [
+            0.020331453531980515,
+            0.016000159084796906
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 5.353916640160605e-05,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            9.692415915196761e-05,
+            4.445477679837495e-05,
+            3.224077954655513e-05,
+            4.053694647154771e-05
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 0.9999991655349731,
+          "relative_l2": 0.0011342744110152125,
+          "cosine_by_position": [
+            0.9999984502792358,
+            0.9999991655349731,
+            0.9999994039535522,
+            0.999999463558197
+          ],
+          "relative_l2_by_position": [
+            0.0015150300459936261,
+            0.0011431846069172025,
+            0.0009826994501054287,
+            0.000896183424629271
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.9998890161514282,
+          "relative_l2": 0.015096744522452354,
+          "cosine_by_position": [
+            0.9998524785041809,
+            0.9999146461486816,
+            0.9999009370803833,
+            0.9998880624771118
+          ],
+          "relative_l2_by_position": [
+            0.01694842427968979,
+            0.013148532249033451,
+            0.014558297581970692,
+            0.015731727704405785
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 6.5550702856853604e-06,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.9999998807907104,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            1.454775429010624e-05,
+            8.552031431463547e-06,
+            6.413773007807322e-06,
+            2.8746749194397125e-06,
+            1.911825393108302e-06,
+            5.03036062582396e-06
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 1.0,
+          "relative_l2": 0.00022647545847576112,
+          "cosine_by_position": [
+            0.9999998211860657,
+            1.0,
+            1.0,
+            1.0,
+            0.9999999403953552,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.00043202919187024236,
+            0.0002421325189061463,
+            0.0001929675054270774,
+            0.00016554701142013073,
+            0.00016300876450259238,
+            0.00016316781693603843
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 1,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.9999303221702576,
+          "relative_l2": 0.01191072165966034,
+          "cosine_by_position": [
+            0.9999269843101501,
+            0.9999455809593201,
+            0.9999363422393799,
+            0.9999270439147949,
+            0.9999237656593323,
+            0.999921977519989
+          ],
+          "relative_l2_by_position": [
+            0.011971203610301018,
+            0.010030032135546207,
+            0.011311816982924938,
+            0.012370208278298378,
+            0.012768002226948738,
+            0.013013072311878204
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "mean",
+          "cosine": 0.9999994039535522,
+          "relative_l2": 0.0008880846435204148,
+          "cosine_by_position": [
+            0.9999994039535522
+          ],
+          "relative_l2_by_position": [
+            0.0008880846435204148
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "copy_previous",
+          "cosine": 0.9999973773956299,
+          "relative_l2": 0.0018616423476487398,
+          "cosine_by_position": [
+            0.9999973773956299
+          ],
+          "relative_l2_by_position": [
+            0.0018616423476487398
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 1,
+          "mode": "zero",
+          "cosine": 0.9999958276748657,
+          "relative_l2": 0.0024839467369019985,
+          "cosine_by_position": [
+            0.9999958276748657
+          ],
+          "relative_l2_by_position": [
+            0.0024839467369019985
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 0.00010618517990224063,
+          "cosine_by_position": [
+            1.0,
+            0.9999999403953552
+          ],
+          "relative_l2_by_position": [
+            4.520406946539879e-05,
+            0.00016716629033908248
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "copy_previous",
+          "cosine": 0.9999978542327881,
+          "relative_l2": 0.0013879176694899797,
+          "cosine_by_position": [
+            0.9999991655349731,
+            0.9999966025352478
+          ],
+          "relative_l2_by_position": [
+            0.0009108529193326831,
+            0.0018649825360625982
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 2,
+          "mode": "zero",
+          "cosine": 0.9999916553497314,
+          "relative_l2": 0.002531039994210005,
+          "cosine_by_position": [
+            0.9999974370002747,
+            0.9999858140945435
+          ],
+          "relative_l2_by_position": [
+            0.0018365400610491633,
+            0.0032255402766168118
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 1.5828487448743545e-05,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            8.234539564000443e-06,
+            2.5197812647093087e-05,
+            9.794055586098693e-06,
+            2.0087545635760762e-05
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "copy_previous",
+          "cosine": 1.0,
+          "relative_l2": 0.0001440695341443643,
+          "cosine_by_position": [
+            1.0,
+            0.9999999403953552,
+            0.9999999403953552,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.00012100658204872161,
+            0.0002584978938102722,
+            0.00013050327834207565,
+            6.627043330809101e-05
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 4,
+          "mode": "zero",
+          "cosine": 0.999998152256012,
+          "relative_l2": 0.0011254216078668833,
+          "cosine_by_position": [
+            0.9999987483024597,
+            0.9999951720237732,
+            0.9999986886978149,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            0.0012694589095190167,
+            0.002017162973061204,
+            0.0009227567352354527,
+            0.00029230775544419885
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "mean",
+          "cosine": 1.0,
+          "relative_l2": 1.5408198805744178e-06,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            0.9999998807907104,
+            1.0,
+            0.9999999403953552,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            1.010391997624538e-06,
+            2.604161181807285e-06,
+            1.043985434989736e-06,
+            4.4052211478629033e-07,
+            1.1062054454669124e-06,
+            3.039652256120462e-06
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "copy_previous",
+          "cosine": 1.0,
+          "relative_l2": 2.984878847200889e-05,
+          "cosine_by_position": [
+            1.0,
+            1.0,
+            0.9999999403953552,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "relative_l2_by_position": [
+            4.267577241989784e-05,
+            6.869350181659684e-05,
+            3.340977127663791e-05,
+            8.13702899904456e-06,
+            9.295236850448418e-06,
+            1.688142219791189e-05
+          ]
+        },
+        {
+          "prompt_index": 3,
+          "after_layer": 2,
+          "protected_prefix": 6,
+          "mode": "zero",
+          "cosine": 0.9999997615814209,
+          "relative_l2": 0.00039673838182352483,
+          "cosine_by_position": [
+            0.9999997615814209,
+            0.9999992847442627,
+            0.9999995231628418,
+            1.0,
+            1.0,
+            0.9999999403953552
+          ],
+          "relative_l2_by_position": [
+            0.000597260775975883,
+            0.0008536827517673373,
+            0.0004907016409561038,
+            0.0001479699567425996,
+            0.00014466687571257353,
+            0.00014614814426749945
+          ]
+        }
+      ]
+    }
+  ]
+}
