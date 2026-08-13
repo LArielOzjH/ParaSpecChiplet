@@ -107,6 +107,15 @@ so it is evidence for acceptance-compatible dataflow, not for speedup. The
 remaining hardware gate is a fused kernel/cycle model with gather, multicast,
 and synchronization costs.
 
+The GPU microbenchmarks sharpen that gate. At batch 1/8, selective MLP rows do
+not pay back gather/scatter overhead; at batch 64, homogeneous 16-to-9 row
+selection is useful, but a mixed batch with half uniform and half staircase
+requests gains only about 2% over dense execution. The architecture therefore
+needs schedule-aware queue coalescing and persistent grouped lanes. If those
+queues cannot maintain sufficiently homogeneous groups under realistic
+arrival/service distributions, the static protected-prefix dataflow should be
+retained while the adaptive/chiplet extension is killed.
+
 These are open gates, not implied results.
 
 ## Three paperable variants and decision rule
