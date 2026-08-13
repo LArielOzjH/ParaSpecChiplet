@@ -43,3 +43,33 @@ def zero_skipped_updates(output: torch.Tensor, *, skipped: Sequence[bool]) -> to
     mask = torch.tensor(tuple(skipped), dtype=torch.bool, device=output.device)
     result[:, mask] = 0
     return result
+
+
+def selective_mlp_forward(
+    mlp: object,
+    hidden_states: torch.Tensor,
+    *,
+    skipped: Sequence[bool],
+    anchors: int,
+    block_size: int,
+) -> torch.Tensor:
+    """Evaluate a position-wise MLP only for non-skipped block rows."""
+
+    if hidden_states.ndim != 3 or hidden_states.shape[1] != anchors * block_size:
+        raise ValueError("hidden_states must be [batch, anchors * block_size, hidden]")
+    if len(skipped) != block_size:
+        raise ValueError("skipped mask must match block_size")
+    active_one_block = ~torch.tensor(tuple(skipped), dtype=torch.bool, device=hidden_states.device)
+    active = active_one_block.repeat(anchors)
+    flat = hidden_states.reshape(-1, hidden_states.shape[-1])
+    active_rows = flat[active]
+    # Calling nn.Module(...) would re-enter the hook that owns this helper.
+    # Direct ``forward`` avoids that recursion while keeping lightweight test
+    # doubles callable in the usual way.
+    forward = getattr(mlp, "forward", None)
+    active_output = forward(active_rows) if callable(forward) else mlp(active_rows)
+    if active_output.shape != active_rows.shape:
+        raise ValueError("MLP output shape must match its input shape")
+    result = torch.zeros_like(flat)
+    result[active] = active_output
+    return result.view_as(hidden_states)

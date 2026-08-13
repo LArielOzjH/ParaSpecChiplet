@@ -189,7 +189,10 @@ work—the first microarchitecture candidate that can plausibly be implemented
 without breaking block context.
 
 The same four prompts and schedules were run with `--mode mlp`; raw records are
-in `data/local_selective_mlp_proxy_orestis.json`.
+in `data/local_selective_mlp_proxy_orestis_v2.json`. In this v2 path, the hook
+passes only non-skipped position rows through the MLP and scatters zeroes for
+skipped rows. Thus the reported MLP work is an actual reduced-row CPU
+execution path, rather than a full MLP followed by an output mask.
 
 | Schedule | MLP-work sum | Mean accepted prefix | Change vs uniform |
 |---|---:|---:|---:|
@@ -201,7 +204,10 @@ in `data/local_selective_mlp_proxy_orestis.json`.
 
 The proxy suggests a stronger operating point than whole-layer skipping:
 protected4 conservative saves 16.7% of MLP work with no observed agreement
-loss, and protected4 staircase saves 25% with only a 2.7% loss. This is still
-not measured speedup or serving acceptance; attention is still fully executed,
-and the MLP output is masked after computation. The next hardware model should
-separate dense attention cost from selectively gated MLP cost.
+loss, and protected4 staircase saves 25% with only a 2.7% loss. The numbers
+are unchanged from the earlier screening run, but the execution path now
+matches the intended row-selective mechanism. This is still not measured GPU
+speedup or serving acceptance: attention is fully executed, and the probe uses
+masked training-style blocks rather than an autoregressive decode loop. The
+next hardware model should separate dense attention cost from selectively
+gated MLP cost.

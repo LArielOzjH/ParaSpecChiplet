@@ -3,6 +3,7 @@ import pytest
 from paraspec.selective_proxy import (
     validate_depth_schedule,
     skipped_positions,
+    selective_mlp_forward,
     zero_skipped_updates,
 )
 
@@ -23,3 +24,23 @@ def test_zero_skipped_updates_preserves_active_positions():
     result = zero_skipped_updates(block, skipped=(False, True, False, True))
     assert result[:, 0].tolist() == block[:, 0].tolist()
     assert result[:, 1].tolist() == [[0.0], [0.0]]
+
+
+def test_selective_mlp_forward_only_evaluates_active_rows():
+    import torch
+
+    calls = []
+
+    class FakeMlp:
+        def __call__(self, values):
+            calls.append(tuple(values.shape))
+            return values + 1
+
+    values = torch.zeros(1, 4, 2)
+    result = selective_mlp_forward(
+        FakeMlp(), values, skipped=(False, True, False, True), anchors=1, block_size=4
+    )
+
+    assert calls == [(2, 2)]
+    assert result[:, [0, 2]].tolist() == [[[1.0, 1.0], [1.0, 1.0]]]
+    assert result[:, [1, 3]].tolist() == [[[0.0, 0.0], [0.0, 0.0]]]

@@ -25,9 +25,9 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from paraspec.offline_acceptance import accepted_prefix_length
 from paraspec.selective_proxy import (
+    selective_mlp_forward,
     skipped_positions,
     validate_depth_schedule,
-    zero_skipped_updates,
 )
 
 
@@ -145,8 +145,18 @@ def main() -> None:
                         return output_block.view_as(output)
 
                     def mlp_hook(module, layer_inputs, layer_kwargs, output, skipped=skipped):
-                        output_block = output.view(args.anchors, draft.block_size, -1)
-                        return zero_skipped_updates(output_block, skipped=skipped).view_as(output)
+                        hidden_states = layer_kwargs.get("hidden_states")
+                        if hidden_states is None:
+                            if not layer_inputs:
+                                raise RuntimeError("DFlash MLP hook received no hidden_states input")
+                            hidden_states = layer_inputs[0]
+                        return selective_mlp_forward(
+                            module,
+                            hidden_states,
+                            skipped=skipped,
+                            anchors=args.anchors,
+                            block_size=draft.block_size,
+                        )
 
                     if any(skipped):
                         target_module = layer if args.mode == "layer" else layer.mlp
