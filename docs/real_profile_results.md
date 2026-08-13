@@ -292,3 +292,13 @@ GPU kernel and can cost more than the saved MLP work. These numbers are not a
 speedup claim; they establish an acceptance-preserving execution target for a
 real fused selective-MLP kernel. Dense attention cost, gather/scatter cost,
 and synchronization must be included in the eventual architecture model.
+
+Using the published draft dimensions (`hidden=2560`, `intermediate=9728`,
+Q/K/V/O projection widths `4096/1024/1024/4096`) as a first MAC screen gives
+approximately 26.2M projection MACs for attention and 74.7M MACs for the
+SwiGLU MLP per position and layer, before attention score/value terms. Under
+these assumptions, the protected8 staircase's 25% MLP-row reduction becomes
+an approximately 18.5% reduction in total draft projection work, because
+dense attention remains paid for every position. This is the relevant
+architecture-level opportunity; reporting the raw 25% MLP reduction as a
+25% end-to-end speedup would be incorrect.
