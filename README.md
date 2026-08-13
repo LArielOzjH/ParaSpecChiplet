@@ -8,6 +8,22 @@ DFlash predicts a block in parallel, but the positions in that block do not have
 
 This is a hypothesis, not a result. The project will reject it if layer/position asymmetry does not survive real traces, if reduced-fidelity tail computation damages prefix acceptance, or if chiplet traffic removes the savings.
 
+## Current research brief
+
+The current DAC'27 recommendation is documented in
+[`docs/dac27_research_brief.md`](docs/dac27_research_brief.md). The primary
+hypothesis is SAGE-DFlash: state-conditioned block scheduling with a protected
+prefix and heterogeneous upper-layer execution. Static protected-prefix
+execution is the fallback; chiplets are an implementation option subject to a
+traffic-aware kill gate.
+
+The repository currently contains reproducible CPU activation probes, official
+DFlash acceptance-trace adapters, state-conditioned survival analysis, schedule
+frontier/controller oracles, and a chiplet cost model. Activation probes are
+not acceptance results. The locally cached community 0.6B draft has an
+incompatible/missing vocabulary mapping, so acceptance claims must come from
+the official DFlash serving path or a checkpoint with valid mappings.
+
 ## Evidence boundary
 
 - DFlash, [arXiv:2602.06036](https://arxiv.org/abs/2602.06036), already uses position-decayed training loss and reports a depth/acceptance/latency trade-off.
@@ -36,4 +52,3 @@ The primary idea is killed if any representative workload family shows one of th
 - later-position approximation changes early-position acceptance materially;
 - the best heterogeneous schedule saves less than its routing/synchronization overhead;
 - the schedule is equivalent to an already published dynamic draft-length or pruning method.
-
