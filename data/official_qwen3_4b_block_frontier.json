@@ -1,0 +1,96 @@
+{
+  "kind": "empirical_dflash_block_frontier",
+  "trace": "data/official_qwen3_4b_mlp_block_group_ablation.jsonl",
+  "draft_layers": 5,
+  "min_survival": 1.2,
+  "warning": "nominal_mlp_work is analytical; this is not a speedup result",
+  "observed_groups": [
+    {
+      "bypassed_layers": [],
+      "mean_accepted_prefix": 1.4524793388429753,
+      "events": 484
+    },
+    {
+      "bypassed_layers": [
+        0
+      ],
+      "mean_accepted_prefix": 0.7600596125186289,
+      "events": 671
+    },
+    {
+      "bypassed_layers": [
+        1
+      ],
+      "mean_accepted_prefix": 1.145945945945946,
+      "events": 555
+    },
+    {
+      "bypassed_layers": [
+        2
+      ],
+      "mean_accepted_prefix": 1.340637450199203,
+      "events": 502
+    },
+    {
+      "bypassed_layers": [
+        2,
+        3
+      ],
+      "mean_accepted_prefix": 1.0876565295169947,
+      "events": 559
+    },
+    {
+      "bypassed_layers": [
+        2,
+        3,
+        4
+      ],
+      "mean_accepted_prefix": 0.7692307692307693,
+      "events": 663
+    },
+    {
+      "bypassed_layers": [
+        2,
+        4
+      ],
+      "mean_accepted_prefix": 1.0683012259194395,
+      "events": 571
+    },
+    {
+      "bypassed_layers": [
+        3
+      ],
+      "mean_accepted_prefix": 1.2823984526112187,
+      "events": 517
+    },
+    {
+      "bypassed_layers": [
+        3,
+        4
+      ],
+      "mean_accepted_prefix": 0.9519867549668874,
+      "events": 604
+    },
+    {
+      "bypassed_layers": [
+        4
+      ],
+      "mean_accepted_prefix": 1.2400756143667298,
+      "events": 529
+    }
+  ],
+  "frontier": [
+    {
+      "bypassed_layers": [
+        2
+      ],
+      "mean_accepted_prefix": 1.340637450199203,
+      "nominal_mlp_work": 4
+    },
+    {
+      "bypassed_layers": [],
+      "mean_accepted_prefix": 1.4524793388429753,
+      "nominal_mlp_work": 5
+    }
+  ]
+}
