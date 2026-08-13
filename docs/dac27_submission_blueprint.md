@@ -2,8 +2,8 @@
 
 ## Working title
 
-**SAGE-DFlash: Joint Fidelity Scheduling for Block-Parallel Speculative
-Decoding**
+**SAGE-DFlash: Prefix-Survival-Aware MLP Scheduling for Block-Parallel
+Speculative Decoding**
 
 The title deliberately names the execution/dataflow problem. Chiplets are an
 optional implementation point, not the premise of the paper.
@@ -18,7 +18,7 @@ attention. The proposed execution substrate is:
 
 1. shared lower-layer/block-wide execution;
 2. dense attention for every block position;
-3. jointly validated per-block MLP fidelity levels;
+3. jointly validated position/depth MLP schedules;
 4. cross-request grouping of equal fidelity schedules;
 5. an occupancy-gated dense fallback when compaction is not profitable;
 6. a finite schedule table that can be driven by a static baseline, an

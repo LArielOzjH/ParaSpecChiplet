@@ -39,6 +39,14 @@ estimates a 9.9% MLP-work reduction, or roughly a 3.7% draft-stage bound using
 the measured 38% MLP fraction, but these are analytical bounds rather than
 end-to-end speedups.
 
+The corresponding position/depth schedule is currently stronger than the
+layer-width schedule. Protected8 staircase MLP gating reduces nominal MLP rows
+from 80 to 60 while keeping mean accepted prefix at `1.0312` versus `1.0234`
+for uniform on the held-out set; the original 12-prompt run was `1.2615` versus
+`1.2586`. This makes prefix-survival-aware position scheduling the primary
+hardware primitive, while layer-specific width differences remain motivation
+and a calibration dimension rather than a fixed ranking claim.
+
 ## One-sentence thesis
 
 DFlash treats every draft Transformer block as if it had the same execution

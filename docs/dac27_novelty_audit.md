@@ -16,9 +16,9 @@ The defensible boundary is:
 
 > DFlash exposes a prefix-survival value map over a block-parallel draft
 > computation. SAGE-DFlash turns that map into a physical heterogeneous
-> execution dataflow: dense bidirectional attention, jointly calibrated MLP
-> fidelity vectors, cross-request schedule grouping, and a measured dense
-> fallback.
+> execution dataflow: dense bidirectional attention, jointly calibrated
+> position/depth MLP schedules, cross-request schedule grouping, and a
+> measured dense fallback.
 
 This makes the central object a schedule/dataflow pair, not a confidence
 heuristic.
@@ -43,9 +43,9 @@ show unequal block value and show that individually safe reductions do not
 compose independently.
 
 **Mechanism.** Keep attention dense for every block position. Select a jointly
-validated vector of MLP widths/fidelity levels, group requests with compatible
-vectors, and choose dense execution when the active group is too small to
-amortize compaction.
+validated position/depth MLP schedule, group requests with compatible vectors,
+and choose dense execution when the active group is too small to amortize
+compaction.
 
 **Challenge.** Tail states still participate in bidirectional context, and the
 schedule has to account for queueing, movement, synchronization, and fallback

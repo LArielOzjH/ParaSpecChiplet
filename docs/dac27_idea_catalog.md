@@ -2,9 +2,9 @@
 
 ## Recommended: SAGE-DFlash
 
-**One-line idea:** select a jointly safe vector of draft-block MLP fidelity
-levels using official prefix acceptance and measured execution cost, then
-serve compatible requests in grouped monolithic lanes with dense fallback.
+**One-line idea:** select a jointly validated position/depth MLP schedule for
+each DFlash block, keep attention dense, and serve compatible requests in
+grouped monolithic lanes with an occupancy-aware dense fallback.
 
 **Motivation.** DFlash parallelizes a block, but verification commits a prefix.
 The draft stack also spends uniform MLP work on blocks with unequal marginal
@@ -24,7 +24,7 @@ unequal and state/workload-dependent block value, not a fixed safe layer. The
 calibrated batch-64 MLP proxy is 9.9% lower for the single-layer schedule,
 before dense attention and service overhead.
 
-**Architecture.** Dense attention lanes, full/half-width MLP lanes, schedule
+**Architecture.** Dense attention lanes, full/reduced-depth MLP lanes, schedule
 table, cross-request coalescing, occupancy gate, and dense fallback. Adaptive
 selection is an experimental gate, not the novelty anchor; the hardware must
 also be evaluated with an offline oracle and static-uniform baseline. The

@@ -2,21 +2,22 @@
 
 ## Recommended paper
 
-**SAGE-DFlash: Acceptance-Calibrated Reconfigurable Block-Fidelity Fabric for
-Block-Parallel Speculative Decoding**
+**SAGE-DFlash: Prefix-Survival-Aware MLP Scheduling for Block-Parallel
+Speculative Decoding**
 
 ### Motivation
 
 DFlash computes a block in parallel, but verification only commits a prefix.
 Uniform draft computation therefore spends the same MLP work on states with
 different committed-prefix value. Official probes confirm unequal block/layer
-value, while held-out probes show that the ranking depends on workload or
-entering state.
+value, while held-out probes show that static layer-width ranking depends on
+workload or entering state. The more stable candidate is a position/depth
+schedule that preserves dense attention.
 
 ### Architectural insight
 
-The right abstraction is not “always skip layer 2.” It is a finite,
-reconfigurable schedule fabric:
+The right abstraction is not “always reduce layer 2.” It is a finite,
+reconfigurable prefix-survival schedule fabric:
 
 ```text
 target hidden features
@@ -41,8 +42,8 @@ crossover.
 
 | Idea | Role | Motivation | Main challenge | Status |
 |---|---|---|---|---|
-| Reconfigurable grouped monolithic fabric | Primary | heterogeneous schedules can save MLP work when groups are sufficiently homogeneous | acceptance-safe selection plus compaction/fallback overhead | strongest surviving idea; hardware gate open |
-| Static finite schedule table | Conservative baseline | removes controller overhead and isolates datapath value | held-out width screen does not yet show a universally safe vector | baseline/fallback, not headline |
+| Prefix-survival grouped monolithic fabric | Primary | position/depth schedules save MLP work while preserving dense context | acceptance-safe schedule plus compaction/fallback overhead | strongest surviving idea; hardware gate open |
+| Static finite position/depth table | Conservative baseline | removes controller overhead and isolates datapath value | larger held-out acceptance and workload coverage | baseline/fallback, not headline |
 | Heterogeneous chiplet fabric | Optional extension | physical specialization may improve lane utilization or sharing | link traffic and synchronization versus equal-resource monolithic | currently negative/conditional |
 
 The selector must be reported in three forms: static uniform, offline oracle,
@@ -57,6 +58,9 @@ Supported:
 - individually safe reductions do not compose independently;
 - protected dense-attention MLP gating can preserve acceptance on a calibration
   workload;
+- the protected8 position/depth staircase preserves the acceptance summary in
+  both the original and current held-out screening sets while removing 25% of
+  nominal MLP rows;
 - held-out results show that a fixed reduced-width layer ranking is not stable;
 - grouped execution has an occupancy crossover and requires dense fallback;
 - equal-resource chiplet models lose under the current traffic assumptions.

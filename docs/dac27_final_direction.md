@@ -2,14 +2,14 @@
 
 ## Recommended primary paper
 
-**SAGE-DFlash: Joint Fidelity Scheduling for Block-Parallel Speculative
-Decoding**
+**SAGE-DFlash: Prefix-Survival-Aware MLP Scheduling for Block-Parallel
+Speculative Decoding**
 
 The minimum defensible contribution is an acceptance-calibrated scheduler and
 grouped monolithic dataflow:
 
 1. keep bidirectional attention dense;
-2. assign a finite MLP fidelity vector across draft blocks;
+2. assign a finite position/depth MLP schedule across each draft block;
 3. validate schedules jointly with official target verification;
 4. use measured width/row latency to remove dominated schedules;
 5. group compatible requests and use dense fallback when grouping does not
@@ -31,12 +31,16 @@ acceptance-compatibility screening rather than a generalized gain claim. The
 held-out block-width result is more cautionary; see
 [`docs/heldout_schedule_results.md`](heldout_schedule_results.md) and
 [`docs/heldout_block_width_results.md`](heldout_block_width_results.md).
+The evidence comparison and the resulting primary-idea decision are summarized
+in [`docs/primary_idea_decision.md`](primary_idea_decision.md): position/depth
+scheduling is currently stronger than static layer-width specialization.
 
 ## Claims currently supported
 
-- draft blocks have unequal marginal value;
+- draft blocks and positions have unequal marginal value;
 - full-block bypass is unsafe, especially for the first block;
-- dense attention plus selected MLP fidelity is substantially safer;
+- dense attention plus selected position/depth MLP fidelity is substantially
+  safer than static layer-width reduction;
 - reduced-width MLP has real GPU compute-side headroom at throughput batch;
 - a measured acceptance/latency frontier can select safe schedules;
 - chiplet links and synchronization lose in the current equal-resource model.
@@ -54,7 +58,8 @@ held-out block-width result is more cautionary; see
 ## Architecture story
 
 The proposed hardware is a monolithic grouped-fidelity engine: dense
-attention lanes feed a schedule-aware MLP fabric with full/half-width lanes,
+attention lanes feed a schedule-aware, row-selective MLP fabric with full and
+reduced-depth lanes,
 cross-request grouping, a small schedule table, and dense fallback. The
 controller is not a generic token-pruning controller; it selects a jointly
 validated block-fidelity vector under a prefix-survival constraint.
