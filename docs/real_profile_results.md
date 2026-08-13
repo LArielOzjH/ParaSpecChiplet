@@ -352,6 +352,12 @@ composition is in `data/calibrated_schedule_mlp_latency.json`. These figures
 exclude dense attention, so they are MLP-only cycle estimates rather than
 end-to-end throughput claims.
 
+Combining this MLP-only estimate with the earlier projection-MAC screen
+(74.7M MLP MACs versus 26.2M attention projection MACs) suggests roughly a
+10% reduction in draft projection work for the protected8 staircase before
+attention score/value, memory, and synchronization terms. This is a sizing
+estimate only; it is intentionally below the 13.49% MLP-only figure.
+
 ## Batch-aware dense fallback calibration
 
 The row sweep was repeated at batch sizes 1, 8, and 64; the complete table is
