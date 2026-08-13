@@ -59,11 +59,11 @@ def main() -> None:
 
     dtype = torch.bfloat16
     target = AutoModelForCausalLM.from_pretrained(
-        str(args.target_model), dtype=dtype, device_map=args.device
-    ).eval()
+        str(args.target_model), dtype=dtype
+    ).eval().to(args.device)
     draft = AutoModel.from_pretrained(
-        str(args.draft_model), trust_remote_code=True, dtype=dtype, device_map=args.device
-    ).eval()
+        str(args.draft_model), trust_remote_code=True, dtype=dtype
+    ).eval().to(args.device)
     tokenizer = AutoTokenizer.from_pretrained(str(args.target_model))
     prompts = load_prompts(args.prompts)
     schedules = load_schedules(args.schedules, int(draft.block_size), len(draft.layers))

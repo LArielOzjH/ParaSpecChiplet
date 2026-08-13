@@ -1,0 +1,8 @@
+Implement a Python function that merges overlapping intervals and explain its time complexity.
+Prove that the sum of the first n odd integers is n squared.
+Explain how a CPU cache hierarchy affects the latency of a matrix multiplication.
+Design a lock-free producer consumer queue and list the memory ordering assumptions.
+Write a SQL query that returns the top three products by revenue in each category.
+Explain the difference between TCP flow control and congestion control.
+Give a step-by-step plan for debugging a numerical instability in a transformer model.
+Compare row-major and column-major layouts for a tiled matrix multiplication kernel.

@@ -19,6 +19,13 @@ The current strongest concrete schedule is layer 2 at 50% MLP width. It keeps
 `S1=0.6103` versus `0.6095` for uniform execution. A two-layer 50% schedule
 falls to `S1=0.5625`, so joint schedule validation is essential.
 
+A small held-out screening run (8 workload-diverse prompts, 32 generated
+tokens) kept the protected8 staircase schedule close to uniform: mean accepted
+prefix `1.0312` versus `1.0234`, `S1=0.5547` versus `0.5312`, and identical
+`S4=0.0469`. Prompt-level intervals are wide, so this supports
+acceptance-compatibility screening rather than a generalized gain claim. See
+[`docs/heldout_schedule_results.md`](heldout_schedule_results.md).
+
 ## Claims currently supported
 
 - draft blocks have unequal marginal value;
