@@ -3,6 +3,7 @@ import torch
 
 from paraspec.block_ablation import (
     bypass_layer_output,
+    install_mlp_bypasses,
     install_layer_bypasses,
     validate_layer_indices,
 )
@@ -60,3 +61,24 @@ def test_install_layer_bypasses_accepts_keyword_hidden_states():
         assert torch.equal(layers[0](hidden_states=values), values)
     finally:
         restore()
+
+
+def test_install_mlp_bypasses_zeros_selected_mlp_update_and_restores():
+    class MLP(torch.nn.Module):
+        def forward(self, hidden_states):
+            return hidden_states + 10
+
+    class Layer(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.mlp = MLP()
+
+    layers = torch.nn.ModuleList([Layer(), Layer()])
+    values = torch.tensor([[2.0]])
+    restore = install_mlp_bypasses(layers, [1], draft_layers=2)
+    try:
+        assert torch.equal(layers[0].mlp(values), torch.tensor([[12.0]]))
+        assert torch.equal(layers[1].mlp(values), torch.zeros_like(values))
+    finally:
+        restore()
+    assert torch.equal(layers[1].mlp(values), torch.tensor([[12.0]]))

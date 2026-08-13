@@ -18,7 +18,11 @@ import torch
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from paraspec.block_ablation import install_layer_bypasses, validate_layer_indices
+from paraspec.block_ablation import (
+    install_layer_bypasses,
+    install_mlp_bypasses,
+    validate_layer_indices,
+)
 from paraspec.official_trace import stats_to_verification_events
 
 
@@ -38,6 +42,12 @@ def main() -> None:
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--max-new-tokens", type=int, default=96)
     parser.add_argument("--layers", default=None, help="comma-separated zero-based layers; default: all")
+    parser.add_argument(
+        "--mode",
+        choices=("layer", "mlp"),
+        default="layer",
+        help="bypass a whole draft block or only its MLP update",
+    )
     args = parser.parse_args()
 
     if not torch.cuda.is_available():
@@ -77,9 +87,8 @@ def main() -> None:
         for experiment_name, ablated_layers in experiments:
             restore = None
             if ablated_layers:
-                restore = install_layer_bypasses(
-                    draft.layers, ablated_layers, draft_layers=draft_layers
-                )
+                installer = install_layer_bypasses if args.mode == "layer" else install_mlp_bypasses
+                restore = installer(draft.layers, ablated_layers, draft_layers=draft_layers)
             try:
                 stats = dflash_generate(
                     draft,
@@ -109,6 +118,7 @@ def main() -> None:
                         "prompt_index": prompt_index,
                         "prompt": prompt,
                         "experiment": experiment_name,
+                        "ablation_mode": args.mode,
                         "ablated_layers": list(ablated_layers),
                         "target_model": str(args.target_model),
                         "draft_model": str(args.draft_model),

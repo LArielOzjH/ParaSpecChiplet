@@ -78,3 +78,52 @@ def install_layer_bypasses(
             handle.remove()
 
     return restore
+
+
+def _zero_module_output(module_output: object) -> object:
+    if isinstance(module_output, torch.Tensor):
+        return torch.zeros_like(module_output)
+    if isinstance(module_output, tuple):
+        if not module_output or not isinstance(module_output[0], torch.Tensor):
+            raise TypeError("module output tuple must start with a tensor")
+        return (torch.zeros_like(module_output[0]), *module_output[1:])
+    if isinstance(module_output, list):
+        if not module_output or not isinstance(module_output[0], torch.Tensor):
+            raise TypeError("module output list must start with a tensor")
+        return [torch.zeros_like(module_output[0]), *module_output[1:]]
+    raise TypeError("module output must be a tensor, tuple, or list")
+
+
+def install_mlp_bypasses(
+    layers: Sequence[object],
+    layer_indices: Sequence[int],
+    *,
+    draft_layers: int,
+) -> callable:
+    """Install hooks that replace selected MLP updates with zero tensors."""
+
+    indices = validate_layer_indices(layer_indices, draft_layers=draft_layers)
+    if len(layers) != draft_layers:
+        raise ValueError("layers length must match draft_layers")
+    handles = []
+    for index in indices:
+        mlp = getattr(layers[index], "mlp", None)
+        register = getattr(mlp, "register_forward_hook", None)
+        if not callable(register):
+            raise TypeError("draft layers must expose an MLP with forward hooks")
+
+        def bypass_hook(
+            _module: object,
+            _inputs: tuple[object, ...],
+            _kwargs: dict[str, object],
+            output: object,
+        ) -> object:
+            return _zero_module_output(output)
+
+        handles.append(register(bypass_hook, with_kwargs=True))
+
+    def restore() -> None:
+        for handle in handles:
+            handle.remove()
+
+    return restore
