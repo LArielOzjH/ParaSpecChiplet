@@ -19,6 +19,7 @@ def evaluate_schedule_with_row_policy(
     calibration: Sequence[dict[str, float]],
     *,
     draft_layers: int,
+    batch_size: int | None = None,
 ) -> RowPolicyResult:
     """Apply an exact measured dense/grouped choice to every draft layer.
 
@@ -32,8 +33,19 @@ def evaluate_schedule_with_row_policy(
         raise ValueError("schedule and draft_layers must be positive")
     if any(depth < 1 or depth > draft_layers for depth in schedule):
         raise ValueError("schedule depths must be within draft layer range")
+    if batch_size is not None and batch_size <= 0:
+        raise ValueError("batch_size must be positive")
+    selected_calibration = tuple(calibration)
+    if batch_size is not None:
+        selected_calibration = tuple(
+            record
+            for record in calibration
+            if int(record.get("batch_size", -1)) == batch_size
+        )
+        if not selected_calibration:
+            raise ValueError("calibration has no matching batch size")
     measured = {
-        int(record["active_per_request"]): record for record in calibration
+        int(record["active_per_request"]): record for record in selected_calibration
     }
     nominal: list[int] = []
     effective: list[int] = []

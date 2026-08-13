@@ -344,6 +344,17 @@ back to dense. The full per-layer decisions are in
 `paraspec/row_policy.py`. This is a hardware execution estimate, not a new
 acceptance run.
 
+## Batch-aware dense fallback calibration
+
+The row sweep was repeated at batch sizes 1, 8, and 64; the complete table is
+in `data/gpu_mlp_row_sweep_batch_sizes_rtx4090.json`. At batch 1 and 8, every
+tested active-row count was slower with grouped gather/scatter than dense MLP.
+At batch 64, grouped execution became faster at 12/16 active rows and below.
+This establishes that the fallback threshold is two-dimensional: active-row
+count alone is insufficient; the controller must also observe effective batch
+size. The calibrated policy API accepts `batch_size` and conservatively rejects
+missing batch-specific measurements.
+
 ## Mixed-schedule grouped execution
 
 The grouping question was tested with a deliberately mixed batch: half of the
