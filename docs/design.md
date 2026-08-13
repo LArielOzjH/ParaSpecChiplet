@@ -32,6 +32,22 @@ The chiplet substrate is a means to make this heterogeneity physically efficient
 
 The design must be compared against a monolithic accelerator with the same total compute and memory budget. Chiplets are not a contribution by themselves.
 
+## Cost-model boundary
+
+The chiplet oracle models four terms separately: draft compute, activation-link
+cycles, synchronization, and router/scheduler cycles. It can also account for
+lower-layer execution shared once across the block and activation multicast
+reuse. The default parameters preserve the conservative independent-position
+model, so any claimed benefit must show sensitivity to reuse and controller
+overhead rather than relying on free data movement.
+
+For example, with an illustrative block of eight positions and depths
+`(3,3,3,3,3,3,3,3)`, the model reports 22 cycles under one set of explicit
+parameters. A staircase `(3,3,2,2,2,1,1,1)` reports 13 cycles under the same
+parameters. These are oracle outputs, not measured hardware speedups; the
+acceptance-preservation experiment and a calibrated cycle model are still
+required.
+
 ## Main challenge
 
 DFlash uses bidirectional attention inside a block. A tail position is low-value for commitment but may still provide context used by a prefix position. Naively skipping its computation can reduce prefix acceptance. The design space therefore includes:
@@ -54,4 +70,3 @@ The minimum trace must contain request id, block size, accepted prefix length, d
 ## Baselines and novelty discipline
 
 Compare against vanilla DFlash, fixed draft depth, dynamic draft length, D-Cut-style pruning, and any available budget-aware block-diffusion method. Do not call positional loss weighting, tree pruning, or draft-length control novel. A successful paper must demonstrate a hardware/dataflow mechanism that cannot be reduced to those baselines.
-
