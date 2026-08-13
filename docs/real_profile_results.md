@@ -302,3 +302,25 @@ an approximately 18.5% reduction in total draft projection work, because
 dense attention remains paid for every position. This is the relevant
 architecture-level opportunity; reporting the raw 25% MLP reduction as a
 25% end-to-end speedup would be incorrect.
+
+## GPU MLP row-selection microbenchmark
+
+To separate matrix-multiplication effects from the end-to-end serving result,
+the draft MLP from `Qwen3-4B-DFlash-b16` was benchmarked on the same RTX 4090
+with 16 positions versus 9 active positions (the protected8 staircase's first
+tail-layer shape). Results are one-layer CUDA timings after warmup:
+
+| Request batch | Dense 16 rows (ms) | Active 9 rows (ms) | Gather + MLP + scatter (ms) |
+|---:|---:|---:|---:|
+| 1 | 0.182 | 0.180 | 0.260 |
+| 8 | 0.216 | 0.213 | 0.311 |
+| 64 | 1.062 | 0.675 | 0.795 |
+
+The small-batch result is a warning: row selection does not automatically
+produce useful GPU savings, and explicit gather/scatter can lose. At batch 64,
+however, active-row execution reduces dense MLP latency by about 36.4%, or
+about 25.2% after the measured gather/scatter path. This supports a concrete
+architecture challenge: the design needs cross-request position grouping,
+persistent/fused row compaction, or dedicated heterogeneous lanes to avoid
+launch and movement overhead. The benchmark is a single-layer microbenchmark,
+not an end-to-end speedup result.
