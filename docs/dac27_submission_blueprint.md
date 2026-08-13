@@ -110,6 +110,11 @@ The fused/persistent grouped implementation is the decisive missing artifact.
 Until it exists, report the current row-latency measurements as hardware
 calibration and not as accelerator speedup.
 
+A fixed-shape CUDA Graph probe is an intermediate result: graph-safe
+`index_copy_` replay removes some launch overhead, but it still has no saving
+at batch 1/8. It should be treated as an implementation baseline for the
+custom persistent lane, not as the final fused design.
+
 ## Baselines and novelty boundary
 
 Required baselines:

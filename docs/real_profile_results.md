@@ -364,6 +364,16 @@ the movement overhead; a positive low-batch result therefore requires a
 purpose-built persistent/ fused lane implementation, not merely a compiler
 flag.
 
+The next lower-level probe used a graph-safe `index_copy_` scatter inside a
+fixed-shape CUDA Graph. At 9/16 active rows, replay measured 0.179 ms versus
+0.182 ms dense at batch 1, 0.213 ms versus 0.216 ms at batch 8, and 0.688 ms
+versus 1.061 ms at batch 64. The data is in
+`data/gpu_cuda_graph_group_rtx4090.json`, with a reproducer at
+`scripts/benchmark_cuda_graph_group.py`. Persistent replay therefore removes
+some launch overhead but does not create a low-batch saving; the positive
+throughput result still depends on enough rows to make the reduced GEMM
+efficient.
+
 Applying that policy to the four candidate schedules gives no realizable row
 saving at batch 1 or 8; at batch 64, protected8 staircase retains 22.5% and
 protected8 conservative 13.75%. The complete per-batch table is preserved in

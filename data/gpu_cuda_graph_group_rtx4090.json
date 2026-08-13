@@ -1,0 +1,12 @@
+{
+  "draft_model": "Qwen3-4B-DFlash-b16",
+  "device": "NVIDIA GeForce RTX 4090",
+  "block_size": 16,
+  "active_per_request": 9,
+  "warning": "single-layer CUDA graph microbenchmark; not end-to-end serving speedup",
+  "records": [
+    {"batch_size": 1, "eager_grouped_ms": 185.071, "cuda_graph_ms": 179.371, "dense_ms": 181.743},
+    {"batch_size": 8, "eager_grouped_ms": 220.002, "cuda_graph_ms": 212.838, "dense_ms": 215.893},
+    {"batch_size": 64, "eager_grouped_ms": 702.243, "cuda_graph_ms": 687.821, "dense_ms": 1061.273}
+  ]
+}
