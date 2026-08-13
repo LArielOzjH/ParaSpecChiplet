@@ -35,6 +35,8 @@ As a first coupling probe, positions 5–8 were replaced after a chosen draft la
 
 This is encouraging evidence that a protected prefix may tolerate a low-fidelity tail in this setup. It is not a general result: the experiment uses one checkpoint, one prompt template, eight anchors, and a mean replacement much milder than skipping all tail computation. The next sweep must vary the replacement, protected-prefix boundary, prompts, and layer count.
 
+A stronger perturbation check replaced tail states by a copy of position 4 or by zero. Copying position 4 produced effectively zero prefix relative-L2 change. Zeroing the tail after layer 1 produced 0.37% mean prefix relative-L2 change (cosine 0.999868); zeroing after layer 2 again produced a negligible change in this setup. This suggests the first draft layer is the only plausible coupling boundary here, but the result is still a single-model/single-prompt observation and must not be generalized without a multi-workload sweep.
+
 ## Critical caveat
 
 The checkpoint declares a 32,000-token draft vocabulary and a 151,936-token target vocabulary but does not ship `t2d/d2t` mappings. Therefore no token-level acceptance result is reported from this run. The local token-agreement experiment produced invalid conclusions until that mapping is supplied. The activation result remains useful because it does not depend on vocabulary IDs.
