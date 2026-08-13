@@ -88,3 +88,18 @@ skipping. It still does not establish token acceptance or end-to-end speedup:
 the checkpoint has invalid vocabulary mappings, and the experiment perturbs
 activation states rather than implementing a reduced-depth kernel. The next
 gate is a valid acceptance trace plus a cost model for the safe boundary.
+
+## Candidate valid-vocabulary checkpoint
+
+Metadata inspection found
+`orestis-z/dflash-qwen3-0.6b-microcycle-dflash`, whose configuration declares a
+draft vocabulary of 151,936 entries, matching `Qwen/Qwen3-0.6B`. Its public
+validation fixture is preserved at
+`data/qwen3_0.6b_microcycle_dflash_val_metrics.json`; it reports decreasing
+marginal position accuracy and EAL 1.0749. This is a better candidate for the
+official verifier path than the earlier 32k-vocabulary checkpoint. The fixture
+still does not contain cycle-level accepted prefixes, so it is evidence for
+checkpoint compatibility and position asymmetry only, not an acceptance
+result. The full 723 MB weight download was not completed in the current
+low-resource network environment; the GPU capture script can use the model
+directly on a machine with normal Hugging Face transfer.

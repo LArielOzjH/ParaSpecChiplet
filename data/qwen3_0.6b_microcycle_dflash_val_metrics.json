@@ -1,0 +1,16 @@
+{
+  "model": "dflash-qwen3-0.6b-microcycle-dflash",
+  "source": "https://huggingface.co/orestis-z/dflash-qwen3-0.6b-microcycle-dflash/raw/main/val_metrics.json",
+  "draft_vocab_size": 151936,
+  "block_size": 8,
+  "full_acc_epoch": 0.2884978245169749,
+  "position_1_acc_epoch": 0.6556831661722625,
+  "position_2_acc_epoch": 0.45179640921869274,
+  "position_3_acc_epoch": 0.3082309138722732,
+  "position_4_acc_epoch": 0.21271597091227204,
+  "position_5_acc_epoch": 0.15438637992094265,
+  "position_6_acc_epoch": 0.12360972372422971,
+  "position_7_acc_epoch": 0.10521949831420466,
+  "eal_epoch": 1.0749430566871723,
+  "interpretation_warning": "marginal position accuracy and EAL are not prefix-survival traces"
+}
