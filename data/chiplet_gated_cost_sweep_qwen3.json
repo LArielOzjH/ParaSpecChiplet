@@ -1,0 +1,23 @@
+{
+  "model": "Qwen3-4B-DFlash-b16",
+  "schedule": "protected8_staircase",
+  "assumptions": {
+    "attention_macs_per_layer": 26214400,
+    "mlp_macs_per_layer": 74711040,
+    "compute_macs_per_cycle": 1000000,
+    "activation_bytes_per_position": 5120,
+    "router_cycles_per_position": 0.25,
+    "monolithic_baseline_cycles": 8074.0352
+  },
+  "warning": "analytical sensitivity, not measured chiplet hardware",
+  "results": [
+    {"link_bytes_per_cycle": 64, "reuse": 1, "sync_cycles": 20, "chiplet_cycles": 7883.814, "ratio_to_monolithic": 0.9764},
+    {"link_bytes_per_cycle": 64, "reuse": 1, "sync_cycles": 500, "chiplet_cycles": 8363.814, "ratio_to_monolithic": 1.0359},
+    {"link_bytes_per_cycle": 64, "reuse": 4, "sync_cycles": 20, "chiplet_cycles": 6923.814, "ratio_to_monolithic": 0.8575},
+    {"link_bytes_per_cycle": 512, "reuse": 1, "sync_cycles": 20, "chiplet_cycles": 6763.814, "ratio_to_monolithic": 0.8377},
+    {"link_bytes_per_cycle": 512, "reuse": 4, "sync_cycles": 20, "chiplet_cycles": 6643.814, "ratio_to_monolithic": 0.8229},
+    {"link_bytes_per_cycle": 512, "reuse": 4, "sync_cycles": 500, "chiplet_cycles": 7123.814, "ratio_to_monolithic": 0.8823},
+    {"link_bytes_per_cycle": 1024, "reuse": 4, "sync_cycles": 20, "chiplet_cycles": 6623.814, "ratio_to_monolithic": 0.8204},
+    {"link_bytes_per_cycle": 1024, "reuse": 4, "sync_cycles": 500, "chiplet_cycles": 7103.814, "ratio_to_monolithic": 0.8798}
+  ]
+}

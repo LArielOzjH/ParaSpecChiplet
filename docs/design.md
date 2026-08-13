@@ -152,6 +152,14 @@ depth vector, and adds activation-link, multicast, router, and synchronization
 terms. The result is still an analytical bound, but its terms match the
 official DFlash dataflow more closely.
 
+An official-dimension sensitivity sweep is preserved in
+`data/chiplet_gated_cost_sweep_qwen3.json`. It shows the conditional nature of
+the chiplet result: under the explicit analytical assumptions, low bandwidth
+and high synchronization can lose to monolithic execution, while multicast
+reuse and moderate synchronization can win. These assumptions are not
+hardware measurements; they define the calibration points required before a
+chiplet claim is publishable.
+
 For an observed trace, `scripts/analyze_trace_queue.py` assigns a candidate
 schedule from the previous accepted-prefix state and compares arrival-order
 with schedule-coalesced batching. Its output is explicitly descriptive: it
