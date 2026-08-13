@@ -145,6 +145,11 @@ because only its overhead was counted. Its parameters are analytical and must
 be calibrated against the CUDA measurements before being used for a chiplet
 crossover claim.
 
+For an observed trace, `scripts/analyze_trace_queue.py` assigns a candidate
+schedule from the previous accepted-prefix state and compares arrival-order
+with schedule-coalesced batching. Its output is explicitly descriptive: it
+does not assume that changing the schedule leaves acceptance unchanged.
+
 ## Preferred microarchitecture: dense attention, gated MLP
 
 The activation probe suggests a safer hardware primitive than skipping an
