@@ -1,12 +1,24 @@
 # DAC'27 Research Brief: Survival-Aware Grouped DFlash Execution
 
+## Current pivot: draft-block importance
+
+The current primary hypothesis is that DFlash draft Transformer blocks have
+unequal marginal value for prefix commitment. Official Qwen3-4B ablation
+supports this at the MLP-update level: bypassing layer 0 drops `S1` from
+`0.6095` to `0.3592`, while bypassing layer 2 preserves `S1` at `0.6096` and
+keeps `S2` at `0.3307` versus `0.3368` for uniform execution. Full-layer
+bypass is too destructive, so the candidate architecture keeps attention dense
+and applies heterogeneous MLP fidelity by draft block. The existing
+protected-prefix position-gating design remains the fallback if block-level
+fidelity does not produce fused hardware benefit.
+
 ## One-sentence thesis
 
-DFlash treats every speculative block position and every decode state as if it
-had the same execution value, but verification commits a prefix and the value
-of a new block depends on the state entering it; a hardware scheduler can use
-that survival structure to select a protected-prefix, heterogeneous draft
-schedule and map it onto shared and specialized compute resources.
+DFlash treats every draft Transformer block as if it had the same execution
+value, but official ablations show unequal marginal contribution to the
+verified prefix; a hardware scheduler can use that block-value structure to
+select heterogeneous MLP fidelity and map it onto shared and specialized
+compute resources while keeping bidirectional attention dense.
 
 The paper should lead with the execution mismatch, not with chiplets. Chiplets
 are the physical organization that may make the required heterogeneity

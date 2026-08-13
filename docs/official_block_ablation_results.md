@@ -53,3 +53,29 @@ survival tolerance.
 The current result is therefore a positive motivation result for block-aware
 heterogeneity, but not yet a performance claim or a justification for
 full-layer chiplet skipping.
+
+## MLP-only ablation
+
+The same experiment was repeated while keeping every attention operation
+dense and replacing only the selected block's MLP output with zero. This is a
+closer proxy for a safe heterogeneous implementation:
+
+| Experiment | Cycles | Mean accepted prefix | `S1` | `S2` | `S4` |
+|---|---:|---:|---:|---:|---:|
+| uniform | 484 | 1.4525 | 0.6095 | 0.3368 | 0.1033 |
+| bypass MLP layer 0 | 671 | 0.7601 | 0.3592 | 0.1595 | 0.0507 |
+| bypass MLP layer 1 | 555 | 1.1459 | 0.5315 | 0.2505 | 0.0775 |
+| bypass MLP layer 2 | 502 | 1.3406 | 0.6096 | 0.3307 | 0.0916 |
+| bypass MLP layer 3 | 517 | 1.2824 | 0.5938 | 0.3114 | 0.0793 |
+| bypass MLP layer 4 | 529 | 1.2401 | 0.5728 | 0.2892 | 0.0699 |
+
+This result is materially more promising than full-layer bypass. In this
+workload, bypassing layer 2's MLP preserves `S1` (`0.6096` versus `0.6095`)
+and nearly preserves `S2` (`0.3307` versus `0.3368`), while layers 0 and 1
+are substantially more important. The importance is non-monotonic across
+depth, so a simple “always protect early layers” rule is not sufficient.
+
+These are still acceptance-compatible probes: the MLP is executed by the
+Python model and its result is then zeroed. The next hardware gate is to
+replace the zeroed update with a genuinely skipped/fused MLP and measure
+traffic, queueing, and draft-stage latency.

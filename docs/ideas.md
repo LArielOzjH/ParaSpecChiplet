@@ -2,11 +2,18 @@
 
 ## Current evidence-based decision
 
-The strongest current paper core is **survival-aware grouped DFlash execution**:
-dense bidirectional attention, protected-prefix upper-layer MLP gating, and a
-batch-aware grouped execution engine with dense fallback. The official serving
-loop supports acceptance compatibility for the protected schedules, while the
-RTX 4090 measurements support savings only in sufficiently large batches.
+The strongest current paper hypothesis is **block-importance-aware DFlash
+execution**: keep bidirectional attention dense, assign heterogeneous MLP
+fidelity to draft Transformer blocks according to their marginal contribution
+to prefix acceptance, and use grouped execution with dense fallback. Official
+Qwen3-4B ablations show strong non-uniformity: bypassing block 0's MLP reduces
+`S1` from `0.6095` to `0.3592`, while bypassing block 2's MLP preserves `S1`
+(`0.6096`) and nearly preserves `S2` (`0.3307` versus `0.3368`).
+
+This is acceptance evidence, not yet a speedup result: the Python probe still
+executes the MLP before zeroing its output. The next gate is a fused
+block-heterogeneous MLP implementation and an equal-resource monolithic
+baseline.
 
 State-conditioned scheduling remains an optional extension, not the primary
 claim: its current evidence is descriptive and confounded by prompt and decode
@@ -15,24 +22,33 @@ equal-resource and small-batch evidence does not justify leading with them.
 
 These are research candidates, not claims. Each idea has a measurable kill condition.
 
-## A. Survival-aware grouped DFlash (primary)
+## A. Draft-block importance-aware DFlash (primary candidate)
 
-**Motivation.** A DFlash block is verified as a prefix. Later positions are conditionally useful, but the draft accelerator spends the same depth and precision on every position.
+**Motivation.** DFlash injects target hidden features through a stack of draft
+Transformer blocks, but the official ablation shows that those blocks do not
+contribute equally to the accepted prefix. Uniform layer execution therefore
+wastes work on low-value block updates while under-provisioning the blocks that
+protect early acceptance.
 
-**Challenge.** Bidirectional attention couples tail positions back into prefix hidden states. Position pruning or layer skipping can reduce the very prefix acceptance that the optimization is meant to protect.
+**Challenge.** Full-block skipping is unsafe: bypassing any layer lowers
+acceptance, and bypassing the first layer is catastrophic. The architecture
+must preserve dense cross-position attention, selectively reduce only safe
+updates, and account for activation movement and queueing overhead.
 
-**Mechanism.** Keep shared lower-layer execution and dense bidirectional
-attention, then route position rows through a layer-by-position staircase:
-protected prefix lanes receive full upper-layer MLP execution; tail lanes
-receive reduced MLP depth. A calibrated dense fallback bypasses compaction when
-the batch or active-row group is too small. Compare the grouped monolithic
-engine against an equal-resource chiplet realization.
+**Mechanism.** Keep attention dense in every block, classify block MLP updates
+by measured marginal prefix value, and route high-value blocks to full-fidelity
+lanes while low-value blocks use reduced precision or a fused skipped MLP
+update. Group requests with compatible block schedules and fall back to dense
+monolithic execution when the group is too small. A chiplet fabric is an
+optional physical realization for shared and specialized MLP lanes.
 
-**Evidence needed.** `S_i=P(A>=i)`, conditional hazard, layer ablation gain, cross-position interference, and bandwidth/traffic-aware cycle estimates.
+**Evidence needed.** Per-block `S_i` degradation, held-out stability of the
+ranking, MLP-only acceptance, fused MLP latency, activation bytes, queueing,
+and an equal-resource monolithic comparison.
 
-**Kill condition.** Tail approximation reduces early-prefix acceptance enough
-to erase compute savings, or calibrated grouping yields no benefit in the
-target throughput-serving regime.
+**Kill condition.** No block-level MLP fidelity schedule preserves early
+prefix acceptance, or fused grouped execution loses to dense monolithic
+execution after movement and synchronization costs.
 
 ## B. Verifier-feedback refinement pipeline
 
