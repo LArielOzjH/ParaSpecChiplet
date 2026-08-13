@@ -325,6 +325,15 @@ persistent/fused row compaction, or dedicated heterogeneous lanes to avoid
 launch and movement overhead. The benchmark is a single-layer microbenchmark,
 not an end-to-end speedup result.
 
+A finer active-row sweep at batch 64 is preserved in
+`data/gpu_mlp_row_sweep_rtx4090.json` and reproducible with
+`scripts/benchmark_mlp_rows.py`. The dense MLP remains near 1.03 ms across
+row counts, while grouped execution falls from 1.167 ms at 16 active rows to
+0.817 ms at 9 rows and 0.406 ms at 4 rows. The 16-row grouped case is slower
+than dense because compaction is pure overhead. This gives the queue model a
+measurable operating curve: a fused implementation must avoid paying the
+compaction tax when the selected schedule is effectively uniform.
+
 ## Mixed-schedule grouped execution
 
 The grouping question was tested with a deliberately mixed batch: half of the

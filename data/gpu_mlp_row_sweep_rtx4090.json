@@ -1,0 +1,19 @@
+{
+  "draft_model": "Qwen3-4B-DFlash-b16",
+  "device": "NVIDIA GeForce RTX 4090",
+  "batch_size": 64,
+  "block_size": 16,
+  "hidden_size": 2560,
+  "warning": "single-layer CUDA microbenchmark; not end-to-end serving speedup",
+  "records": [
+    {"active_per_request": 16, "active_rows": 1024, "dense_ms": 1062.7055, "active_ms": 1060.5508, "grouped_ms": 1166.6091},
+    {"active_per_request": 14, "active_rows": 896, "dense_ms": 1022.2545, "active_ms": 926.3130, "grouped_ms": 1080.8388},
+    {"active_per_request": 12, "active_rows": 768, "dense_ms": 1024.2321, "active_ms": 825.8048, "grouped_ms": 984.2146},
+    {"active_per_request": 10, "active_rows": 640, "dense_ms": 1026.0889, "active_ms": 653.9098, "grouped_ms": 783.3920},
+    {"active_per_request": 9, "active_rows": 576, "dense_ms": 1042.8864, "active_ms": 679.4269, "grouped_ms": 817.4937},
+    {"active_per_request": 8, "active_rows": 512, "dense_ms": 1027.6980, "active_ms": 536.3972, "grouped_ms": 696.5389},
+    {"active_per_request": 6, "active_rows": 384, "dense_ms": 1027.9428, "active_ms": 427.6083, "grouped_ms": 487.5059},
+    {"active_per_request": 4, "active_rows": 256, "dense_ms": 1029.7515, "active_ms": 321.0718, "grouped_ms": 405.7352},
+    {"active_per_request": 2, "active_rows": 128, "dense_ms": 1029.7617, "active_ms": 213.6337, "grouped_ms": 282.0369}
+  ]
+}
