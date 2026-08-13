@@ -17,6 +17,7 @@ def test_grouped_cost_counts_active_rows_and_schedule_groups():
     assert result.block_size == 4
     assert result.active_rows_by_layer == (8, 6)
     assert result.schedule_groups_by_layer == (1, 2)
+    assert result.dense_total_cycles == pytest.approx(22.0)
     assert result.grouped_compute_cycles == pytest.approx(14.0)
     assert result.grouped_total_cycles == pytest.approx(27.0)
     assert result.separate_total_cycles == pytest.approx(30.0)

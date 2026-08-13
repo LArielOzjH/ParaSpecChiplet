@@ -13,6 +13,7 @@ class GroupedMLPCost:
     active_rows_by_layer: tuple[int, ...]
     schedule_groups_by_layer: tuple[int, ...]
     dense_compute_cycles: float
+    dense_total_cycles: float
     grouped_compute_cycles: float
     grouped_overhead_cycles: float
     grouped_total_cycles: float
@@ -70,6 +71,7 @@ def estimate_grouped_mlp_batch_cost(
     )
     grouped_compute = sum(active_rows) * mlp_macs_per_layer / compute_macs_per_cycle
     active_layers = sum(rows > 0 for rows in active_rows)
+    dense_total = dense_compute + draft_layers * launch_cycles
     grouped_overhead = (
         active_layers * launch_cycles + sum(active_rows) * scatter_cycles_per_row
     )
@@ -83,6 +85,7 @@ def estimate_grouped_mlp_batch_cost(
         active_rows_by_layer=tuple(active_rows),
         schedule_groups_by_layer=tuple(schedule_groups),
         dense_compute_cycles=float(dense_compute),
+        dense_total_cycles=float(dense_total),
         grouped_compute_cycles=float(grouped_compute),
         grouped_overhead_cycles=float(grouped_overhead),
         grouped_total_cycles=float(grouped_total),

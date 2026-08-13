@@ -139,6 +139,12 @@ call versus separate schedule calls. This is needed because a mixed batch can
 retain most of the dense rows even when each individual schedule looks
 promising.
 
+The model includes a dense launch baseline as well as grouped launch and
+scatter overhead; otherwise a selective design could appear to lose simply
+because only its overhead was counted. Its parameters are analytical and must
+be calibrated against the CUDA measurements before being used for a chiplet
+crossover claim.
+
 ## Preferred microarchitecture: dense attention, gated MLP
 
 The activation probe suggests a safer hardware primitive than skipping an
