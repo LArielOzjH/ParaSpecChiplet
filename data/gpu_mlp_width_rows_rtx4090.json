@@ -1,0 +1,202 @@
+{
+  "draft_model": "/root/autodl-tmp/model/Qwen3-4B-DFlash-b16",
+  "batch_size": 64,
+  "block_size": 16,
+  "hidden_size": 2560,
+  "intermediate_size": 9728,
+  "warning": "reduced-width CUDA microbenchmark; not acceptance or end-to-end serving speedup",
+  "records": [
+    {
+      "active_per_request": 16,
+      "active_rows": 1024,
+      "width_fraction": 1.0,
+      "intermediate_width": 9728,
+      "dense_ms": 1065.492451985677,
+      "reduced_ms": 1036.4381917317708
+    },
+    {
+      "active_per_request": 16,
+      "active_rows": 1024,
+      "width_fraction": 0.75,
+      "intermediate_width": 7296,
+      "dense_ms": 1025.3077189127605,
+      "reduced_ms": 782.2703043619791
+    },
+    {
+      "active_per_request": 16,
+      "active_rows": 1024,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 1032.3119099934895,
+      "reduced_ms": 525.4352823893229
+    },
+    {
+      "active_per_request": 16,
+      "active_rows": 1024,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 1034.8223876953125,
+      "reduced_ms": 271.988042195638
+    },
+    {
+      "active_per_request": 12,
+      "active_rows": 768,
+      "width_fraction": 1.0,
+      "intermediate_width": 9728,
+      "dense_ms": 822.3675537109375,
+      "reduced_ms": 820.1143391927084
+    },
+    {
+      "active_per_request": 12,
+      "active_rows": 768,
+      "width_fraction": 0.75,
+      "intermediate_width": 7296,
+      "dense_ms": 835.6249491373698,
+      "reduced_ms": 633.7467956542969
+    },
+    {
+      "active_per_request": 12,
+      "active_rows": 768,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 849.5786539713541,
+      "reduced_ms": 435.02248128255206
+    },
+    {
+      "active_per_request": 12,
+      "active_rows": 768,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 850.493418375651,
+      "reduced_ms": 218.42603047688803
+    },
+    {
+      "active_per_request": 9,
+      "active_rows": 576,
+      "width_fraction": 1.0,
+      "intermediate_width": 9728,
+      "dense_ms": 675.9065755208334,
+      "reduced_ms": 688.4420267740885
+    },
+    {
+      "active_per_request": 9,
+      "active_rows": 576,
+      "width_fraction": 0.75,
+      "intermediate_width": 7296,
+      "dense_ms": 681.5470886230469,
+      "reduced_ms": 510.9077453613281
+    },
+    {
+      "active_per_request": 9,
+      "active_rows": 576,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 682.2677103678385,
+      "reduced_ms": 339.7802734375
+    },
+    {
+      "active_per_request": 9,
+      "active_rows": 576,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 676.850331624349,
+      "reduced_ms": 177.58890787760416
+    },
+    {
+      "active_per_request": 8,
+      "active_rows": 512,
+      "width_fraction": 1.0,
+      "intermediate_width": 9728,
+      "dense_ms": 536.4407348632812,
+      "reduced_ms": 544.1664123535156
+    },
+    {
+      "active_per_request": 8,
+      "active_rows": 512,
+      "width_fraction": 0.75,
+      "intermediate_width": 7296,
+      "dense_ms": 544.5107014973959,
+      "reduced_ms": 426.7771911621094
+    },
+    {
+      "active_per_request": 8,
+      "active_rows": 512,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 553.2467142740885,
+      "reduced_ms": 294.2596181233724
+    },
+    {
+      "active_per_request": 8,
+      "active_rows": 512,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 554.8577880859375,
+      "reduced_ms": 173.3017603556315
+    },
+    {
+      "active_per_request": 4,
+      "active_rows": 256,
+      "width_fraction": 1.0,
+      "intermediate_width": 9728,
+      "dense_ms": 318.557866414388,
+      "reduced_ms": 314.95508829752606
+    },
+    {
+      "active_per_request": 4,
+      "active_rows": 256,
+      "width_fraction": 0.75,
+      "intermediate_width": 7296,
+      "dense_ms": 322.69182840983075,
+      "reduced_ms": 240.2269744873047
+    },
+    {
+      "active_per_request": 4,
+      "active_rows": 256,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 318.6687978108724,
+      "reduced_ms": 174.28479512532553
+    },
+    {
+      "active_per_request": 4,
+      "active_rows": 256,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 318.20457458496094,
+      "reduced_ms": 99.38218434651692
+    },
+    {
+      "active_per_request": 2,
+      "active_rows": 128,
+      "width_fraction": 1.0,
+      "intermediate_width": 9728,
+      "dense_ms": 213.36064656575522,
+      "reduced_ms": 211.91338857014975
+    },
+    {
+      "active_per_request": 2,
+      "active_rows": 128,
+      "width_fraction": 0.75,
+      "intermediate_width": 7296,
+      "dense_ms": 213.1421915690104,
+      "reduced_ms": 160.3037897745768
+    },
+    {
+      "active_per_request": 2,
+      "active_rows": 128,
+      "width_fraction": 0.5,
+      "intermediate_width": 4864,
+      "dense_ms": 212.9100799560547,
+      "reduced_ms": 103.56053034464519
+    },
+    {
+      "active_per_request": 2,
+      "active_rows": 128,
+      "width_fraction": 0.25,
+      "intermediate_width": 2432,
+      "dense_ms": 212.9745101928711,
+      "reduced_ms": 55.15946706136068
+    }
+  ]
+}
