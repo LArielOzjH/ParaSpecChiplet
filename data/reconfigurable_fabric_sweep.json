@@ -1,0 +1,147 @@
+{
+  "kind": "reconfigurable_fabric_sweep",
+  "warning": "normalized queue cost; not acceptance or end-to-end speedup",
+  "parameters": {
+    "launch_cycles": 10.0,
+    "scatter_cycles_per_row": 0.1,
+    "draft_layers": 5,
+    "block_size": 16
+  },
+  "rows": [
+    {
+      "batch_capacity": 8,
+      "staircase_fraction": 0.0,
+      "grouped_over_dense": 1.0927536231884059,
+      "grouped_cycles": 754.0,
+      "dense_cycles": 690.0,
+      "active_row_fraction": 1.0,
+      "mean_schedule_groups": 1.0
+    },
+    {
+      "batch_capacity": 8,
+      "staircase_fraction": 0.25,
+      "grouped_over_dense": 1.0289855072463767,
+      "grouped_cycles": 710.0,
+      "dense_cycles": 690.0,
+      "active_row_fraction": 0.9375,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 8,
+      "staircase_fraction": 0.5,
+      "grouped_over_dense": 0.9652173913043478,
+      "grouped_cycles": 666.0,
+      "dense_cycles": 690.0,
+      "active_row_fraction": 0.875,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 8,
+      "staircase_fraction": 0.75,
+      "grouped_over_dense": 0.9014492753623189,
+      "grouped_cycles": 622.0,
+      "dense_cycles": 690.0,
+      "active_row_fraction": 0.8125,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 8,
+      "staircase_fraction": 1.0,
+      "grouped_over_dense": 0.8376811594202899,
+      "grouped_cycles": 578.0,
+      "dense_cycles": 690.0,
+      "active_row_fraction": 0.75,
+      "mean_schedule_groups": 1.0
+    },
+    {
+      "batch_capacity": 16,
+      "staircase_fraction": 0.0,
+      "grouped_over_dense": 1.0962406015037593,
+      "grouped_cycles": 1458.0,
+      "dense_cycles": 1330.0,
+      "active_row_fraction": 1.0,
+      "mean_schedule_groups": 1.0
+    },
+    {
+      "batch_capacity": 16,
+      "staircase_fraction": 0.25,
+      "grouped_over_dense": 1.0300751879699248,
+      "grouped_cycles": 1370.0,
+      "dense_cycles": 1330.0,
+      "active_row_fraction": 0.9375,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 16,
+      "staircase_fraction": 0.5,
+      "grouped_over_dense": 0.9639097744360903,
+      "grouped_cycles": 1282.0,
+      "dense_cycles": 1330.0,
+      "active_row_fraction": 0.875,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 16,
+      "staircase_fraction": 0.75,
+      "grouped_over_dense": 0.8977443609022556,
+      "grouped_cycles": 1194.0,
+      "dense_cycles": 1330.0,
+      "active_row_fraction": 0.8125,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 16,
+      "staircase_fraction": 1.0,
+      "grouped_over_dense": 0.8315789473684211,
+      "grouped_cycles": 1106.0,
+      "dense_cycles": 1330.0,
+      "active_row_fraction": 0.75,
+      "mean_schedule_groups": 1.0
+    },
+    {
+      "batch_capacity": 64,
+      "staircase_fraction": 0.0,
+      "grouped_over_dense": 1.0990328820116053,
+      "grouped_cycles": 5682.0,
+      "dense_cycles": 5170.0,
+      "active_row_fraction": 1.0,
+      "mean_schedule_groups": 1.0
+    },
+    {
+      "batch_capacity": 64,
+      "staircase_fraction": 0.25,
+      "grouped_over_dense": 1.0309477756286267,
+      "grouped_cycles": 5330.0,
+      "dense_cycles": 5170.0,
+      "active_row_fraction": 0.9375,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 64,
+      "staircase_fraction": 0.5,
+      "grouped_over_dense": 0.962862669245648,
+      "grouped_cycles": 4978.0,
+      "dense_cycles": 5170.0,
+      "active_row_fraction": 0.875,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 64,
+      "staircase_fraction": 0.75,
+      "grouped_over_dense": 0.8947775628626693,
+      "grouped_cycles": 4626.0,
+      "dense_cycles": 5170.0,
+      "active_row_fraction": 0.8125,
+      "mean_schedule_groups": 1.8
+    },
+    {
+      "batch_capacity": 64,
+      "staircase_fraction": 1.0,
+      "grouped_over_dense": 0.8266924564796905,
+      "grouped_cycles": 4274.0,
+      "dense_cycles": 5170.0,
+      "active_row_fraction": 0.75,
+      "mean_schedule_groups": 1.0
+    }
+  ]
+}

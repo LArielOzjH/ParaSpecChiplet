@@ -58,6 +58,13 @@ cross-request grouping, a small schedule table, and dense fallback. The
 controller is not a generic token-pruning controller; it selects a jointly
 validated block-fidelity vector under a prefix-survival constraint.
 
+The fabric also needs an occupancy gate. Under the current normalized
+launch/scatter calibration, the queue sweep crosses from grouped loss to
+grouped benefit near 40--50% heterogeneous-schedule occupancy. The controller
+must estimate this occupancy and choose dense fallback rather than always
+invoke a selective path. See
+[`docs/reconfigurable_fabric_sweep.md`](reconfigurable_fabric_sweep.md).
+
 Chiplets are an optional extension only if a later design demonstrates that
 parallel specialized lanes, area/energy sharing, or workload isolation
 overcomes link and synchronization costs. The current analytical sweep does
