@@ -352,6 +352,14 @@ composition is in `data/calibrated_schedule_mlp_latency.json`. These figures
 exclude dense attention, so they are MLP-only cycle estimates rather than
 end-to-end throughput claims.
 
+Combining the calibrated MLP schedule with a dense-attention sensitivity bound
+reduces the protected8 staircase estimate from 13.49% MLP-only saving to
+10.79% when attention is 20% of each uniform layer, 8.10% at 40%, and 2.70%
+at 80%. The full sensitivity table is in
+`data/attention_preserving_latency_sensitivity.json`; the calculation is
+implemented by `paraspec/latency_bound.py`. This makes clear why the final
+architecture evaluation must measure attention and MLP separately.
+
 Combining this MLP-only estimate with the earlier projection-MAC screen
 (74.7M MLP MACs versus 26.2M attention projection MACs) suggests roughly a
 10% reduction in draft projection work for the protected8 staircase before

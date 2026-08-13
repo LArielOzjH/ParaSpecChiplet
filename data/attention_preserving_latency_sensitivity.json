@@ -1,0 +1,9 @@
+{
+  "source": "calibrated_schedule_mlp_latency.json",
+  "warning": "attention latency is a sensitivity parameter; this is not a measured end-to-end trace",
+  "results": [
+    {"schedule": "protected8_conservative", "speedup_if_attention_fraction_0": 0.05733, "speedup_if_attention_fraction_0.2": 0.045864, "speedup_if_attention_fraction_0.4": 0.034398, "speedup_if_attention_fraction_0.6": 0.022932, "speedup_if_attention_fraction_0.8": 0.011466},
+    {"schedule": "protected8_staircase", "speedup_if_attention_fraction_0": 0.134931, "speedup_if_attention_fraction_0.2": 0.107945, "speedup_if_attention_fraction_0.4": 0.080959, "speedup_if_attention_fraction_0.6": 0.053972, "speedup_if_attention_fraction_0.8": 0.026986},
+    {"schedule": "protected4_moderate", "speedup_if_attention_fraction_0": 0.134931, "speedup_if_attention_fraction_0.2": 0.107945, "speedup_if_attention_fraction_0.4": 0.080959, "speedup_if_attention_fraction_0.6": 0.053972, "speedup_if_attention_fraction_0.8": 0.026986}
+  ]
+}
