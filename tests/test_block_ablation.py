@@ -7,6 +7,7 @@ from paraspec.block_ablation import (
     install_mlp_scales,
     install_layer_bypasses,
     parse_layer_groups,
+    parse_layer_scales,
     validate_layer_indices,
 )
 
@@ -116,3 +117,15 @@ def test_install_mlp_scales_scales_selected_update_and_restores():
     finally:
         restore()
     assert torch.equal(layers[0].mlp(values), torch.tensor([[12.0]]))
+
+
+def test_parse_layer_scales_validates_and_canonicalizes_spec():
+    assert parse_layer_scales("3=0.5,2=0.25", draft_layers=5) == {
+        2: 0.25,
+        3: 0.5,
+    }
+
+
+def test_parse_layer_scales_rejects_out_of_range_scale():
+    with pytest.raises(ValueError, match="within"):
+        parse_layer_scales("2=1.5", draft_layers=5)

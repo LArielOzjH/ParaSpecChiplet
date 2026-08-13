@@ -47,6 +47,26 @@ def parse_layer_groups(
     return tuple(groups)
 
 
+def parse_layer_scales(specification: str, *, draft_layers: int) -> dict[int, float]:
+    """Parse a comma-separated ``layer=scale`` fidelity specification."""
+
+    if not specification.strip():
+        raise ValueError("layer scale specification must not be empty")
+    values: dict[int, float] = {}
+    for raw_item in specification.split(","):
+        if "=" not in raw_item:
+            raise ValueError("layer scale must use layer=scale syntax")
+        raw_layer, raw_scale = raw_item.split("=", 1)
+        layer = validate_layer_indices((int(raw_layer.strip()),), draft_layers=draft_layers)[0]
+        scale = float(raw_scale.strip())
+        if not 0.0 <= scale <= 1.0:
+            raise ValueError("MLP scales must be within [0, 1]")
+        if layer in values:
+            raise ValueError("layer scale specification contains a duplicate layer")
+        values[layer] = scale
+    return values
+
+
 def bypass_layer_output(layer_input: torch.Tensor, layer_output: object) -> object:
     """Replace a layer's transformed hidden state with its input.
 

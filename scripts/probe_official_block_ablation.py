@@ -23,6 +23,7 @@ from paraspec.block_ablation import (
     install_mlp_bypasses,
     install_mlp_scales,
     parse_layer_groups,
+    parse_layer_scales,
     validate_layer_indices,
 )
 from paraspec.official_trace import stats_to_verification_events
@@ -62,6 +63,11 @@ def main() -> None:
         help="zero-based layer to scale when --mode scale is used",
     )
     parser.add_argument("--scale", type=float, default=0.5)
+    parser.add_argument(
+        "--scale-spec",
+        default=None,
+        help="comma-separated layer=scale pairs, e.g. 2=0.5,3=0.5",
+    )
     args = parser.parse_args()
 
     if not torch.cuda.is_available():
@@ -85,11 +91,17 @@ def main() -> None:
     if args.groups is not None and args.layers is not None:
         raise ValueError("use only one of --layers and --groups")
     if args.mode == "scale":
-        if args.scale_layer is None:
-            raise ValueError("--scale-layer is required when --mode scale is used")
-        validate_layer_indices((args.scale_layer,), draft_layers=draft_layers)
-        if not 0.0 <= args.scale <= 1.0:
-            raise ValueError("--scale must be within [0, 1]")
+        if args.scale_spec is not None and args.scale_layer is not None:
+            raise ValueError("use only one of --scale-spec and --scale-layer")
+        if args.scale_spec is not None:
+            scale_map = parse_layer_scales(args.scale_spec, draft_layers=draft_layers)
+        else:
+            if args.scale_layer is None:
+                raise ValueError("--scale-layer or --scale-spec is required in scale mode")
+            validate_layer_indices((args.scale_layer,), draft_layers=draft_layers)
+            if not 0.0 <= args.scale <= 1.0:
+                raise ValueError("--scale must be within [0, 1]")
+            scale_map = {args.scale_layer: args.scale}
     if args.groups is not None:
         groups = parse_layer_groups(args.groups, draft_layers=draft_layers)
     elif args.layers is None:
@@ -107,9 +119,10 @@ def main() -> None:
 
     experiments: tuple[tuple[str, tuple[int, ...]], ...] = (("uniform", ()),) + groups
     if args.mode == "scale":
+        scale_label = "_".join(f"{layer}_{value:g}" for layer, value in sorted(scale_map.items()))
         experiments = (
             ("uniform", ()),
-            (f"scale_layer_{args.scale_layer}_{args.scale:g}", (args.scale_layer,)),
+            (f"scale_{scale_label}", tuple(sorted(scale_map))),
         )
     stop_token_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
     records: list[dict] = []
@@ -130,7 +143,7 @@ def main() -> None:
                 else:
                     restore = install_mlp_scales(
                         draft.layers,
-                        {args.scale_layer: args.scale},
+                        scale_map,
                         draft_layers=draft_layers,
                     )
             try:
