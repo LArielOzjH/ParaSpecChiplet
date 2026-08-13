@@ -47,7 +47,8 @@ held-out block-width result is more cautionary; see
 - low-batch benefit;
 - a correctness-passing custom Triton fused kernel;
 - chiplet advantage;
-- state-aware policy improvement;
+- generalized state-aware policy improvement (only a preliminary 8-prompt
+  threshold probe is positive);
 - arbitrary composition of individually safe block schedules.
 
 ## Architecture story
@@ -64,6 +65,10 @@ grouped benefit near 40--50% heterogeneous-schedule occupancy. The controller
 must estimate this occupancy and choose dense fallback rather than always
 invoke a selective path. See
 [`docs/reconfigurable_fabric_sweep.md`](reconfigurable_fabric_sweep.md).
+
+A preliminary state-conditioned width probe is positive on the same held-out
+set, but it has not yet included controller or fallback cost; see
+[`docs/state_conditioned_width_results.md`](state_conditioned_width_results.md).
 
 Chiplets are an optional extension only if a later design demonstrates that
 parallel specialized lanes, area/energy sharing, or workload isolation
