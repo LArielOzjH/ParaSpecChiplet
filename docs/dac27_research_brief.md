@@ -86,11 +86,19 @@ What is not yet supported:
 
 - no token acceptance result from the community 0.6B checkpoint, because its
   vocabulary mappings are invalid/missing;
-- no selective-depth DFlash kernel or GPU timing result;
+- no fused selective-depth DFlash kernel or validated GPU speedup result;
 - no proof that state-conditioned schedules outperform a static schedule; the
   current state analysis is descriptive and confounded by prompt/generation
   phase;
 - no proof that chiplet traffic beats an equal-resource monolithic design.
+
+An official serving-loop gating probe now provides an intermediate positive
+result: dense attention plus a protected8 staircase removes 25% of nominal
+MLP rows while preserving the measured prefix-survival summary on the current
+12-prompt workload. It uses an unfused Python row-selection implementation,
+so it is evidence for acceptance-compatible dataflow, not for speedup. The
+remaining hardware gate is a fused kernel/cycle model with gather, multicast,
+and synchronization costs.
 
 These are open gates, not implied results.
 

@@ -257,3 +257,38 @@ buckets are small. The trace contains official acceptance lengths and timing
 metadata, but no confidence vectors, token IDs, or per-layer checkpoints.
 Therefore it supports the survival-heterogeneity motivation, not yet a claim
 that an adaptive schedule improves acceptance or end-to-end latency.
+
+## Official attention-preserving MLP-gating acceptance
+
+Date: 2026-08-14
+
+The official Qwen3-4B/DFlash-b16 path was then rerun with a fixed schedule
+installed directly into the draft model. Every draft layer kept dense
+bidirectional attention, while only the non-skipped position rows entered the
+MLP. The target verifier and autoregressive decode loop were unchanged. Raw
+events are in `data/official_qwen3_4b_mlp_gating.jsonl`; the implementation is
+`paraspec/official_selective.py` and
+`scripts/probe_official_mlp_gating.py`.
+
+| Schedule | MLP work | Mean accepted prefix | S1 | S2 | S4 |
+|---|---:|---:|---:|---:|---:|
+| uniform | 80 | 1.259 | 0.569 | 0.325 | 0.083 |
+| protected8 conservative | 67 (-16.25%) | 1.259 | 0.575 | 0.330 | 0.080 |
+| protected8 staircase | 60 (-25.00%) | 1.261 | 0.566 | 0.330 | 0.080 |
+| protected4 moderate | 51 (-36.25%) | 1.220 | 0.559 | 0.331 | 0.079 |
+
+This is the first official serving-loop evidence that a heterogeneous
+upper-layer MLP schedule can preserve prefix acceptance while leaving the
+bidirectional attention context intact. The protected8 staircase is the
+current primary candidate: it removes 25% of nominal MLP rows with no material
+change in the measured acceptance summary. The protected4 schedule is an
+aggressive stress point with an approximately 3.1% mean-prefix reduction.
+
+The measured end-to-end per-output-token timing did not improve: the current
+Python implementation averaged roughly 10.08 ms/token for uniform,
+10.67 ms/token for protected8 conservative, and 10.70 ms/token for protected8
+staircase. This is expected because row gathering/scattering is not a fused
+GPU kernel and can cost more than the saved MLP work. These numbers are not a
+speedup claim; they establish an acceptance-preserving execution target for a
+real fused selective-MLP kernel. Dense attention cost, gather/scatter cost,
+and synchronization must be included in the eventual architecture model.
