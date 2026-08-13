@@ -46,3 +46,17 @@ def test_install_layer_bypasses_can_restore_selected_layers():
     finally:
         restore()
     assert torch.equal(layers[1](values), torch.tensor([[12.0]]))
+
+
+def test_install_layer_bypasses_accepts_keyword_hidden_states():
+    class Layer(torch.nn.Module):
+        def forward(self, hidden_states):
+            return hidden_states + 10
+
+    layers = torch.nn.ModuleList([Layer()])
+    values = torch.tensor([[2.0]])
+    restore = install_layer_bypasses(layers, [0], draft_layers=1)
+    try:
+        assert torch.equal(layers[0](hidden_states=values), values)
+    finally:
+        restore()

@@ -55,15 +55,23 @@ def install_layer_bypasses(
     for index in indices:
         layer = layers[index]
 
-        def bypass_hook(_module: object, inputs: tuple[object, ...], output: object) -> object:
-            if not inputs or not isinstance(inputs[0], torch.Tensor):
+        def bypass_hook(
+            _module: object,
+            inputs: tuple[object, ...],
+            kwargs: dict[str, object],
+            output: object,
+        ) -> object:
+            layer_input = kwargs.get("hidden_states")
+            if layer_input is None and inputs:
+                layer_input = inputs[0]
+            if not isinstance(layer_input, torch.Tensor):
                 raise TypeError("draft layer hook must receive hidden states as its first input")
-            return bypass_layer_output(inputs[0], output)
+            return bypass_layer_output(layer_input, output)
 
         register = getattr(layer, "register_forward_hook", None)
         if not callable(register):
             raise TypeError("draft layers must support forward hooks")
-        handles.append(register(bypass_hook))
+        handles.append(register(bypass_hook, with_kwargs=True))
 
     def restore() -> None:
         for handle in handles:
