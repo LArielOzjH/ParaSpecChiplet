@@ -111,3 +111,27 @@ and mask. The metrics therefore have incompatible definitions (or masks), and
 the repository refuses to combine them into a claimed prefix-survival trace.
 `paraspec.survival_bounds` retains the consistency check as a warning tool;
 official cycle-level acceptance remains required.
+
+## Offline agreement probe with target-sized vocabulary
+
+The downloaded `orestis-z/dflash-qwen3-0.6b-microcycle-dflash` checkpoint was
+loaded with the Speculators backend and evaluated on four prompts with eight
+fixed random anchors per prompt. The probe resets the RNG before the draft
+forward so the internally sampled anchors align with the target positions. Raw
+events are in `data/local_offline_acceptance_proxy_orestis.json`.
+
+| Accepted draft prefix | Number of anchors |
+|---:|---:|
+| 0 | 14 |
+| 1 | 6 |
+| 2 | 7 |
+| 3 | 3 |
+| 4 | 2 |
+
+The mean is 1.156 accepted positions out of a block size of 8. This is useful
+as a smoke test for target-sized vocabulary and prefix comparison, but it is
+not an official serving result: the Speculators forward evaluates randomly
+anchored masked blocks under a fixed context, not an autoregressive decode
+loop. The checkpoint also lacks the optional `verifier_lm_head` used for its
+training metrics; the probe ignores that loss output and only uses draft token
+predictions. Official GPU serving remains the acceptance gate.
