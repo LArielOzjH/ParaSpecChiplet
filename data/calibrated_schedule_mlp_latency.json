@@ -1,0 +1,12 @@
+{
+  "calibration": "gpu_mlp_row_sweep_batch_sizes_rtx4090.json",
+  "batch_size": 64,
+  "warning": "single-layer MLP latency composition; dense attention and end-to-end serving are excluded",
+  "uniform_mlp_latency_ms": 5312.085,
+  "results": [
+    {"schedule": "uniform", "layer_latency_ms": [1062.417, 1062.417, 1062.417, 1062.417, 1062.417], "speedup_fraction": 0.0},
+    {"schedule": "protected8_conservative", "layer_latency_ms": [1062.417, 1062.417, 1062.417, 998.690, 821.604], "speedup_fraction": 0.0573},
+    {"schedule": "protected8_staircase", "layer_latency_ms": [1062.417, 1062.417, 998.690, 777.591, 694.204], "speedup_fraction": 0.1349},
+    {"schedule": "protected4_moderate", "layer_latency_ms": [1062.417, 998.690, 777.591, 694.204, 1062.417], "speedup_fraction": 0.1349}
+  ]
+}

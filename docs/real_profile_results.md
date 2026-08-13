@@ -344,6 +344,14 @@ back to dense. The full per-layer decisions are in
 `paraspec/row_policy.py`. This is a hardware execution estimate, not a new
 acceptance run.
 
+Composing the per-layer calibrated timings gives a more conservative estimate
+than row savings alone. At batch 64, protected8 conservative reduces the
+five-layer MLP time by 5.73%, while protected8 staircase and protected4
+moderate each reduce it by 13.49% under the exact-row fallback. The detailed
+composition is in `data/calibrated_schedule_mlp_latency.json`. These figures
+exclude dense attention, so they are MLP-only cycle estimates rather than
+end-to-end throughput claims.
+
 ## Batch-aware dense fallback calibration
 
 The row sweep was repeated at batch sizes 1, 8, and 64; the complete table is
