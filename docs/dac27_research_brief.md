@@ -48,6 +48,13 @@ The router is not a generic network-on-chip addition: it carries the
 layer-position survival map and state-selected schedule. A monolithic
 accelerator with equal total resources is the required baseline.
 
+The current GPU evidence refines the preferred implementation: the first
+target should be a monolithic grouped-dataflow engine with persistent MLP
+lanes and a cross-request position compactor. Chiplets remain an optional
+physical realization for separating shared backbone and heterogeneous MLP
+lanes, but a per-request chiplet split is not justified by the current
+small-batch timing.
+
 ## Why this is a DAC architecture problem
 
 The novelty boundary is the interaction of three constraints:
