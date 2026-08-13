@@ -2,7 +2,7 @@
 
 ## Working title
 
-**SAGE-DFlash: Survival-Aware Grouped Execution for Block-Parallel Speculative
+**SAGE-DFlash: Joint Fidelity Scheduling for Block-Parallel Speculative
 Decoding**
 
 The title deliberately names the execution/dataflow problem. Chiplets are an
@@ -12,14 +12,14 @@ optional implementation point, not the premise of the paper.
 
 DFlash creates a mismatch between computation and commitment: every block
 position is computed in parallel, but only a contiguous accepted prefix is
-valuable. A useful accelerator should therefore spend upper-layer draft MLP
-work according to prefix survival while preserving dense bidirectional
+valuable. A useful accelerator should therefore spend draft-block MLP work
+according to measured prefix value while preserving dense bidirectional
 attention. The proposed execution substrate is:
 
 1. shared lower-layer/block-wide execution;
 2. dense attention for every block position;
-3. protected-prefix, heterogeneous upper-layer MLP depth;
-4. cross-request grouping of equal active-row schedules;
+3. jointly validated per-block MLP fidelity levels;
+4. cross-request grouping of equal fidelity schedules;
 5. a batch-aware dense fallback when compaction is not profitable.
 
 The primary baseline is an equal-resource monolithic accelerator. A chiplet
@@ -60,10 +60,10 @@ target hidden features
           target verifier
 ```
 
-The scheduler operates on a layer-by-position depth vector, not on individual
+The scheduler operates on a joint block-fidelity vector, not on individual
 token pruning. It must expose three decisions to hardware:
 
-- active rows for the current draft layer;
+- MLP width/fidelity for the current draft layer;
 - whether the active-row group is large enough for compaction;
 - whether requests should wait briefly for schedule coalescing or use dense
   execution immediately.
@@ -74,18 +74,18 @@ selectively executed in the primary design.
 
 ## Contributions to claim if the remaining gate passes
 
-### 1. Survival-constrained DFlash execution model
+### 1. Acceptance-calibrated DFlash fidelity model
 
-Define `S_i = P(A >= i)` and evaluate layer-position actions by committed value
-per cost. Use a protected-prefix constraint to prevent tail approximation from
-silently damaging early acceptance.
+Define `S_i = P(A >= i)` and evaluate joint block-fidelity actions by committed
+value per cost. Reject schedules below a registered prefix-acceptance
+threshold; do not assume independent per-block scores compose.
 
 ### 2. Grouped heterogeneous MLP dataflow
 
 Provide a concrete execution path that preserves dense attention while
-compacting active MLP rows across requests. Include a measured dense fallback
-and schedule-group queue, so the design remains meaningful outside an ideal
-sparse-MAC model.
+executing reduced-width/partial-fidelity MLPs and grouping compatible
+requests. Include a measured dense fallback and schedule-group queue, so the
+design remains meaningful outside an ideal sparse-MAC model.
 
 ### 3. Equal-resource architecture study
 
@@ -106,7 +106,9 @@ claim.
 | Fabric | monolithic, grouped monolithic, chiplet | cycles, bytes, sync, energy/area proxy |
 | Workload | systems, coding, math/reasoning, long context | cross-workload stability |
 
-The fused/persistent grouped implementation is the decisive missing artifact.
+The fused/persistent reduced-width implementation is the decisive missing
+artifact. Current evidence already includes a reduced-width CUDA calibration,
+but not a correctness-passing fused kernel or end-to-end speedup.
 Until it exists, report the current row-latency measurements as hardware
 calibration and not as accelerator speedup.
 
@@ -134,9 +136,9 @@ prefix-survival and bidirectional-context constraints.
 
 ## Decision tree
 
-1. If protected schedules lose early-prefix acceptance beyond the registered
-   tolerance, kill selective MLP gating and retain only shared-lower-layer
-   dataflow as a profiling result.
+1. If no jointly validated fidelity schedule preserves early-prefix acceptance
+   beyond the registered tolerance, kill heterogeneous block fidelity and
+   retain only dense-attention profiling.
 2. If fused grouped execution does not beat dense in the target throughput
    regime, kill the grouped hardware claim and retain the acceptance result as
    motivation only.
@@ -144,15 +146,15 @@ prefix-survival and bidirectional-context constraints.
    cost, remove adaptive scheduling from the main paper.
 4. If chiplet traffic and synchronization lose to equal-resource monolithic,
    remove chiplets from the headline and publish the grouped monolithic design.
-5. If all four gates pass, present SAGE-DFlash as a survival-aware grouped
-   accelerator with chiplets as one scalable physical organization.
+5. If all gates pass, present SAGE-DFlash as an acceptance-calibrated grouped
+   fidelity accelerator; chiplets remain an optional physical organization.
 
 ## Current status
 
 Supported now:
 
 - official serving-loop acceptance trace;
-- official attention-preserving MLP gating probe;
+- official block ablation and reduced-width MLP acceptance probes;
 - batch/schedule GPU microbenchmarks;
 - trace-driven queue sensitivity model;
 - calibrated row policy and dense fallback;
@@ -160,11 +162,14 @@ Supported now:
 
 Not supported now:
 
-- fused/persistent grouped kernel;
+- fused/persistent reduced-width kernel;
 - low-batch speedup;
 - end-to-end throughput improvement;
 - causal proof that state-aware scheduling improves acceptance;
 - chiplet advantage after measured traffic and synchronization.
 
 The paper should not be written as complete until the missing artifacts are
-measured or the corresponding claims are explicitly removed.
+measured or the corresponding claims are explicitly removed. If the fused
+kernel gate fails, the defensible submission is an acceptance-calibrated
+architecture/cost study with monolithic grouped execution as the proposed
+organization and chiplets explicitly demoted.

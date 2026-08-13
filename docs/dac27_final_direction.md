@@ -1,0 +1,63 @@
+# DAC'27 Direction Audit
+
+## Recommended primary paper
+
+**SAGE-DFlash: Joint Fidelity Scheduling for Block-Parallel Speculative
+Decoding**
+
+The minimum defensible contribution is an acceptance-calibrated scheduler and
+grouped monolithic dataflow:
+
+1. keep bidirectional attention dense;
+2. assign a finite MLP fidelity vector across draft blocks;
+3. validate schedules jointly with official target verification;
+4. use measured width/row latency to remove dominated schedules;
+5. group compatible requests and use dense fallback when grouping does not
+   pay.
+
+The current strongest concrete schedule is layer 2 at 50% MLP width. It keeps
+`S1=0.6103` versus `0.6095` for uniform execution. A two-layer 50% schedule
+falls to `S1=0.5625`, so joint schedule validation is essential.
+
+## Claims currently supported
+
+- draft blocks have unequal marginal value;
+- full-block bypass is unsafe, especially for the first block;
+- dense attention plus selected MLP fidelity is substantially safer;
+- reduced-width MLP has real GPU compute-side headroom at throughput batch;
+- a measured acceptance/latency frontier can select safe schedules;
+- chiplet links and synchronization lose in the current equal-resource model.
+
+## Claims not supported
+
+- end-to-end serving speedup;
+- low-batch benefit;
+- a correctness-passing custom Triton fused kernel;
+- chiplet advantage;
+- state-aware policy improvement;
+- arbitrary composition of individually safe block schedules.
+
+## Architecture story
+
+The proposed hardware is a monolithic grouped-fidelity engine: dense
+attention lanes feed a schedule-aware MLP fabric with full/half-width lanes,
+cross-request grouping, a small schedule table, and dense fallback. The
+controller is not a generic token-pruning controller; it selects a jointly
+validated block-fidelity vector under a prefix-survival constraint.
+
+Chiplets are an optional extension only if a later design demonstrates that
+parallel specialized lanes, area/energy sharing, or workload isolation
+overcomes link and synchronization costs. The current analytical sweep does
+not demonstrate that condition.
+
+## Remaining decisive gate
+
+Implement a correctness-tested tensor-core-aware reduced-width kernel with
+fixed shapes and compare it against the existing eager reduced-width path at
+batch 1, 8, and 64. If it does not win at batch 64, remove the hardware
+speedup claim and present the work as an acceptance-calibrated architecture
+and cost study. If it wins only at batch 64, explicitly scope the paper to
+throughput-serving.
+
+This decision keeps the paper viable without relying on grammar, sparse head,
+chiplet optimism, or an unverified compiler/kernel result.
