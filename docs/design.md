@@ -56,6 +56,27 @@ zero controller overhead. If its selected schedule does not beat static
 staircase execution after router and synchronization cost, the adaptive
 controller is not a paper contribution.
 
+## Schedule frontier oracle
+
+Before running every selective-depth candidate on a real model, the repository
+can enumerate monotone depth vectors and rank them using an additive
+layer-position ablation proxy:
+
+```bash
+python scripts/enumerate_schedule_frontier.py \
+  --trace data/layer_position_trace.json \
+  --output data/schedule_frontier.json \
+  --min-depth 1 --protected-prefix 4 \
+  --macs-per-layer 100 --compute-macs-per-cycle 100 \
+  --activation-bytes-per-position 4096 --link-bytes-per-cycle 512 \
+  --synchronization-cycles 20
+```
+
+The output is a candidate frontier, not an accuracy result. Its additive
+survival prediction is useful for narrowing the 5-by-16 official DFlash design
+space; each frontier point must later be remeasured with actual selective-depth
+execution and target verification.
+
 ## Cost-model boundary
 
 The chiplet oracle models four terms separately: draft compute, activation-link
