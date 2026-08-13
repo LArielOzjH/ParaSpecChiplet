@@ -1,0 +1,23 @@
+{
+  "target_model": "Qwen3-4B",
+  "draft_model": "Qwen3-4B-DFlash-b16",
+  "device": "NVIDIA GeForce RTX 4090",
+  "decode_cycles": 28,
+  "warning": "CUDA hook instrumentation adds event overhead; stage totals are directional and use one prompt",
+  "attention_total_ms": 44.4640,
+  "mlp_total_ms": 29.8393,
+  "attention_fraction": 0.5984,
+  "mlp_fraction": 0.4016,
+  "stage_ms": {
+    "layer0_attention": 14.2532,
+    "layer0_mlp": 5.5720,
+    "layer1_attention": 8.0773,
+    "layer1_mlp": 5.5060,
+    "layer2_attention": 7.4269,
+    "layer2_mlp": 7.8036,
+    "layer3_attention": 7.5587,
+    "layer3_mlp": 5.4931,
+    "layer4_attention": 7.1479,
+    "layer4_mlp": 5.4646
+  }
+}

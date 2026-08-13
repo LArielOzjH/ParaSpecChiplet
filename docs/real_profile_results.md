@@ -352,6 +352,16 @@ composition is in `data/calibrated_schedule_mlp_latency.json`. These figures
 exclude dense attention, so they are MLP-only cycle estimates rather than
 end-to-end throughput claims.
 
+An official draft-stage profile was also captured with CUDA event hooks during
+a 28-cycle Qwen3-4B/DFlash-b16 decode. Attention stages accounted for 44.46 ms
+and MLP stages for 29.84 ms in the instrumented totals, or approximately
+59.84% versus 40.16%. The per-layer breakdown is preserved in
+`data/official_stage_profile_qwen3_4b.json` and can be regenerated with
+`scripts/profile_official_dflash_stages.py`. Because hooks add overhead and
+only one prompt was profiled, this is directional stage evidence; it does,
+however, place the final attention-preserving speedup closer to the 5%-range
+bound than to the 13.5% MLP-only number.
+
 Combining the calibrated MLP schedule with a dense-attention sensitivity bound
 reduces the protected8 staircase estimate from 13.49% MLP-only saving to
 10.79% when attention is 20% of each uniform layer, 8.10% at 40%, and 2.70%
