@@ -135,3 +135,24 @@ anchored masked blocks under a fixed context, not an autoregressive decode
 loop. The checkpoint also lacks the optional `verifier_lm_head` used for its
 training metrics; the probe ignores that loss output and only uses draft token
 predictions. Official GPU serving remains the acceptance gate.
+
+## Selective-depth offline proxy
+
+The next probe implemented a protected-prefix depth schedule by replacing a
+selected tail position's layer output with its layer input after the layer
+forward. This preserves the rest of the bidirectional computation and measures
+agreement degradation before a real selective kernel exists. The raw output is
+`data/local_selective_depth_proxy_orestis.json`.
+
+| Schedule | Depth vector | Layer-work sum | Mean accepted prefix |
+|---|---|---:|---:|
+| uniform | `(3,3,3,3,3,3,3,3)` | 24 | 1.156 |
+| protected staircase | `(3,3,3,2,2,2,1,1)` | 17 | 1.094 |
+
+The staircase reduces nominal per-position draft-layer work by 29.2% while
+losing 5.4% of this offline proxy's mean accepted prefix. This is an
+encouraging screening signal for a protected-prefix dataflow, not a serving
+acceptance or speedup result: skipped layers are still physically executed in
+the probe, and the blocks are masked training-style anchors rather than an
+autoregressive decode loop. The candidate must be re-evaluated with official
+verification and a real selective-depth implementation.
