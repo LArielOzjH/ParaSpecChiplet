@@ -103,3 +103,11 @@ checkpoint compatibility and position asymmetry only, not an acceptance
 result. The full 723 MB weight download was not completed in the current
 low-resource network environment; the GPU capture script can use the model
 directly on a machine with normal Hugging Face transfer.
+
+The public marginal metrics alone permit only broad Fréchet bounds. More
+importantly, `full_acc_epoch=0.288` exceeds the listed position-4 marginal
+accuracy `0.213`, which is impossible if the fields describe the same event
+and mask. The metrics therefore have incompatible definitions (or masks), and
+the repository refuses to combine them into a claimed prefix-survival trace.
+`paraspec.survival_bounds` retains the consistency check as a warning tool;
+official cycle-level acceptance remains required.
