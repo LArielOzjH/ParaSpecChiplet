@@ -79,3 +79,28 @@ These are still acceptance-compatible probes: the MLP is executed by the
 Python model and its result is then zeroed. The next hardware gate is to
 replace the zeroed update with a genuinely skipped/fused MLP and measure
 traffic, queueing, and draft-stage latency.
+
+## Composition stress test
+
+To test whether single-block importance scores compose independently, the
+MLP-only probe also bypassed groups of layers:
+
+| MLP bypass group | Mean accepted prefix | `S1` | `S2` | `S4` |
+|---|---:|---:|---:|---:|
+| `{2,3}` | 1.0877 | 0.5725 | 0.2737 | 0.0590 |
+| `{2,4}` | 1.0683 | 0.5359 | 0.2469 | 0.0578 |
+| `{3,4}` | 0.9520 | 0.4752 | 0.2119 | 0.0596 |
+| `{2,3,4}` | 0.7692 | 0.4314 | 0.1689 | 0.0422 |
+
+The single-layer result does **not** compose additively. Layer 2 alone
+preserves `S1`, but combining it with layers 3 and 4 lowers `S1` and mean
+acceptance substantially. This exposes an important architecture challenge:
+block value is interaction-aware, not a static independent ranking. A useful
+controller must select a compatible fidelity set under an acceptance budget,
+or use conservative protected blocks and only opportunistically reduce one or
+more updates when the measured joint schedule is safe.
+
+This strengthens the motivation for a schedule/queue architecture, but weakens
+the case for a naive statically specialized chiplet mapping. The next design
+gate is a joint-schedule frontier, including partial precision or scaled MLP
+updates, rather than another independent layer score.

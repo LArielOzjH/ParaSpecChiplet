@@ -13,7 +13,10 @@ Qwen3-4B ablations show strong non-uniformity: bypassing block 0's MLP reduces
 This is acceptance evidence, not yet a speedup result: the Python probe still
 executes the MLP before zeroing its output. The next gate is a fused
 block-heterogeneous MLP implementation and an equal-resource monolithic
-baseline.
+baseline. A composition stress test further shows that single-block scores do
+not compose independently: bypassing MLP blocks `{2,3,4}` lowers mean accepted
+prefix to `0.7692`. The scheduler therefore needs joint-schedule awareness,
+not only a per-block ranking.
 
 State-conditioned scheduling remains an optional extension, not the primary
 claim: its current evidence is descriptive and confounded by prompt and decode
