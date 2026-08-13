@@ -80,6 +80,61 @@ def estimate_mlp_gated_cost(
     )
 
 
+def estimate_chiplet_mlp_gated_cost(
+    depth_by_position: Sequence[int],
+    attention_macs_per_layer: int,
+    mlp_macs_per_layer: int,
+    compute_macs_per_cycle: int,
+    activation_bytes_per_position: int,
+    link_bytes_per_cycle: int,
+    synchronization_cycles: int,
+    activation_multicast_reuse: float = 1.0,
+    router_cycles_per_position: float = 0.0,
+) -> ChipletCost:
+    """Model dense attention plus gated MLP with explicit chiplet traffic.
+
+    Attention is paid for every block position through the maximum selected
+    depth. MLP work follows the per-position depth vector. The link term models
+    one activation transfer per position with configurable multicast reuse; it
+    is intentionally conservative and does not assume free on-chip movement.
+    """
+
+    if not depth_by_position or any(depth <= 0 for depth in depth_by_position):
+        raise ValueError("depth_by_position must contain positive depths")
+    if min(
+        attention_macs_per_layer,
+        mlp_macs_per_layer,
+        compute_macs_per_cycle,
+        activation_bytes_per_position,
+        link_bytes_per_cycle,
+    ) <= 0:
+        raise ValueError("cost parameters must be positive")
+    if synchronization_cycles < 0:
+        raise ValueError("synchronization_cycles must be non-negative")
+    if activation_multicast_reuse <= 0 or router_cycles_per_position < 0:
+        raise ValueError("reuse must be positive and router cycles non-negative")
+    attention_work = max(depth_by_position) * len(depth_by_position) * attention_macs_per_layer
+    mlp_work = sum(depth_by_position) * mlp_macs_per_layer
+    compute_cycles = (attention_work + mlp_work) / compute_macs_per_cycle
+    link_cycles = (
+        len(depth_by_position)
+        * activation_bytes_per_position
+        / activation_multicast_reuse
+        / link_bytes_per_cycle
+    )
+    router_cycles = len(depth_by_position) * router_cycles_per_position
+    total_cycles = (
+        compute_cycles + link_cycles + synchronization_cycles + router_cycles
+    )
+    return ChipletCost(
+        compute_cycles=float(compute_cycles),
+        link_cycles=float(link_cycles),
+        synchronization_cycles=float(synchronization_cycles),
+        total_cycles=float(total_cycles),
+        router_cycles=float(router_cycles),
+    )
+
+
 def estimate_chiplet_cost(
     depth_by_position: Sequence[int],
     macs_per_layer: int,

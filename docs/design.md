@@ -145,6 +145,13 @@ because only its overhead was counted. Its parameters are analytical and must
 be calibrated against the CUDA measurements before being used for a chiplet
 crossover claim.
 
+For the dense-attention/gated-MLP case, use
+`estimate_chiplet_mlp_gated_cost` rather than the all-layer shortcut. It keeps
+attention dense at the maximum draft depth, charges MLP work by the selected
+depth vector, and adds activation-link, multicast, router, and synchronization
+terms. The result is still an analytical bound, but its terms match the
+official DFlash dataflow more closely.
+
 For an observed trace, `scripts/analyze_trace_queue.py` assigns a candidate
 schedule from the previous accepted-prefix state and compares arrival-order
 with schedule-coalesced batching. Its output is explicitly descriptive: it

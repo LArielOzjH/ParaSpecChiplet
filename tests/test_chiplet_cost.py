@@ -1,8 +1,28 @@
 from paraspec.chiplet_cost import (
+    estimate_chiplet_mlp_gated_cost,
     estimate_chiplet_cost,
     estimate_mlp_gated_cost,
     estimate_monolithic_cost,
 )
+
+
+def test_chiplet_mlp_gated_cost_keeps_dense_attention_and_adds_link_terms():
+    result = estimate_chiplet_mlp_gated_cost(
+        (3, 3, 2, 1),
+        attention_macs_per_layer=10,
+        mlp_macs_per_layer=20,
+        compute_macs_per_cycle=10,
+        activation_bytes_per_position=100,
+        link_bytes_per_cycle=100,
+        synchronization_cycles=4,
+        activation_multicast_reuse=2,
+        router_cycles_per_position=0.5,
+    )
+
+    assert result.compute_cycles == 30.0
+    assert result.link_cycles == 2.0
+    assert result.router_cycles == 2.0
+    assert result.total_cycles == 38.0
 
 
 def test_chiplet_cost_exposes_compute_link_and_sync_components():
