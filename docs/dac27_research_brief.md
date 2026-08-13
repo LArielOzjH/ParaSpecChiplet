@@ -116,6 +116,13 @@ queues cannot maintain sufficiently homogeneous groups under realistic
 arrival/service distributions, the static protected-prefix dataflow should be
 retained while the adaptive/chiplet extension is killed.
 
+The row-latency sweep also suggests a concrete hardware policy: gating must be
+opportunistic, with a dense fallback when the active-row group is too full or
+the batch is too small. On the RTX 4090 batch-64 sweep, a 14/16 active group
+was slower than dense, while 12/16 and below began to pay back compaction. This
+threshold is hardware-calibrated rather than a new decoding policy, and it
+should be exposed as part of the execution controller's cost gate.
+
 These are open gates, not implied results.
 
 ## Three paperable variants and decision rule

@@ -161,6 +161,13 @@ position/layer pairs. This is the primary implementation candidate for the
 next GPU/kernel study; whole-layer skipping remains a more aggressive
 ablation, not the default architecture.
 
+The calibrated row sweep adds a dense-fallback rule: if the active-row group is
+too full or the batch is too small, execute the dense MLP instead of paying
+compaction overhead. At batch 64 on the RTX 4090, 14/16 active rows were slower
+than dense, whereas 12/16 and sparser groups showed a net benefit. The
+threshold belongs in the hardware cost gate, not in the speculative decoding
+correctness policy.
+
 The checked-in illustrative sweep (`data/fabric_tradeoff_example.json`) is
 intentionally not favorable to chiplets: with 4096 bytes per position,
 20 synchronization cycles, and router cost 0.25 cycles/position, the
