@@ -25,11 +25,12 @@ It reduces nominal MLP rows from 80 to 60 per DFlash block.
 | Layer 2 at 50% width | low-regret | mean prefix `0.9624` vs `1.0234` uniform | motivation / candidate only |
 | Layer 3 at 50% width | not competitive | mean prefix `0.8696` | reject as default |
 | Layers 2+3 at 50% width | joint loss | mean prefix `0.8561` | reject independent composition |
-| Protected8 staircase | mean `1.2615` vs `1.2586` | mean `1.0312` vs `1.0234` | primary candidate |
+| Protected8 staircase | mean `1.2615` vs `1.2586` | 96-token mean `1.4448` vs `1.4219` | primary candidate |
 
-The position schedule is still only a screening result, but it is the only
-candidate that currently preserves acceptance in both prompt sets while
-providing a regular hardware dataflow.
+The position schedule is still an acceptance experiment rather than a timing
+result, but it is the only candidate that currently preserves acceptance in
+both prompt sets and at both short/long budgets while providing a regular
+hardware dataflow.
 
 ## Acceptance / work frontier
 
@@ -46,11 +47,11 @@ For the held-out set:
 |---|---:|---:|---:|---:|
 | Uniform | 1.000 | 1.000 | 1.0234 | 1.0234 |
 | Protected8 conservative | 0.8375 | 0.9383 | 1.0078 | 1.0741 |
-| Protected8 staircase | 0.7500 | 0.9050 | 1.0312 | 1.1394 |
+| Protected8 staircase | 0.7500 | 0.9050 | 1.4448 | 1.5965 |
 | Protected4 moderate | 0.6375 | 0.8622 | 1.0312 | 1.1959 |
 
 The staircase therefore improves the normalized committed-prefix-per-draft-
-work proxy by approximately 11.3% on this screening set. This is not an
+work proxy by approximately 12.3% on the 96-token screening set. This is not an
 end-to-end throughput number: it excludes compaction, launch, queueing, and
 verification latency. Protected4 is not promoted because it loses on the
 original calibration workload despite looking good in this small screen.

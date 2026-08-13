@@ -51,3 +51,29 @@ bootstrap intervals over the eight prompts are wide: approximately
 
 The correct current claim is therefore **cross-workload acceptance
 compatibility screening**, not generalized speedup or schedule optimality.
+
+## 96-token follow-up
+
+The same eight prompts and schedules were rerun with a 96-token budget. Raw
+events are in
+[`data/heldout_mlp_gating_96.jsonl`](../data/heldout_mlp_gating_96.jsonl).
+
+| Schedule | Events | Mean accepted prefix | `S1` | `S2` | `S4` | MLP work |
+|---|---:|---:|---:|---:|---:|---:|
+| Uniform | 320 | 1.4219 | 0.6375 | 0.3781 | 0.0938 | 80 |
+| Protected8 conservative | 318 | 1.4371 | 0.6447 | 0.3836 | 0.0943 | 67 |
+| Protected8 staircase | 317 | 1.4448 | 0.6530 | 0.3817 | 0.0946 | 60 |
+| Protected4 moderate | 322 | 1.4068 | 0.6429 | 0.3820 | 0.0963 | 51 |
+
+The protected8 staircase remains acceptance-compatible at the longer budget,
+with a small positive change in every reported survival metric. At the
+prompt-level view, six prompts match uniform and two improve; none shows a
+negative change in this run. This is stronger evidence than the 32-token
+screening, but it remains a Python row-gating experiment rather than a
+latency result.
+
+With the measured 38% MLP fraction, the staircase corresponds to a normalized
+dense-attention plus MLP work fraction of `0.905`, before gather/scatter,
+launch, queueing, and verification costs. The resulting committed-prefix per
+work proxy is `1.5965` versus `1.4219` for uniform. This is a calibrated work
+proxy, not an end-to-end speedup claim.

@@ -23,12 +23,12 @@ for uniform, and layers 2+3 gives `0.8561`. Thus layer 2 is evidence of
 unequal block value, not a universally safe static schedule. Joint schedule
 validation and workload/state conditioning are essential.
 
-A small held-out position-schedule screening run (8 workload-diverse prompts,
-32 generated tokens) kept the protected8 staircase schedule close to uniform:
-mean accepted prefix `1.0312` versus `1.0234`, `S1=0.5547` versus `0.5312`, and
-identical `S4=0.0469`. Prompt-level intervals are wide, so this supports
-acceptance-compatibility screening rather than a generalized gain claim. The
-held-out block-width result is more cautionary; see
+A held-out position-schedule run with 96 generated tokens (8 workload-diverse
+prompts) kept the protected8 staircase schedule at or above uniform: mean
+accepted prefix `1.4448` versus `1.4219`, `S1=0.6530` versus `0.6375`, and
+`S4=0.0946` versus `0.0938`. This upgrades it from a short-trace screening
+candidate to the primary acceptance-compatible schedule, while still not
+establishing speedup. The held-out block-width result is more cautionary; see
 [`docs/heldout_schedule_results.md`](heldout_schedule_results.md) and
 [`docs/heldout_block_width_results.md`](heldout_block_width_results.md).
 The evidence comparison and the resulting primary-idea decision are summarized
