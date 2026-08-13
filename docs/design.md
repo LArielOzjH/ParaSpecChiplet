@@ -132,6 +132,13 @@ This analytical crossover is a screening tool. A chiplet contribution requires
 calibration with measured activation bytes, actual synchronization points, and
 an equal-resource monolithic implementation or simulator.
 
+The batch-level queueing term is exposed separately in
+`paraspec.grouped_cost.estimate_grouped_mlp_batch_cost`. It reports active rows
+per layer, the number of distinct schedule groups, and the cost of one grouped
+call versus separate schedule calls. This is needed because a mixed batch can
+retain most of the dense rows even when each individual schedule looks
+promising.
+
 ## Preferred microarchitecture: dense attention, gated MLP
 
 The activation probe suggests a safer hardware primitive than skipping an
