@@ -1,0 +1,126 @@
+{
+  "kind": "width_aware_fabric_sweep",
+  "warning": "analytical calibrated sweep; not measured chiplet or end-to-end speedup",
+  "parameters": {
+    "output": "data/width_aware_fabric_sweep.json",
+    "block_size": 16,
+    "draft_layers": 5,
+    "attention_macs": 26214400,
+    "mlp_macs": 74711040,
+    "compute_macs_per_cycle": 1000000
+  },
+  "rows": [
+    {
+      "reduced_width": 1.0,
+      "link_bytes_per_cycle": 128,
+      "monolithic_cycles": 8074.0352,
+      "chiplet_cycles": 8226.0352,
+      "chiplet_over_monolithic": 1.018825778713474
+    },
+    {
+      "reduced_width": 1.0,
+      "link_bytes_per_cycle": 256,
+      "monolithic_cycles": 8074.0352,
+      "chiplet_cycles": 8162.0352,
+      "chiplet_over_monolithic": 1.0108991350446428
+    },
+    {
+      "reduced_width": 1.0,
+      "link_bytes_per_cycle": 512,
+      "monolithic_cycles": 8074.0352,
+      "chiplet_cycles": 8130.0352,
+      "chiplet_over_monolithic": 1.0069358132102273
+    },
+    {
+      "reduced_width": 1.0,
+      "link_bytes_per_cycle": 1024,
+      "monolithic_cycles": 8074.0352,
+      "chiplet_cycles": 8114.0352,
+      "chiplet_over_monolithic": 1.0049541522930194
+    },
+    {
+      "reduced_width": 0.75,
+      "link_bytes_per_cycle": 128,
+      "monolithic_cycles": 7775.19104,
+      "chiplet_cycles": 7927.19104,
+      "chiplet_over_monolithic": 1.0195493588798044
+    },
+    {
+      "reduced_width": 0.75,
+      "link_bytes_per_cycle": 256,
+      "monolithic_cycles": 7775.19104,
+      "chiplet_cycles": 7863.19104,
+      "chiplet_over_monolithic": 1.0113180498777816
+    },
+    {
+      "reduced_width": 0.75,
+      "link_bytes_per_cycle": 512,
+      "monolithic_cycles": 7775.19104,
+      "chiplet_cycles": 7831.19104,
+      "chiplet_over_monolithic": 1.0072023953767701
+    },
+    {
+      "reduced_width": 0.75,
+      "link_bytes_per_cycle": 1024,
+      "monolithic_cycles": 7775.19104,
+      "chiplet_cycles": 7815.19104,
+      "chiplet_over_monolithic": 1.0051445681262643
+    },
+    {
+      "reduced_width": 0.5,
+      "link_bytes_per_cycle": 128,
+      "monolithic_cycles": 7476.34688,
+      "chiplet_cycles": 7628.34688,
+      "chiplet_over_monolithic": 1.0203307848658836
+    },
+    {
+      "reduced_width": 0.5,
+      "link_bytes_per_cycle": 256,
+      "monolithic_cycles": 7476.34688,
+      "chiplet_cycles": 7564.34688,
+      "chiplet_over_monolithic": 1.011770454396038
+    },
+    {
+      "reduced_width": 0.5,
+      "link_bytes_per_cycle": 512,
+      "monolithic_cycles": 7476.34688,
+      "chiplet_cycles": 7532.34688,
+      "chiplet_over_monolithic": 1.007490289161115
+    },
+    {
+      "reduced_width": 0.5,
+      "link_bytes_per_cycle": 1024,
+      "monolithic_cycles": 7476.34688,
+      "chiplet_cycles": 7516.34688,
+      "chiplet_over_monolithic": 1.0053502065436535
+    },
+    {
+      "reduced_width": 0.25,
+      "link_bytes_per_cycle": 128,
+      "monolithic_cycles": 7177.50272,
+      "chiplet_cycles": 7329.50272,
+      "chiplet_over_monolithic": 1.0211772821174214
+    },
+    {
+      "reduced_width": 0.25,
+      "link_bytes_per_cycle": 256,
+      "monolithic_cycles": 7177.50272,
+      "chiplet_cycles": 7265.50272,
+      "chiplet_over_monolithic": 1.0122605317521913
+    },
+    {
+      "reduced_width": 0.25,
+      "link_bytes_per_cycle": 512,
+      "monolithic_cycles": 7177.50272,
+      "chiplet_cycles": 7233.50272,
+      "chiplet_over_monolithic": 1.0078021565695763
+    },
+    {
+      "reduced_width": 0.25,
+      "link_bytes_per_cycle": 1024,
+      "monolithic_cycles": 7177.50272,
+      "chiplet_cycles": 7217.50272,
+      "chiplet_over_monolithic": 1.0055729689782689
+    }
+  ]
+}

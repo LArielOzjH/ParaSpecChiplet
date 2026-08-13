@@ -80,6 +80,44 @@ def estimate_mlp_gated_cost(
     )
 
 
+def estimate_width_aware_mlp_cost(
+    width_by_layer: Sequence[float],
+    *,
+    block_size: int,
+    attention_macs_per_layer: int,
+    mlp_macs_per_layer: int,
+    compute_macs_per_cycle: int,
+    synchronization_cycles: int = 0,
+) -> ChipletCost:
+    """Estimate dense-attention cost with per-layer MLP width fractions.
+
+    This models one DFlash block with a fixed draft depth. Attention remains
+    dense for every position and layer; only MLP MACs are scaled by the
+    supplied width fractions. The result is an analytical work model, not a
+    measured latency or acceptance claim.
+    """
+
+    widths = tuple(float(width) for width in width_by_layer)
+    if not widths or any(not 0.0 < width <= 1.0 for width in widths):
+        raise ValueError("width_by_layer values must be within (0, 1]")
+    if block_size <= 0:
+        raise ValueError("block_size must be positive")
+    if min(attention_macs_per_layer, mlp_macs_per_layer, compute_macs_per_cycle) <= 0:
+        raise ValueError("compute parameters must be positive")
+    if synchronization_cycles < 0:
+        raise ValueError("synchronization_cycles must be non-negative")
+    attention_work = len(widths) * block_size * attention_macs_per_layer
+    mlp_work = block_size * sum(widths) * mlp_macs_per_layer
+    compute_cycles = (attention_work + mlp_work) / compute_macs_per_cycle
+    total_cycles = compute_cycles + synchronization_cycles
+    return ChipletCost(
+        compute_cycles=float(compute_cycles),
+        link_cycles=0.0,
+        synchronization_cycles=float(synchronization_cycles),
+        total_cycles=float(total_cycles),
+    )
+
+
 def estimate_chiplet_mlp_gated_cost(
     depth_by_position: Sequence[int],
     attention_macs_per_layer: int,
@@ -126,6 +164,55 @@ def estimate_chiplet_mlp_gated_cost(
     total_cycles = (
         compute_cycles + link_cycles + synchronization_cycles + router_cycles
     )
+    return ChipletCost(
+        compute_cycles=float(compute_cycles),
+        link_cycles=float(link_cycles),
+        synchronization_cycles=float(synchronization_cycles),
+        total_cycles=float(total_cycles),
+        router_cycles=float(router_cycles),
+    )
+
+
+def estimate_chiplet_width_aware_mlp_cost(
+    width_by_layer: Sequence[float],
+    *,
+    block_size: int,
+    attention_macs_per_layer: int,
+    mlp_macs_per_layer: int,
+    compute_macs_per_cycle: int,
+    activation_bytes_per_position: int,
+    link_bytes_per_cycle: int,
+    synchronization_cycles: int,
+    activation_multicast_reuse: float = 1.0,
+    router_cycles_per_position: float = 0.0,
+) -> ChipletCost:
+    """Width-aware dense-attention model with explicit chiplet overheads."""
+
+    widths = tuple(float(width) for width in width_by_layer)
+    if not widths or any(not 0.0 < width <= 1.0 for width in widths):
+        raise ValueError("width_by_layer values must be within (0, 1]")
+    if block_size <= 0:
+        raise ValueError("block_size must be positive")
+    if min(
+        attention_macs_per_layer,
+        mlp_macs_per_layer,
+        compute_macs_per_cycle,
+        activation_bytes_per_position,
+        link_bytes_per_cycle,
+    ) <= 0:
+        raise ValueError("cost parameters must be positive")
+    if synchronization_cycles < 0:
+        raise ValueError("synchronization_cycles must be non-negative")
+    if activation_multicast_reuse <= 0 or router_cycles_per_position < 0:
+        raise ValueError("reuse must be positive and router cycles non-negative")
+    attention_work = len(widths) * block_size * attention_macs_per_layer
+    mlp_work = block_size * sum(widths) * mlp_macs_per_layer
+    compute_cycles = (attention_work + mlp_work) / compute_macs_per_cycle
+    link_cycles = block_size * activation_bytes_per_position / (
+        activation_multicast_reuse * link_bytes_per_cycle
+    )
+    router_cycles = block_size * router_cycles_per_position
+    total_cycles = compute_cycles + link_cycles + synchronization_cycles + router_cycles
     return ChipletCost(
         compute_cycles=float(compute_cycles),
         link_cycles=float(link_cycles),

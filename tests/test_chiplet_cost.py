@@ -3,6 +3,8 @@ from paraspec.chiplet_cost import (
     estimate_chiplet_cost,
     estimate_mlp_gated_cost,
     estimate_monolithic_cost,
+    estimate_width_aware_mlp_cost,
+    estimate_chiplet_width_aware_mlp_cost,
 )
 
 
@@ -83,3 +85,37 @@ def test_mlp_gated_cost_keeps_attention_dense_but_scales_mlp_by_schedule():
 
     assert result.compute_cycles == 11.4
     assert result.total_cycles == 13.4
+
+
+def test_width_aware_cost_scales_only_mlp_and_keeps_attention_dense():
+    result = estimate_width_aware_mlp_cost(
+        width_by_layer=(1.0, 0.5),
+        block_size=4,
+        attention_macs_per_layer=40,
+        mlp_macs_per_layer=60,
+        compute_macs_per_cycle=100,
+        synchronization_cycles=2,
+    )
+
+    assert result.compute_cycles == 6.8
+    assert result.total_cycles == 8.8
+
+
+def test_chiplet_width_aware_cost_adds_link_router_and_sync_terms():
+    result = estimate_chiplet_width_aware_mlp_cost(
+        width_by_layer=(1.0, 0.5),
+        block_size=4,
+        attention_macs_per_layer=40,
+        mlp_macs_per_layer=60,
+        compute_macs_per_cycle=100,
+        activation_bytes_per_position=100,
+        link_bytes_per_cycle=100,
+        synchronization_cycles=2,
+        activation_multicast_reuse=2,
+        router_cycles_per_position=0.5,
+    )
+
+    assert result.compute_cycles == 6.8
+    assert result.link_cycles == 2.0
+    assert result.router_cycles == 2.0
+    assert result.total_cycles == 12.8
