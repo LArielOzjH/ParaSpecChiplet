@@ -15,18 +15,23 @@ is uniform.
 safe block approximations do not compose independently. The scheduler must
 choose joint schedules and pay for queueing, movement, and synchronization.
 
-**Current evidence.** On official Qwen3-4B/DFlash-b16, layer 2 at 50% MLP
-width gives `S1=0.6103` versus `0.6095` uniform; layers 2+3 at 50% gives
-`S1=0.5625`. The calibrated batch-64 MLP proxy is 9.9% lower for the single
-layer schedule, before dense attention and service overhead.
+**Current evidence.** On the original official Qwen3-4B/DFlash-b16
+calibration, layer 2 at 50% MLP width gives `S1=0.6103` versus `0.6095`
+uniform; layers 2+3 at 50% gives `S1=0.5625`. A new 8-prompt held-out screen
+is cautionary: layer 2 gives mean prefix `0.9624` versus `1.0234` uniform,
+layer 3 gives `0.8696`, and layers 2+3 gives `0.8561`. The evidence supports
+unequal and state/workload-dependent block value, not a fixed safe layer. The
+calibrated batch-64 MLP proxy is 9.9% lower for the single-layer schedule,
+before dense attention and service overhead.
 
 **Architecture.** Dense attention lanes, full/half-width MLP lanes, schedule
 table, cross-request coalescing, and dense fallback. The minimum paper claim
 does not require chiplets or an adaptive policy.
 
-**Kill condition.** No schedule survives the acceptance threshold, or a
-correctness-tested grouped implementation loses to dense fallback/monolithic
-execution after all overheads.
+**Kill condition.** No state/workload-conditioned schedule survives the
+acceptance threshold, or a correctness-tested grouped implementation loses to
+dense fallback/monolithic execution after all overheads. A static layer
+ranking is already considered insufficient.
 
 ## Conservative fallback: dense-attention fidelity table
 

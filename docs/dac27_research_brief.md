@@ -23,17 +23,21 @@ prefix `1.5127` on the current workload, while scaling both to `0.25` gives
 executes the full MLP. They motivate a finite joint fidelity schedule table,
 not a claim of speedup.
 
-The first reduced-width acceptance gate also passed for one block: layer 2 at
-50% intermediate width gives `S1=0.6103` versus `0.6095` for uniform execution.
-Applying the same width to layers 2+3 lowers `S1` to `0.5625`, confirming that
-the hardware scheduler must choose jointly validated schedules rather than
-compose independent block scores.
+The first reduced-width acceptance gate passed on the original 12-prompt
+calibration for one block: layer 2 at 50% intermediate width gives `S1=0.6103`
+versus `0.6095` for uniform execution. Applying the same width to layers 2+3
+lowers `S1` to `0.5625`, confirming that the hardware scheduler must choose
+jointly validated schedules rather than compose independent block scores.
 
-An acceptance-calibrated schedule selector now retains layer 2 at 50% width
-and uniform execution at a mean-prefix threshold of `1.4`. The single-layer
-MLP calibration estimates a 9.9% MLP-work reduction, or roughly a 3.7%
-draft-stage bound using the measured 38% MLP fraction. These numbers are
-analytical bounds, not end-to-end speedups.
+A follow-up 8-prompt held-out screen is cautionary: layer 2 at 50% width gives
+mean prefix `0.9624` versus `1.0234` for uniform, layer 3 gives `0.8696`, and
+layers 2+3 gives `0.8561`. Block importance therefore varies with workload or
+entering state; a fixed layer ranking is not sufficient. The acceptance-
+calibrated selector must support multiple schedule vectors, state/workload
+conditioning, and dense fallback. The measured single-layer calibration still
+estimates a 9.9% MLP-work reduction, or roughly a 3.7% draft-stage bound using
+the measured 38% MLP fraction, but these are analytical bounds rather than
+end-to-end speedups.
 
 ## One-sentence thesis
 
@@ -253,10 +257,13 @@ and equal-resource baselines all support it.
 ## Current recommendation
 
 Continue with SAGE-DFlash as the primary research hypothesis, but define the
-joint fidelity scheduler and grouped monolithic dataflow as the minimum
-contribution. Do not commit the paper to chiplets or adaptive scheduling. The
-next decisive artifact is a correctness-tested tensor-core-aware reduced-width
-implementation evaluated under batch-aware service conditions. Until that
-exists, the strongest defensible statement is that official acceptance
-evidence supports selected block-fidelity schedules, while hardware benefit is
-bounded only by calibrated microbenchmarks.
+reconfigurable schedule fabric and grouped monolithic dataflow as the minimum
+contribution. Adaptive selection is now a required experimental gate rather
+than a headline claim: it must beat static uniform plus dense fallback after
+controller cost. Do not commit the paper to chiplets. The next decisive
+artifacts are a held-out state-conditioned schedule experiment and, only if it
+passes, a correctness-tested tensor-core-aware reduced-width implementation.
+Until then, the strongest defensible statement is that official evidence
+supports unequal, workload-dependent block value and acceptance-compatible
+candidate schedules, while hardware benefit is bounded only by calibrated
+microbenchmarks.

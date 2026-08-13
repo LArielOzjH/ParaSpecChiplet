@@ -15,16 +15,22 @@ grouped monolithic dataflow:
 5. group compatible requests and use dense fallback when grouping does not
    pay.
 
-The current strongest concrete schedule is layer 2 at 50% MLP width. It keeps
-`S1=0.6103` versus `0.6095` for uniform execution. A two-layer 50% schedule
-falls to `S1=0.5625`, so joint schedule validation is essential.
+The original 12-prompt calibration found layer 2 at 50% MLP width to be a
+low-regret point (`S1=0.6103` versus `0.6095` for uniform), while a two-layer
+50% schedule fell to `S1=0.5625`. A new 8-prompt held-out screening run makes
+the boundary sharper: layer 2 at 50% gives mean prefix `0.9624` versus `1.0234`
+for uniform, and layers 2+3 gives `0.8561`. Thus layer 2 is evidence of
+unequal block value, not a universally safe static schedule. Joint schedule
+validation and workload/state conditioning are essential.
 
-A small held-out screening run (8 workload-diverse prompts, 32 generated
-tokens) kept the protected8 staircase schedule close to uniform: mean accepted
-prefix `1.0312` versus `1.0234`, `S1=0.5547` versus `0.5312`, and identical
-`S4=0.0469`. Prompt-level intervals are wide, so this supports
-acceptance-compatibility screening rather than a generalized gain claim. See
-[`docs/heldout_schedule_results.md`](heldout_schedule_results.md).
+A small held-out position-schedule screening run (8 workload-diverse prompts,
+32 generated tokens) kept the protected8 staircase schedule close to uniform:
+mean accepted prefix `1.0312` versus `1.0234`, `S1=0.5547` versus `0.5312`, and
+identical `S4=0.0469`. Prompt-level intervals are wide, so this supports
+acceptance-compatibility screening rather than a generalized gain claim. The
+held-out block-width result is more cautionary; see
+[`docs/heldout_schedule_results.md`](heldout_schedule_results.md) and
+[`docs/heldout_block_width_results.md`](heldout_block_width_results.md).
 
 ## Claims currently supported
 
