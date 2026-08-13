@@ -20,6 +20,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
 from paraspec.official_trace import stats_to_verification_events
+from paraspec.capture_config import resolve_block_size
 
 
 DEFAULT_PROMPTS = (
@@ -38,7 +39,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt-file", type=Path)
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--max-new-tokens", type=int, default=128)
-    parser.add_argument("--block-size", type=int, default=16)
+    parser.add_argument(
+        "--block-size",
+        type=int,
+        default=None,
+        help="Optional override; must match the draft checkpoint block size.",
+    )
     return parser.parse_args()
 
 
@@ -73,6 +79,7 @@ def main() -> None:
     tokenizer = AutoTokenizer.from_pretrained(args.target_model)
     prompts = load_prompts(args.prompt_file)
     stop_token_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
+    block_size = resolve_block_size(args.block_size, int(draft.block_size))
 
     events: list[dict] = []
     for prompt_index, prompt in enumerate(prompts):
@@ -84,7 +91,7 @@ def main() -> None:
             max_new_tokens=args.max_new_tokens,
             stop_token_ids=stop_token_ids,
             temperature=0.0,
-            block_size=args.block_size,
+            block_size=block_size,
             return_stats=True,
         )
         avg_us = float(stats.time_per_output_token * 1e6)
