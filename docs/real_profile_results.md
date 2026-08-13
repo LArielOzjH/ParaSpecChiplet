@@ -324,3 +324,22 @@ architecture challenge: the design needs cross-request position grouping,
 persistent/fused row compaction, or dedicated heterogeneous lanes to avoid
 launch and movement overhead. The benchmark is a single-layer microbenchmark,
 not an end-to-end speedup result.
+
+## Mixed-schedule grouped execution
+
+The grouping question was tested with a deliberately mixed batch: half of the
+requests used all 16 rows and half used 9 active rows. The MLP output was
+scattered back into the original batch layout in both selective variants.
+
+| Request batch | Dense | One grouped active call + scatter | Separate schedule calls + scatter |
+|---:|---:|---:|---:|
+| 8 | 0.216 ms | 0.289 ms | 0.394 ms |
+| 64 | 1.020 ms | 0.998 ms | 1.813 ms |
+
+At batch 64, grouping avoids the severe penalty of separate schedule calls,
+but the net gain over dense execution is only about 2.1% because 78.1% of rows
+remain active. At batch 8, even grouped execution loses. This supports a
+stronger queueing requirement: the scheduler must coalesce requests with
+similar depth vectors, or the heterogeneous execution opportunity is diluted
+by mixture overhead. A chiplet design must therefore model schedule queues,
+not just aggregate MAC reduction.
