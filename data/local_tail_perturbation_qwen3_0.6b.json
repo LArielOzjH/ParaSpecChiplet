@@ -1,0 +1,21 @@
+{
+  "anchors": [37, 104, 103, 69, 11, 93, 61, 78],
+  "tail_positions_replaced": "positions 5-8 with their per-block mean",
+  "mapping_warning": "no token acceptance is inferred",
+  "results": [
+    {
+      "perturb_after_layer": 1,
+      "prefix_cosine_by_position": [0.9999997615814209, 1.0, 1.0, 1.0],
+      "prefix_relative_l2_by_position": [0.00044504471588879824, 0.00004869544864505013, 0.00004609023744706048, 0.0001249624037882313],
+      "mean_prefix_cosine": 0.9999999403953552,
+      "mean_prefix_relative_l2": 0.00016619819507468492
+    },
+    {
+      "perturb_after_layer": 2,
+      "prefix_cosine_by_position": [1.0, 0.9999999403953552, 1.0, 1.0],
+      "prefix_relative_l2_by_position": [0.00015956991410348564, 0.0000256664352491498, 0.00003723812551470473, 0.0001592459884705022],
+      "mean_prefix_cosine": 1.0,
+      "mean_prefix_relative_l2": 0.00009543012129288
+    }
+  ]
+}

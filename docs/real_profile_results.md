@@ -24,6 +24,17 @@ The run used the target's auxiliary hidden states and captured each DFlash draft
 
 The block positions are strongly correlated, especially adjacent positions. This is evidence for a shared-computation opportunity. It is not evidence that tail positions can be skipped safely: bidirectional attention may make tail states useful to prefix states.
 
+## Tail perturbation result
+
+As a first coupling probe, positions 5–8 were replaced after a chosen draft layer by their per-block mean. The final prefix states changed very little:
+
+| Perturbation point | Mean prefix cosine | Mean prefix relative L2 |
+|---:|---:|---:|
+| after layer 1 | 0.99999994 | 0.0001662 |
+| after layer 2 | 1.00000000 | 0.0000954 |
+
+This is encouraging evidence that a protected prefix may tolerate a low-fidelity tail in this setup. It is not a general result: the experiment uses one checkpoint, one prompt template, eight anchors, and a mean replacement much milder than skipping all tail computation. The next sweep must vary the replacement, protected-prefix boundary, prompts, and layer count.
+
 ## Critical caveat
 
 The checkpoint declares a 32,000-token draft vocabulary and a 151,936-token target vocabulary but does not ship `t2d/d2t` mappings. Therefore no token-level acceptance result is reported from this run. The local token-agreement experiment produced invalid conclusions until that mapping is supplied. The activation result remains useful because it does not depend on vocabulary IDs.
@@ -38,4 +49,3 @@ Use a checkpoint with valid vocabulary mappings or run the official serving path
 4. sweep the protected prefix boundary.
 
 The primary idea survives only if a non-trivial tail saving exists while prefix acceptance remains stable.
-
