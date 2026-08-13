@@ -1,0 +1,44 @@
+{
+  "kind": "calibrated_schedule_latency",
+  "warning": "composed fixed-batch MLP calibration; not end-to-end serving speedup",
+  "batch_size": 64,
+  "active_rows": 16,
+  "results": [
+    {
+      "name": "uniform",
+      "width_by_layer": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mlp_latency_ms": 5182.190958658854,
+      "total_latency_ms": 5182.190958658854
+    },
+    {
+      "name": "layer2_half",
+      "width_by_layer": [
+        1.0,
+        1.0,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "mlp_latency_ms": 4671.188049316405,
+      "total_latency_ms": 4671.188049316405
+    },
+    {
+      "name": "layer23_half",
+      "width_by_layer": [
+        1.0,
+        1.0,
+        0.5,
+        0.5,
+        1.0
+      ],
+      "mlp_latency_ms": 4160.185139973958,
+      "total_latency_ms": 4160.185139973958
+    }
+  ]
+}
