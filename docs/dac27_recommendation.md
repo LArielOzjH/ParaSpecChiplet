@@ -64,8 +64,8 @@ Supported:
 Not supported:
 
 - a universally safe static layer schedule;
-- generalized state-conditioned acceptance improvement (the first short probe
-  is only preliminary);
+- generalized state-conditioned acceptance improvement; the 96-token follow-up
+  rejects the simple previous-prefix threshold;
 - end-to-end throughput improvement;
 - low-batch benefit;
 - correctness-tested fused reduced-width kernel;
@@ -73,11 +73,10 @@ Not supported:
 
 ## Required decisive experiments
 
-1. Build a held-out selector using previous accepted-prefix/state features and
-   compare it against static uniform, static candidate schedules, and an
-   offline oracle. The first threshold probe is recorded in
-   `docs/state_conditioned_width_results.md`; extend it with longer generation,
-   more prompt splits, controller overhead, and dense fallback.
+1. Treat the previous-prefix threshold as a negative selector result. A richer
+   state policy is optional future work, not a current claim; if revisited, it
+   must compare against static uniform, static candidate schedules, and an
+   offline oracle with controller overhead and dense fallback.
 2. Measure a trace-derived mixture of schedule classes in the queue model and
    validate the 40--50% occupancy crossover with real CUDA execution.
 3. Only if the first two gates pass, implement a fixed-shape tensor-core-aware

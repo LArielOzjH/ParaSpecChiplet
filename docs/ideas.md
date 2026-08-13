@@ -32,11 +32,12 @@ the measured 38% MLP stage fraction gives only an approximately 3.7% draft-
 stage bound before overhead. This is a bound and controller result, not an
 end-to-end speedup claim.
 
-State-conditioned scheduling is now a required gate for claiming practical
-selection, but not the hardware novelty: its current evidence is descriptive
-and confounded by prompt and decode phase. Chiplets likewise remain an
-optional physical realization; the current equal-resource and small-batch
-evidence does not justify leading with them.
+State-conditioned scheduling was tested with a simple previous-prefix
+threshold; the 96-token follow-up did not improve mean acceptance, so richer
+state features remain future work rather than a current claim. It is not the
+hardware novelty. Chiplets likewise remain an optional physical realization;
+the current equal-resource and small-batch evidence does not justify leading
+with them.
 
 These are research candidates, not claims. Each idea has a measurable kill condition.
 

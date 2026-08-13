@@ -66,8 +66,8 @@ must estimate this occupancy and choose dense fallback rather than always
 invoke a selective path. See
 [`docs/reconfigurable_fabric_sweep.md`](reconfigurable_fabric_sweep.md).
 
-A preliminary state-conditioned width probe is positive on the same held-out
-set, but it has not yet included controller or fallback cost; see
+A preliminary state-conditioned width probe was positive at 32 tokens, but the
+96-token follow-up rejected the simple previous-prefix threshold; see
 [`docs/state_conditioned_width_results.md`](state_conditioned_width_results.md).
 
 Chiplets are an optional extension only if a later design demonstrates that

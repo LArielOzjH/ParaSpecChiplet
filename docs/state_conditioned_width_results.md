@@ -64,3 +64,29 @@ next experiment must compare threshold policies and static uniform under
 longer generation and held-out prompt splits, then feed the observed schedule
 occupancy into the measured dense/grouped cost gate. The policy survives only
 if its acceptance benefit remains after controller and fallback costs.
+
+## 96-token follow-up
+
+The same eight prompts and custom-loop uniform control were rerun with a
+96-token budget. Raw traces are:
+
+- [`data/heldout_state_width_uniform_96.jsonl`](../data/heldout_state_width_uniform_96.jsonl)
+- [`data/heldout_state_width_t1_96.jsonl`](../data/heldout_state_width_t1_96.jsonl)
+- [`data/heldout_state_width_t2_96.jsonl`](../data/heldout_state_width_t2_96.jsonl)
+
+| Policy | Reduced-width cycles | Events | Mean prefix | `S1` | `S2` | `S4` |
+|---|---:|---:|---:|---:|---:|---:|
+| Uniform control | 0 | 320 | 1.4219 | 0.6375 | 0.3781 | 0.0938 |
+| Threshold 1 | 202 | 327 | 1.3792 | 0.6422 | 0.3578 | 0.0887 |
+| Threshold 2 | 116 | 321 | 1.4143 | 0.6511 | 0.3769 | 0.0903 |
+
+The short-trace positive mean-prefix signal does not persist. Threshold 2
+slightly raises `S1` but lowers mean prefix, `S2`, and `S4`; threshold 1 loses
+mean prefix more clearly. Prompt-level deltas remain mixed. This rejects the
+simple previous-prefix threshold as a useful policy under the current
+workload and should be treated as a negative selector result, not evidence for
+adaptive speedup.
+
+The architecture can still expose schedule descriptors and dense fallback for
+an offline-oracle or future richer-state policy, but the current paper should
+not claim that previous accepted-prefix feedback itself improves acceptance.
