@@ -1,0 +1,11 @@
+{
+  "calibration": "gpu_mlp_row_sweep_rtx4090.json",
+  "batch_size": 64,
+  "warning": "exact-row dense fallback policy; missing calibration row counts conservatively use dense",
+  "results": [
+    {"schedule": "uniform", "nominal_active_rows_by_layer": [16, 16, 16, 16, 16], "effective_active_rows_by_layer": [16, 16, 16, 16, 16], "mode_by_layer": ["dense", "dense", "dense", "dense", "dense"], "saved_row_fraction": 0.0},
+    {"schedule": "protected8_conservative", "nominal_active_rows_by_layer": [16, 16, 14, 12, 9], "effective_active_rows_by_layer": [16, 16, 16, 12, 9], "mode_by_layer": ["dense", "dense", "dense", "grouped", "grouped"], "saved_row_fraction": 0.1375},
+    {"schedule": "protected8_staircase", "nominal_active_rows_by_layer": [16, 14, 12, 10, 8], "effective_active_rows_by_layer": [16, 16, 12, 10, 8], "mode_by_layer": ["dense", "dense", "grouped", "grouped", "grouped"], "saved_row_fraction": 0.225},
+    {"schedule": "protected4_moderate", "nominal_active_rows_by_layer": [16, 12, 10, 8, 5], "effective_active_rows_by_layer": [16, 12, 10, 8, 16], "mode_by_layer": ["dense", "grouped", "grouped", "grouped", "dense"], "saved_row_fraction": 0.225}
+  ]
+}

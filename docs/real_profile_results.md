@@ -334,6 +334,16 @@ than dense because compaction is pure overhead. This gives the queue model a
 measurable operating curve: a fused implementation must avoid paying the
 compaction tax when the selected schedule is effectively uniform.
 
+Applying an exact-row dense fallback policy to the measured curve changes the
+nominal savings. The protected8 staircase becomes 22.5% realizable MLP-row
+savings because its 14/16 layer falls back to dense; protected8 conservative
+becomes 13.75%. The protected4 schedule also becomes 22.5% under the
+conservative rule because its 5/16 point was not directly calibrated and falls
+back to dense. The full per-layer decisions are in
+`data/official_row_policy_sweep.json` and the policy implementation is
+`paraspec/row_policy.py`. This is a hardware execution estimate, not a new
+acceptance run.
+
 ## Mixed-schedule grouped execution
 
 The grouping question was tested with a deliberately mixed batch: half of the
