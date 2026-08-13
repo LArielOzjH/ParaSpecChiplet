@@ -98,6 +98,20 @@ does not prove that changing the schedule causes the difference. The adaptive
 controller should use held-out state-conditioned traces and report phase
 recovery, calibration error, and controller overhead.
 
+For state-specific replay, provide an options JSON keyed by the emitted state
+labels and run:
+
+```bash
+python scripts/replay_state_controller.py \
+  --trace data/official_qwen3_4b_dflash_trace.jsonl \
+  --options state_options.json --output state_decisions.json \
+  --bucket-size 2 --protected-prefix 4 --max-prefix-drop 0.02
+```
+
+The options for each state must contain separately measured survival estimates;
+reusing one global estimate would erase the very block-state effect being
+tested.
+
 ## Cost-model boundary
 
 The chiplet oracle models four terms separately: draft compute, activation-link

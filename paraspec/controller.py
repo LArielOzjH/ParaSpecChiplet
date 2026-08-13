@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Sequence
+from typing import Hashable, Mapping, Sequence
 
+from .state_oracle import StateTrace
 from .trace_oracle import Trace, prefix_survival
 
 
@@ -82,3 +83,34 @@ def choose_schedule(
         score=float(score),
         rejected=tuple(rejected),
     )
+
+
+def choose_schedule_by_state(
+    history: StateTrace,
+    options_by_state: Mapping[Hashable, Sequence[ScheduleOption]],
+    *,
+    protected_prefix: int,
+    max_prefix_drop: float,
+) -> dict[Hashable, ScheduleDecision]:
+    """Choose schedules independently for each observed entering state.
+
+    Candidate survival estimates remain external inputs, normally obtained
+    from held-out traces. The function only partitions the history by state and
+    applies the same conservative selector to each partition.
+    """
+
+    grouped: dict[Hashable, list[int]] = {}
+    for state, length in zip(history.state_by_cycle, history.acceptance_lengths):
+        grouped.setdefault(state, []).append(length)
+    decisions: dict[Hashable, ScheduleDecision] = {}
+    for state, lengths in grouped.items():
+        if state not in options_by_state:
+            raise ValueError(f"missing schedule options for state: {state!r}")
+        state_trace = Trace.from_acceptance_lengths(lengths, history.block_size)
+        decisions[state] = choose_schedule(
+            state_trace,
+            options_by_state[state],
+            protected_prefix=protected_prefix,
+            max_prefix_drop=max_prefix_drop,
+        )
+    return decisions
