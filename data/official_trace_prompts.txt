@@ -1,0 +1,12 @@
+Explain why memory bandwidth matters for neural network inference.
+Compare a monolithic accelerator with a chiplet-based accelerator.
+Give a concise definition of speculative decoding.
+Why can parallel token prediction be difficult to verify efficiently?
+Explain the difference between latency and throughput in an inference system.
+Describe how activation multicast can reduce communication in a tiled accelerator.
+What are the main trade-offs between caching and recomputation for long-context inference?
+Write a short Python function that returns the running average of a list of numbers.
+Explain how to debug a program that produces correct outputs but unexpectedly high latency.
+Give three examples of workloads where batch size strongly affects accelerator utilization.
+Design a simple experiment to compare two language-model serving architectures.
+Summarize the benefits and risks of using lower precision arithmetic for inference.

@@ -77,13 +77,19 @@ What is currently supported:
   upstream statistic.
 - The repository has state-conditioned survival, schedule-frontier, runtime
   controller, and chiplet-cost oracles with explicit tests.
+- An official CUDA trace on Qwen3-4B/DFlash-b16 contains 480 decode cycles
+  across 12 prompts. Its accepted-prefix survival is `S1=0.596`, `S2=0.346`,
+  and `S4=0.096`, while per-prompt mean accepted prefixes range from 0.865 to
+  2.345. This directly supports the non-uniform block-value motivation.
 
 What is not yet supported:
 
 - no token acceptance result from the community 0.6B checkpoint, because its
   vocabulary mappings are invalid/missing;
 - no selective-depth DFlash kernel or GPU timing result;
-- no proof that state-conditioned schedules outperform a static schedule;
+- no proof that state-conditioned schedules outperform a static schedule; the
+  current state analysis is descriptive and confounded by prompt/generation
+  phase;
 - no proof that chiplet traffic beats an equal-resource monolithic design.
 
 These are open gates, not implied results.

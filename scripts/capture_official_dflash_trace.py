@@ -97,7 +97,7 @@ def main() -> None:
         avg_us = float(stats.time_per_output_token * 1e6)
         prompt_events = stats_to_verification_events(
             request_id=f"prompt-{prompt_index}",
-            block_size=args.block_size,
+            block_size=block_size,
             committed_tokens_per_cycle=stats.acceptance_lengths,
             draft_layers=len(draft.layers),
             stage_latency_us={"end_to_end_avg": avg_us},

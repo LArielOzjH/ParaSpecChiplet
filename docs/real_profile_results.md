@@ -211,3 +211,49 @@ speedup or serving acceptance: attention is fully executed, and the probe uses
 masked training-style blocks rather than an autoregressive decode loop. The
 next hardware model should separate dense attention cost from selectively
 gated MLP cost.
+
+## Official GPU acceptance trace
+
+Date: 2026-08-14
+
+The official `z-lab/dflash` generation path was run on an NVIDIA RTX 4090
+(49 GiB, CUDA 12.8) with the local `Qwen3-4B` target and
+`Qwen3-4B-DFlash-b16` draft. The draft has five layers and block size 16. A
+12-prompt sweep spanning systems explanations, inference concepts, coding,
+debugging, and general technical questions produced 480 decode cycles. Raw
+events are in `data/official_qwen3_4b_dflash_trace_v2.jsonl`; the prompt list is
+`data/official_trace_prompts.txt`.
+
+The accepted-prefix distribution was:
+
+| Accepted prefix | Cycles |
+|---:|---:|
+| 0 | 187 |
+| 1 | 103 |
+| 2 | 60 |
+| 3 | 37 |
+| 4 | 12 |
+| 5 | 6 |
+| 6 | 7 |
+| 7 | 7 |
+| 8 | 1 |
+| 9 | 1 |
+| 10 | 1 |
+| 13 | 1 |
+| 15 | 1 |
+
+The mean accepted prefix is 1.423 draft tokens. Prefix survival falls from
+`S1 = 0.596` to `S2 = 0.346` and `S4 = 0.096`; no cycle accepted all 16 draft
+positions. Per-prompt means range from 0.865 to 2.345, a 2.7x spread. This is
+direct evidence that uniform execution value across a block is a poor model,
+and that workload/entering-state conditioning is worth studying.
+
+An exploratory descriptive state analysis, using the previous accepted prefix
+as the entering-state key, is stored in
+`data/official_qwen3_4b_state_analysis_b4.json`. It shows different estimated
+expected committed values for coarse previous-prefix buckets, but it is not a
+causal policy result: prompt and generation phase are confounded, and some
+buckets are small. The trace contains official acceptance lengths and timing
+metadata, but no confidence vectors, token IDs, or per-layer checkpoints.
+Therefore it supports the survival-heterogeneity motivation, not yet a claim
+that an adaptive schedule improves acceptance or end-to-end latency.
