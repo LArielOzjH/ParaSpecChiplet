@@ -10,7 +10,10 @@ schedule and map it onto shared and specialized compute resources.
 
 The paper should lead with the execution mismatch, not with chiplets. Chiplets
 are the physical organization that may make the required heterogeneity
-efficient.
+efficient. A state-aware policy alone is not sufficient novelty: recent work
+already explores dynamic speculative length, memory-aware draft selection, and
+uncertainty repair. The architectural contribution must survive even with an
+oracle schedule selector.
 
 ## Primary proposal: SAGE-DFlash
 
@@ -89,7 +92,7 @@ These are open gates, not implied results.
 
 | Variant | Core mechanism | Best case | Kill condition | Role |
 |---|---|---|---|---|
-| SAGE-DFlash | state-conditioned schedule + protected-prefix heterogeneous upper layers | state changes predictably and tail savings preserve early acceptance | state-specific schedule does not beat static schedule after overhead | primary |
+| SAGE-DFlash | protected-prefix heterogeneous upper layers + physical shared/multicast dataflow; state conditioning is an input | schedule saves real draft work while preserving early acceptance | no layer-position asymmetry or no hardware benefit over monolithic design | primary |
 | Protected-prefix DFlash | static shared-lower-layer plus safe prefix/tail boundary | interference is stable but state variation is weak | no stable boundary across prompts/models | fallback |
 | Elastic DFlash fabric | chiplet/monolithic fabric with multicast and mixed-depth queues | heterogeneous requests cause substantial utilization loss on monolithic hardware | links, sync, or queueing erase compute savings | hardware extension |
 
@@ -156,6 +159,11 @@ value.
 
 **Architecture:** a survival-map scheduler, shared backbone, heterogeneous
 prefix/tail execution, and traffic-aware routing.
+
+**Novelty discipline:** LibraSpec, CURE, MemSpec, and xPress are close
+algorithm/runtime neighbors. The paper must therefore include a static and an
+oracle-policy experiment on the same physical fabric; policy selection alone
+cannot carry the contribution.
 
 **Evaluation claim:** only claim an improvement if acceptance, latency, traffic,
 and equal-resource baselines all support it.
