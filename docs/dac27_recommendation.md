@@ -82,10 +82,9 @@ Not supported:
    must compare against static uniform, static candidate schedules, and an
    offline oracle with controller overhead and dense fallback.
 2. Measure a trace-derived mixture of schedule classes in the queue model and
-   validate the 40--50% occupancy crossover with real CUDA execution.
-3. Only if the first two gates pass, implement a fixed-shape tensor-core-aware
-   reduced-width kernel at batch 1/8/64 and test numerical equivalence.
-4. Compare grouped monolithic and chiplet mappings with equal resources,
+   validate the 40--50% occupancy crossover with real CUDA execution. This
+   gate is complete for the current scope; the generic Triton kernel failed.
+3. Compare grouped monolithic and chiplet mappings with equal resources,
    activation bytes, synchronization, and queue fill. Promote chiplets only if
    physical specialization exceeds the break-even boundary in
    `docs/chiplet_break_even_boundary.md`; otherwise remove chiplets from the

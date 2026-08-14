@@ -51,7 +51,8 @@ scheduling is currently stronger than static layer-width specialization.
 
 - end-to-end serving speedup;
 - low-batch benefit;
-- a correctness-passing custom Triton fused kernel;
+- a correctness-passing or faster custom Triton fused kernel (the current
+  prototype is negative; see `docs/fused_kernel_gate_results.md`);
 - chiplet advantage (the break-even boundary is now quantified, but no
   independent specialization/utilization gain has been demonstrated);
 - generalized state-aware policy improvement (only a preliminary 8-prompt
@@ -85,13 +86,12 @@ not demonstrate that condition.
 
 ## Remaining decisive gate
 
-The official-loop MLP gate now validates the acceptance/dataflow interface, but
-its Python gather/scatter path does not establish end-to-end speedup. Implement
-a correctness-tested tensor-core-aware reduced-width or fixed-shape grouped
-kernel and compare it against dense fallback at batch 1, 8, and 64. If it does
-not win at batch 64, remove the hardware speedup claim and present the work as
-an acceptance-calibrated architecture and cost study. If it wins only at batch
-64, explicitly scope the paper to throughput-serving. See
+The official-loop MLP gate validates the acceptance/dataflow interface, but its
+Python gather/scatter path does not establish end-to-end speedup. The current
+Triton prototype is slower at batch 1, 8, and 64, so the current submission
+must remove the hardware speedup claim and present the work as an
+acceptance-calibrated architecture and cost study. A tensor-core-aware
+reduced-width or fixed-shape grouped kernel remains future work. See
 [`docs/integrated_end_to_end_gate.md`](integrated_end_to_end_gate.md).
 
 This decision keeps the paper viable without relying on grammar, sparse head,

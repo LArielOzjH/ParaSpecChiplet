@@ -79,7 +79,7 @@ Attention remains dense because tail hidden states can provide context to
 protected prefix positions. Only the position-wise residual MLP update is
 selectively executed in the primary design.
 
-## Contributions to claim if the remaining gate passes
+## Contributions supported in the current paper scope
 
 ### 1. Acceptance-calibrated DFlash fidelity model
 
@@ -87,12 +87,13 @@ Define `S_i = P(A >= i)` and evaluate joint block-fidelity actions by committed
 value per cost. Reject schedules below a registered prefix-acceptance
 threshold; do not assume independent per-block scores compose.
 
-### 2. Grouped heterogeneous MLP dataflow
+### 2. Grouped heterogeneous MLP dataflow and cost boundary
 
-Provide a concrete execution path that preserves dense attention while
-executing reduced-width/partial-fidelity MLPs and grouping compatible
-requests. Include a measured dense fallback and schedule-group queue, so the
-design remains meaningful outside an ideal sparse-MAC model.
+Provide a concrete acceptance-tested execution path that preserves dense
+attention while executing reduced-width/partial-fidelity MLPs and grouping
+compatible requests. Include a measured dense fallback and schedule-group
+queue, and report the fixed-shape kernel gate as a negative boundary rather
+than an ideal sparse-MAC speedup.
 
 ### 3. Equal-resource architecture study
 
@@ -113,11 +114,11 @@ claim.
 | Fabric | monolithic, grouped monolithic, chiplet | cycles, bytes, sync, energy/area proxy |
 | Workload | systems, coding, math/reasoning, long context | cross-workload stability |
 
-The fused/persistent reduced-width implementation is the decisive missing
-artifact. Current evidence already includes a reduced-width CUDA calibration,
-but not a correctness-passing fused kernel or end-to-end speedup.
-Until it exists, report the current row-latency measurements as hardware
-calibration and not as accelerator speedup.
+The current fused-kernel gate has now been run at batch 1/8/64: the generic
+Triton prototype is 2.7--5.0x slower than eager reduced MLP and is not an
+official-loop correctness result. Report reduced-width row latency as
+compute-side calibration, not accelerator speedup. A persistent
+tensor-core-aware implementation is future work.
 
 A fixed-shape CUDA Graph probe is an intermediate result: graph-safe
 `index_copy_` replay removes some launch overhead, but it still has no saving
@@ -146,9 +147,9 @@ prefix-survival and bidirectional-context constraints.
 1. If no jointly validated fidelity schedule preserves early-prefix acceptance
    beyond the registered tolerance, kill heterogeneous block fidelity and
    retain only dense-attention profiling.
-2. If fused grouped execution does not beat dense in the target throughput
-   regime, kill the grouped hardware claim and retain the acceptance result as
-   motivation only.
+2. The current fused grouped prototype does not beat eager reduced MLP; kill
+   the end-to-end hardware speedup claim and retain the acceptance-calibrated
+   dataflow/cost result. A future kernel may reopen this gate.
 3. If state-conditioned schedules do not beat static schedules after controller
    cost, remove adaptive scheduling from the main paper.
 4. If chiplet traffic and synchronization lose to equal-resource monolithic,
@@ -169,14 +170,13 @@ Supported now:
 
 Not supported now:
 
-- fused/persistent reduced-width kernel;
+- a positive fused/persistent reduced-width kernel;
 - low-batch speedup;
 - end-to-end throughput improvement;
 - causal proof that state-aware scheduling improves acceptance;
 - chiplet advantage after measured traffic and synchronization.
 
-The paper should not be written as complete until the missing artifacts are
-measured or the corresponding claims are explicitly removed. If the fused
-kernel gate fails, the defensible submission is an acceptance-calibrated
+The defensible current submission is an acceptance-calibrated
 architecture/cost study with monolithic grouped execution as the proposed
-organization and chiplets explicitly demoted.
+organization, chiplets explicitly demoted, and the failed Triton gate reported
+as a hardware-boundary result.

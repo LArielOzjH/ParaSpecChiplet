@@ -56,7 +56,7 @@ boundary.
 | Does grouping always help? | Batch 1/8 row grouping does not pay back; row sweep crosses near 12/16 active rows at batch 64. | Occupancy gate and dense fallback are required. | Supported |
 | Does simple state adaptation help? | Previous-prefix threshold positive in a short probe, negative on 96-token held-out follow-up. | Do not claim adaptive policy gain. | Rejected for now |
 | Do chiplets automatically help? | Equal-resource break-even requires `1.005–1.021×` effective gain after overhead. | Chiplets need an independent specialization/utilization result. | Conditional |
-| Is end-to-end speedup established? | Official-loop gate preserves acceptance, but Python gather/scatter timing is not a hardware result. | Report calibrated proxy/microbenchmark only. | Not supported |
+| Is end-to-end speedup established? | Official-loop gate preserves acceptance, but Python gather/scatter timing is not a hardware result; the Triton prototype is 2.7--5.0× slower than eager reduced MLP. | Report calibrated proxy/microbenchmark only and remove speedup claim. | Rejected for current paper |
 
 ## Idea hierarchy
 
@@ -98,5 +98,5 @@ and explicitly kill the chiplet headline.
 The paper may claim unequal block value, acceptance-calibrated candidate
 schedules, dense-attention preservation, occupancy-dependent grouped
 execution, and measured compute-side headroom. It may not claim end-to-end
-throughput, universal schedule safety, generalized adaptive-policy gain, or
-chiplet advantage until the corresponding gates are measured.
+throughput, universal schedule safety, generalized adaptive-policy gain,
+chiplet advantage, or fused-kernel speedup in the current submission.

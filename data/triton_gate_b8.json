@@ -1,0 +1,34 @@
+{
+  "draft_model": "/root/autodl-tmp/model/Qwen3-4B-DFlash-b16",
+  "batch_size": 8,
+  "block_size": 16,
+  "hidden_size": 2560,
+  "intermediate_size": 9728,
+  "warning": "Triton microbenchmark; not acceptance or end-to-end serving speedup",
+  "records": [
+    {
+      "active_per_request": 16,
+      "active_rows": 128,
+      "width_fraction": 0.5,
+      "max_abs_error": 64.0,
+      "reference_ms": 110.5510425567627,
+      "triton_ms": 360.0294494628906
+    },
+    {
+      "active_per_request": 9,
+      "active_rows": 72,
+      "width_fraction": 0.5,
+      "max_abs_error": 64.0,
+      "reference_ms": 91.54560089111328,
+      "triton_ms": 341.2480163574219
+    },
+    {
+      "active_per_request": 4,
+      "active_rows": 32,
+      "width_fraction": 0.5,
+      "max_abs_error": 64.0,
+      "reference_ms": 67.91168212890625,
+      "triton_ms": 338.2796859741211
+    }
+  ]
+}
