@@ -44,7 +44,7 @@ crossover.
 |---|---|---|---|---|
 | Prefix-survival grouped monolithic fabric | Primary | position/depth schedules save MLP work while preserving dense context | acceptance-safe schedule plus compaction/fallback overhead | strongest surviving idea; hardware gate open |
 | Static finite position/depth table | Conservative baseline | removes controller overhead and isolates datapath value | larger held-out acceptance and workload coverage | baseline/fallback, not headline |
-| Heterogeneous chiplet fabric | Optional extension | physical specialization may improve lane utilization or sharing | link traffic and synchronization versus equal-resource monolithic | currently negative/conditional |
+| Heterogeneous chiplet fabric | Optional extension | physical specialization may improve lane utilization or sharing | link traffic and synchronization versus equal-resource monolithic | conditional: must exceed the measured 0.5--2.1% break-even gain |
 
 The selector must be reported in three forms: static uniform, offline oracle,
 and state/workload-conditioned runtime selection. This prevents policy quality
@@ -86,8 +86,10 @@ Not supported:
 3. Only if the first two gates pass, implement a fixed-shape tensor-core-aware
    reduced-width kernel at batch 1/8/64 and test numerical equivalence.
 4. Compare grouped monolithic and chiplet mappings with equal resources,
-   activation bytes, synchronization, and queue fill. Remove chiplets from
-   the headline if they lose.
+   activation bytes, synchronization, and queue fill. Promote chiplets only if
+   physical specialization exceeds the break-even boundary in
+   `docs/chiplet_break_even_boundary.md`; otherwise remove chiplets from the
+   headline.
 
 ## Kill criteria
 
