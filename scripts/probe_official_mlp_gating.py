@@ -50,6 +50,12 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--max-new-tokens", type=int, default=96)
+    parser.add_argument(
+        "--dense-fallback-fraction",
+        type=float,
+        default=None,
+        help="use dense MLP when a layer's active-row fraction is below this threshold",
+    )
     args = parser.parse_args()
 
     if not torch.cuda.is_available():
@@ -76,7 +82,10 @@ def main() -> None:
             restore = None
             if any(depth != len(draft.layers) for depth in schedule):
                 restore = install_mlp_gates(
-                    draft.layers, schedule, draft_layers=len(draft.layers)
+                    draft.layers,
+                    schedule,
+                    draft_layers=len(draft.layers),
+                    dense_fallback_fraction=args.dense_fallback_fraction,
                 )
             try:
                 stats = dflash_generate(
@@ -108,6 +117,7 @@ def main() -> None:
                         "schedule": schedule_name,
                         "depth_by_position": list(schedule),
                         "mlp_work": sum(schedule),
+                        "dense_fallback_fraction": args.dense_fallback_fraction,
                         "target_model": str(args.target_model),
                         "draft_model": str(args.draft_model),
                     }

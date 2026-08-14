@@ -36,3 +36,36 @@ def test_mlp_gate_calls_only_active_position_rows_and_restores_forward():
 
     restore()
     assert layers[1].mlp.forward == original
+
+
+def test_mlp_gate_uses_dense_fallback_when_active_occupancy_is_low():
+    layers = [FakeLayer(), FakeLayer()]
+    restore = install_mlp_gates(
+        layers,
+        (2, 2, 1, 1),
+        draft_layers=2,
+        dense_fallback_fraction=0.75,
+    )
+
+    result = layers[1].mlp(torch.zeros(1, 4, 3))
+
+    assert layers[1].calls == [(4, 3)]
+    assert result.tolist() == [[[1.0, 1.0, 1.0]] * 4]
+    restore()
+
+
+def test_mlp_gate_keeps_grouped_execution_when_occupancy_is_high():
+    layers = [FakeLayer(), FakeLayer()]
+    restore = install_mlp_gates(
+        layers,
+        (2, 2, 1, 1),
+        draft_layers=2,
+        dense_fallback_fraction=0.5,
+    )
+
+    result = layers[1].mlp(torch.zeros(1, 4, 3))
+
+    assert layers[1].calls == [(2, 3)]
+    assert result[:, :2].tolist() == [[[1.0, 1.0, 1.0]] * 2]
+    assert result[:, 2:].tolist() == [[[0.0, 0.0, 0.0]] * 2]
+    restore()

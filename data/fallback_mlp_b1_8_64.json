@@ -1,0 +1,29 @@
+{
+  "draft_model": "/root/autodl-tmp/model/Qwen3-4B-DFlash-b16",
+  "block_size": 16,
+  "hidden_size": 2560,
+  "warning": "single-layer CUDA graph microbenchmark; not end-to-end serving speedup",
+  "records": [
+    {
+      "batch_size": 1,
+      "active_per_request": 9,
+      "eager_grouped_ms": 181.75786336263022,
+      "cuda_graph_ms": 176.31519635518393,
+      "dense_ms": 179.02933756510416
+    },
+    {
+      "batch_size": 8,
+      "active_per_request": 9,
+      "eager_grouped_ms": 215.0261402130127,
+      "cuda_graph_ms": 209.78347460428873,
+      "dense_ms": 213.19680213928223
+    },
+    {
+      "batch_size": 64,
+      "active_per_request": 9,
+      "eager_grouped_ms": 684.9536259969076,
+      "cuda_graph_ms": 680.0213495890299,
+      "dense_ms": 1038.218116760254
+    }
+  ]
+}

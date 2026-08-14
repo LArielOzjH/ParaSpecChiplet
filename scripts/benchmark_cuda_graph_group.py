@@ -41,8 +41,7 @@ def main() -> None:
         args.draft_model,
         trust_remote_code=True,
         dtype=torch.bfloat16,
-        device_map=args.device,
-    ).eval()
+    ).eval().to(args.device)
     mlp = model.layers[0].mlp
     block_size = int(model.block_size)
     hidden_size = int(model.config.hidden_size)
