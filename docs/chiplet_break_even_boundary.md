@@ -63,3 +63,7 @@ The strongest paper claim is therefore not “DFlash needs chiplets.” It is:
 **prefix-survival-aware schedules expose a measurable utilization opportunity;
 chiplets are worthwhile only when physical specialization converts that
 opportunity into more than the explicit traffic/synchronization overhead.**
+
+The fixed-shape RTX 4090 measurements confirm that narrow MLP lanes have
+compute-side headroom, but the corresponding acceptance schedule is a separate
+gate. See [`docs/chiplet_specialization_measurements.md`](chiplet_specialization_measurements.md).
