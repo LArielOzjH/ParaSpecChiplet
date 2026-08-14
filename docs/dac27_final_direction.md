@@ -85,12 +85,14 @@ not demonstrate that condition.
 
 ## Remaining decisive gate
 
-Implement a correctness-tested tensor-core-aware reduced-width kernel with
-fixed shapes and compare it against the existing eager reduced-width path at
-batch 1, 8, and 64. If it does not win at batch 64, remove the hardware
-speedup claim and present the work as an acceptance-calibrated architecture
-and cost study. If it wins only at batch 64, explicitly scope the paper to
-throughput-serving.
+The official-loop MLP gate now validates the acceptance/dataflow interface, but
+its Python gather/scatter path does not establish end-to-end speedup. Implement
+a correctness-tested tensor-core-aware reduced-width or fixed-shape grouped
+kernel and compare it against dense fallback at batch 1, 8, and 64. If it does
+not win at batch 64, remove the hardware speedup claim and present the work as
+an acceptance-calibrated architecture and cost study. If it wins only at batch
+64, explicitly scope the paper to throughput-serving. See
+[`docs/integrated_end_to_end_gate.md`](integrated_end_to_end_gate.md).
 
 This decision keeps the paper viable without relying on grammar, sparse head,
 chiplet optimism, or an unverified compiler/kernel result.

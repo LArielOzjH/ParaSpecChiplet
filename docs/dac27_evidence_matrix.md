@@ -56,7 +56,7 @@ boundary.
 | Does grouping always help? | Batch 1/8 row grouping does not pay back; row sweep crosses near 12/16 active rows at batch 64. | Occupancy gate and dense fallback are required. | Supported |
 | Does simple state adaptation help? | Previous-prefix threshold positive in a short probe, negative on 96-token held-out follow-up. | Do not claim adaptive policy gain. | Rejected for now |
 | Do chiplets automatically help? | Equal-resource break-even requires `1.005–1.021×` effective gain after overhead. | Chiplets need an independent specialization/utilization result. | Conditional |
-| Is end-to-end speedup established? | No integrated end-to-end serving measurement yet. | Report calibrated proxy/microbenchmark only. | Not supported |
+| Is end-to-end speedup established? | Official-loop gate preserves acceptance, but Python gather/scatter timing is not a hardware result. | Report calibrated proxy/microbenchmark only. | Not supported |
 
 ## Idea hierarchy
 
