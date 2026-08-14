@@ -11,16 +11,25 @@ acceptance-calibrated joint block-fidelity schedule: dense bidirectional
 attention, heterogeneous MLP widths, cross-request grouping, and dense
 fallback.
 
-This is a hypothesis, not a result. The project will reject it if layer/position asymmetry does not survive real traces, if reduced-fidelity tail computation damages prefix acceptance, or if chiplet traffic removes the savings.
+The current paper scope is an acceptance-calibrated architecture/dataflow and
+cost study. It does not claim end-to-end serving speedup: the generic Triton
+kernel failed the latency gate, and chiplets remain conditional.
 
 ## Current research brief
 
 The current DAC'27 recommendation is documented in
 [`docs/dac27_final_direction.md`](docs/dac27_final_direction.md) and
 [`docs/dac27_research_brief.md`](docs/dac27_research_brief.md). The primary
-hypothesis is SAGE-DFlash: jointly validated block-fidelity scheduling on a
-grouped monolithic engine. Position gating is a fallback; chiplets are an
-implementation option subject to a traffic-aware kill gate.
+hypothesis is SAGE-DFlash: jointly validated position/depth MLP scheduling on
+a grouped monolithic engine. Chiplets are an implementation option subject to
+a traffic-aware break-even gate.
+
+For the shortest paper-ready summary, see
+[`docs/dac27_paper_pitch.md`](docs/dac27_paper_pitch.md). The authoritative
+claim/evidence table is
+[`docs/dac27_evidence_matrix.md`](docs/dac27_evidence_matrix.md), and the
+related-work boundary is in
+[`docs/literature_positioning_2026.md`](docs/literature_positioning_2026.md).
 
 The related-work boundary and the primary/fallback idea hierarchy are recorded
 in [`docs/dac27_novelty_audit.md`](docs/dac27_novelty_audit.md) and
@@ -47,19 +56,24 @@ Therefore this repository does not claim novelty for positional weighting, dynam
 
 The first artifact is a dependency-free trace oracle. It computes prefix-survival curves, conditional failure hazards, and value-per-cost summaries from saved verification traces. It deliberately runs without a GPU so the research question can be falsified before simulator work.
 
-## Planned workflow
+## Completed research workflow
 
-1. Capture official DFlash traces and measure `S_i = P(accepted_prefix >= i)`.
-2. Measure joint block-fidelity schedules with the target verifier.
-3. Calibrate width/row latency and construct a safe Pareto frontier.
-4. Evaluate grouped monolithic execution with dense fallback and mixed queues.
-5. Only if a physical organization adds value, model chiplets and link traffic.
+1. Captured official DFlash traces and measured `S_i = P(accepted_prefix >= i)`.
+2. Measured joint block-fidelity schedules with the target verifier.
+3. Calibrated width/row latency and constructed acceptance/cost frontiers.
+4. Integrated grouped monolithic execution with dense fallback and mixed queues.
+5. Modeled chiplet traffic and quantified its break-even boundary.
+6. Re-ran the fixed-shape Triton kernel at batch 1/8/64 and recorded the
+   negative result.
 
-## First-gate kill criteria
+## Final claim boundary
 
-The primary idea is killed if any representative workload family shows one of these outcomes:
+The current submission explicitly does not claim:
 
-- no stable acceptance-safe block-fidelity schedule;
-- joint fidelity loses early-prefix survival;
-- fused/grouped execution saves less than fallback, queueing, or synchronization overhead;
-- the schedule is equivalent to an already published dynamic draft-length or pruning method.
+- end-to-end serving speedup;
+- universal acceptance safety for static block-width rankings;
+- a positive chiplet advantage;
+- a correctness-passing or faster generic Triton fused kernel.
+
+The proposed contribution is the measured, acceptance-constrained dataflow and
+its explicit occupancy/traffic cost boundary.
