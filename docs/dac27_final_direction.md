@@ -23,12 +23,14 @@ for uniform, and layers 2+3 gives `0.8561`. Thus layer 2 is evidence of
 unequal block value, not a universally safe static schedule. Joint schedule
 validation and workload/state conditioning are essential.
 
-A held-out position-schedule run with 96 generated tokens (8 workload-diverse
+ A held-out position-schedule run with 96 generated tokens (8 workload-diverse
 prompts) kept the protected8 staircase schedule at or above uniform: mean
 accepted prefix `1.4448` versus `1.4219`, `S1=0.6530` versus `0.6375`, and
-`S4=0.0946` versus `0.0938`. This upgrades it from a short-trace screening
-candidate to the primary acceptance-compatible schedule, while still not
-establishing speedup. The held-out block-width result is more cautionary; see
+`S4=0.0946` versus `0.0938`. With the integrated occupancy fallback probe,
+the same schedule measured `1.4371`, `S1=0.6478`, and `S4=0.0943`, still above
+uniform. This upgrades it from a short-trace screening candidate to the
+primary acceptance-compatible schedule, while still not establishing speedup.
+The held-out block-width result is more cautionary; see
 [`docs/heldout_schedule_results.md`](heldout_schedule_results.md) and
 [`docs/heldout_block_width_results.md`](heldout_block_width_results.md).
 The evidence comparison and the resulting primary-idea decision are summarized
@@ -50,7 +52,8 @@ scheduling is currently stronger than static layer-width specialization.
 - end-to-end serving speedup;
 - low-batch benefit;
 - a correctness-passing custom Triton fused kernel;
-- chiplet advantage;
+- chiplet advantage (the break-even boundary is now quantified, but no
+  independent specialization/utilization gain has been demonstrated);
 - generalized state-aware policy improvement (only a preliminary 8-prompt
   threshold probe is positive);
 - arbitrary composition of individually safe block schedules.

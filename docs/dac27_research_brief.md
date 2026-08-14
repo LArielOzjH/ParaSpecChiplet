@@ -16,12 +16,13 @@ and applies heterogeneous MLP fidelity by draft block. The existing
 protected-prefix position-gating design remains the fallback if block-level
 fidelity does not produce fused hardware benefit.
 
-The latest official probe favors partial MLP fidelity over all-or-nothing
-bypass: scaling blocks 2+3 to `alpha=0.5` gives `S1=0.6335` and mean accepted
-prefix `1.5127` on the current workload, while scaling both to `0.25` gives
-`S1=0.6028`. These are acceptance-only results because the Python hook still
-executes the full MLP. They motivate a finite joint fidelity schedule table,
-not a claim of speedup.
+An original-workload scale probe briefly appeared favorable for partial MLP
+fidelity, but the held-out scale sweep rejected the static interpretation:
+block 2, block 3, and blocks 2+3 at `0.5` all fell below uniform. These are
+acceptance-only results because the Python hook still executes the full MLP.
+They motivate a finite jointly validated schedule table, not a fixed block
+ranking or a claim of speedup. The consolidated evidence is in
+`docs/dac27_evidence_matrix.md`.
 
 The first reduced-width acceptance gate passed on the original 12-prompt
 calibration for one block: layer 2 at 50% intermediate width gives `S1=0.6103`
